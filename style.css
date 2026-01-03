@@ -26,41 +26,54 @@ body {
 
 a { text-decoration: none; color: inherit; transition: 0.3s ease; }
 
-/* --- ASYMMETRICAL DIAGONAL WAVES --- */
+/* --- DYNAMIC FLOWING WAVES --- */
 
-/* Layer 1: Base Waves */
+/* Layer 1: Primary Flow (Moves Top-Right to Bottom-Left) */
 body::before {
+  content: "";
+  position: fixed;
+  top: -25%; left: -25%;
+  width: 150%; height: 150%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cpath d='M-100 100 Q 150 50 400 200 T 900 300' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3Cpath d='M-100 400 Q 200 300 500 500 T 900 400' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 800px 600px;
+  z-index: -2;
+  pointer-events: none;
+  /* Diagonal rotation + Flowing Animation */
+  animation: flowAndFade 25s linear infinite;
+}
+
+/* Layer 2: Secondary Random Flow (Moves at different speed/angle) */
+body::after {
   content: "";
   position: fixed;
   top: -20%; left: -20%;
   width: 140%; height: 140%;
-  /* Using a custom SVG Data URI for organic, non-symmetrical lines */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cpath d='M-100 100 Q 150 50 400 200 T 900 300' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1.5'/%3E%3Cpath d='M-100 400 Q 200 300 500 500 T 900 400' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E");
-  background-size: 800px 600px;
-  z-index: -2;
-  transform: rotate(-15deg); /* Makes them diagonal */
-  animation: waveMovement 40s linear infinite;
-  pointer-events: none;
-}
-
-/* Layer 2: Counter Waves for randomness */
-body::after {
-  content: "";
-  position: fixed;
-  top: -10%; left: -10%;
-  width: 120%; height: 120%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='800' viewBox='0 0 1000 800'%3E%3Cpath d='M-100 200 Q 300 600 700 100 T 1100 500' fill='none' stroke='rgba(0,255,195,0.02)' stroke-width='2'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='800' viewBox='0 0 1000 800'%3E%3Cpath d='M-100 200 Q 300 600 700 100 T 1100 500' fill='none' stroke='rgba(0,255,195,0.03)' stroke-width='2'/%3E%3C/svg%3E");
   background-size: 1000px 800px;
   z-index: -1;
-  transform: rotate(-10deg);
-  animation: waveMovement 60s linear infinite reverse;
   pointer-events: none;
+  animation: flowAndFade 35s linear infinite reverse;
+  opacity: 0; /* Start hidden for staggered entrance */
 }
 
-@keyframes waveMovement {
-  0% { transform: rotate(-15deg) translate(0, 0); }
-  50% { transform: rotate(-15deg) translate(-30px, 40px); }
-  100% { transform: rotate(-15deg) translate(0, 0); }
+/* ANIMATION: This makes the waves move diagonally across the screen 
+   while fading them in at the start and out at the end.
+*/
+@keyframes flowAndFade {
+  0% {
+    transform: rotate(-15deg) translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1; /* Fade in quickly */
+  }
+  90% {
+    opacity: 1; /* Stay visible */
+  }
+  100% {
+    transform: rotate(-15deg) translate(-400px, 300px); /* Significant diagonal travel */
+    opacity: 0; /* Fade out before reappearing */
+  }
 }
 
 /* --- NAVIGATION --- */
