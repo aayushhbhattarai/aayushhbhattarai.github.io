@@ -1,15 +1,13 @@
-/* --- VARIABLES & RESET --- */
+/* --- CORE SETUP --- */
 :root {
   --bg-color: #050505;
-  --card-bg: #111111;
-  --text-main: #ededed;
-  --text-muted: #888888;
+  --card-bg: #0c0c0c;
+  --text-main: #ffffff;
+  --text-muted: #808080;
   --accent: #00ffc3;
-  --border: #222222;
+  --border: #1a1a1a;
   --font-body: 'Inter', sans-serif;
   --font-head: 'Poppins', sans-serif;
-  
-  --section-padding: 2.5rem 2rem; /* Reduced padding for compactness */
   --nav-height: 70px;
 }
 
@@ -19,36 +17,30 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   font-family: var(--font-body);
-  line-height: 1.5; /* More compact line height */
+  line-height: 1.4;
   overflow-x: hidden;
 }
 
-a { text-decoration: none; color: inherit; transition: 0.3s ease; }
-
-/* --- BACKGROUND ANIMATION --- */
+/* Subtle Animated Background Grid */
 body::before {
   content: "";
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
   background-image: 
-    radial-gradient(circle at 50% 50%, rgba(0, 255, 195, 0.02) 0%, transparent 50%),
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 100% 100%, 40px 40px, 40px 40px;
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
   z-index: -1;
-  pointer-events: none;
+  opacity: 0.3;
 }
 
 /* --- NAVIGATION --- */
 nav {
   position: fixed;
-  top: 0; left: 0; width: 100%;
-  height: var(--nav-height);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  background: rgba(5, 5, 5, 0.9);
+  top: 0; width: 100%; height: var(--nav-height);
+  display: flex; justify-content: center; align-items: center; gap: 2.5rem;
+  background: rgba(5, 5, 5, 0.8);
   backdrop-filter: blur(10px);
   z-index: 100;
   border-bottom: 1px solid var(--border);
@@ -56,80 +48,86 @@ nav {
 
 nav a {
   font-family: var(--font-head);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   color: var(--text-muted);
   font-weight: 500;
+  transition: 0.3s;
 }
 
 nav a:hover, nav a.active { color: var(--accent); }
 
-/* --- TYPEWRITER ANIMATION --- */
+/* --- TYPING ANIMATION --- */
 .typewriter {
+  display: inline-block;
   overflow: hidden;
   white-space: nowrap;
   border-right: 2px solid var(--accent);
   width: 0;
-  animation: typing 2.5s steps(30, end) forwards, blink 0.8s infinite;
+  animation: typing 2s steps(25, end) forwards, blink 0.8s infinite;
 }
 
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
+@keyframes typing { from { width: 0 } to { width: 100% } }
+@keyframes blink { 50% { border-color: transparent } }
 
-@keyframes blink {
-  from, to { border-color: transparent }
-  50% { border-color: var(--accent) }
-}
-
-/* --- LAYOUT --- */
+/* --- COMPACT LAYOUT --- */
 section {
   max-width: 900px;
   margin: 0 auto;
-  padding: var(--section-padding);
+  padding: 2rem;
 }
 
-h1 { font-size: 3rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
-h2 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;}
-p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+.hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 100px;
+}
 
-/* 4:3 Aspect Ratio Grid */
-.grid, .projects-grid {
+h1 { font-family: var(--font-head); font-size: 3.5rem; font-weight: 700; letter-spacing: -2px; margin-bottom: 0.5rem; }
+h2 { font-family: var(--font-head); font-size: 1.1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1.5rem; }
+p { color: var(--text-muted); font-size: 0.95rem; max-width: 500px; }
+
+/* --- 4:3 GRID SYSTEM --- */
+.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
 }
 
-.media-item, .project-card {
+.media-item {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  overflow: hidden;
-  transition: 0.3s ease;
+  transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
-.media-item:hover, .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.media-item:hover { border-color: var(--accent); transform: scale(1.02); }
 
-.media-item img, .media-item video, .project-card img {
+.media-item img, .media-item video {
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 4/3; /* Enforced ratio */
   object-fit: cover;
   display: block;
 }
 
+/* --- BUTTONS --- */
 .btn {
   display: inline-block;
-  padding: 0.7rem 1.5rem;
-  border: 1px solid var(--border);
-  background: var(--card-bg);
+  padding: 0.6rem 1.4rem;
+  border: 1px solid var(--text-muted);
   color: white;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  border-radius: 2px;
+  margin-top: 1rem;
   transition: 0.3s;
 }
 
 .btn:hover { border-color: var(--accent); color: var(--accent); }
 
-.contact { text-align: center; border-top: 1px solid var(--border); padding-top: 2rem; }
+/* --- ABOUT PAGE SPECIFICS --- */
+.skill-row { margin-bottom: 1rem; }
+.skill-bar { height: 2px; background: var(--border); width: 100%; margin-top: 5px; }
+.skill-progress { height: 100%; background: var(--accent); transition: 1s; }
