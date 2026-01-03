@@ -9,48 +9,110 @@
   <link rel="stylesheet" href="style.css">
   
   <style>
+    /* Premium Gallery Layout Overrides */
     header {
-      padding: 8rem 2rem 2rem;
+      padding: 10rem 2rem 4rem;
       max-width: 1200px;
       margin: 0 auto;
-      text-align: center;
+      text-align: left; /* Alignment change for a more modern look */
     }
+
+    header h1 {
+      font-family: var(--font-head);
+      font-size: 4rem;
+      letter-spacing: -2px;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    header p { 
+      color: var(--text-muted); 
+      max-width: 600px;
+      font-size: 1.1rem;
+    }
+
     .gallery-section {
-      padding: 2rem;
+      padding: 0 2rem 8rem;
       max-width: 1400px;
       margin: 0 auto;
     }
+
     h2.section-title {
       font-family: var(--font-head);
       color: var(--accent);
-      font-size: 1.5rem;
-      margin: 3rem 0 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
-      display: inline-block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin: 4rem 0 2rem;
+      display: block;
     }
-    
+
+    /* THE GRID: This is what fixes the "1 by 1" stacking */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr); /* 12-column system for flexibility */
+      gap: 2rem;
+    }
+
     .media-item {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateY(40px);
+      grid-column: span 4; /* Default: 3 items per row (12 / 4 = 3) */
     }
+
+    /* Randomizing sizes for a "Premium Editorial" feel */
+    .media-item:nth-child(3n+1) { grid-column: span 8; } /* Large feature items */
+    .media-item:nth-child(even) { grid-column: span 4; } 
+
     .media-item.visible {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
-    .media-item img, .media-item video { height: 250px; }
+
+    .media-item:hover {
+      transform: scale(0.98); /* Subtle "press" effect */
+    }
+
+    .media-item img, .media-item video {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%) brightness(0.7);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .media-item:hover img, .media-item:hover video {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.1);
+    }
+
+    /* Mobile Responsive Fixes */
+    @media (max-width: 1000px) {
+      .media-item, .media-item:nth-child(3n+1) { grid-column: span 6; }
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 2.5rem; }
+      .media-item, .media-item:nth-child(3n+1) { grid-column: span 12; }
+    }
 
     .back-btn {
-      display: block;
-      width: fit-content;
-      margin: 4rem auto;
+      display: inline-block;
+      margin-top: 4rem;
       padding: 1rem 2rem;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      border-radius: 4px;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
     }
-    .back-btn:hover { color: var(--accent); border-color: var(--accent); }
+    
+    .back-btn:hover { background: white; color: black; }
   </style>
 </head>
 <body>
@@ -61,13 +123,14 @@
     <a href="about.html">About</a>
   </nav>
 
-  <header class="scroll-reveal">
-    <h1>Archive</h1>
-    <p>A collection of renders, experiments, and prototypes.</p>
+  <header>
+    <p style="color: var(--accent); letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 0.5rem;">PORTFOLIO</p>
+    <h1>Selected Archive</h1>
+    <p>A curated collection of 3D experiments, digital renders, and technical prototypes developed between 2023 and 2025.</p>
   </header>
 
   <div class="gallery-section">
-    <h2 class="section-title scroll-reveal">Visuals</h2>
+    <h2 class="section-title">Visual Works</h2>
     <div class="grid" id="image-grid">
       <div class="media-item"><img src="projects/INSOMNIA.png" alt="INSOMNIA" loading="lazy"/></div>
       <div class="media-item"><img src="projects/sunflower.png" alt="sunflower" loading="lazy"/></div>
@@ -81,51 +144,30 @@
       <div class="media-item"><img src="projects/DUNKRIK3.png" alt="DUNKRIK3" loading="lazy"/></div>
       <div class="media-item"><img src="projects/ETERNAL-PEACE.png" alt="ETERNAL-PEACE" loading="lazy"/></div>
       <div class="media-item"><img src="projects/GOAT.png" alt="GOAT" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/heart.png" alt="heart" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/idkbro_0000.png" alt="idkbro" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/kanye.png" alt="kanye" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/KNOWLEDGE1.png" alt="KNOWLEDGE1" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/mountain_wolf_by_aayushbhattarai_de9mq56.png" alt="mountain wolf" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/NEPAL.png" alt="NEPAL" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/PETSLOVER.png" alt="PETSLOVER" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/red_panda_by_aayushbhattarai_deavkkn.png" alt="red panda" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/RETRO.png" alt="RETRO" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/RINGD.png" alt="RINGD" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/spiderman_poster_recreation_by_aayushbhattarai_de9mqdm.png" alt="spiderman" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/trmple.png" alt="trmple" loading="lazy"/></div>
-      <div class="media-item"><img src="projects/VIKING.png" alt="VIKING" loading="lazy"/></div>
     </div>
 
-    <h2 class="section-title scroll-reveal">Motion</h2>
+    <h2 class="section-title">Motion</h2>
     <div class="grid">
-      <div class="media-item"><video src="projects/My Video1.mp4" controls></video></div>
-      <div class="media-item"><video src="projects/My Video2.mp4" controls></video></div>
-      <div class="media-item"><video src="projects/My Video15.mp4" controls></video></div>
-      <div class="media-item"><video src="projects/My Video29.mp4" controls></video></div>
-      <div class="media-item"><video src="projects/out.mp4" controls></video></div>
+      <div class="media-item"><video src="projects/My Video1.mp4" controls muted loop></video></div>
+      <div class="media-item"><video src="projects/My Video2.mp4" controls muted loop></video></div>
+      <div class="media-item"><video src="projects/out.mp4" controls muted loop></video></div>
     </div>
     
-    <a href="index.html" class="back-btn">← Back Home</a>
+    <div style="text-align: center;">
+        <a href="index.html" class="back-btn">Return to Overview</a>
+    </div>
   </div>
 
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+          entry.target.classList.add('visible');
         }
       });
-    }, { threshold: 0.05 });
+    }, { threshold: 0.1 });
 
-    const revealElements = document.querySelectorAll('.scroll-reveal');
-    revealElements.forEach(el => observer.observe(el));
-
-    const mediaItems = document.querySelectorAll('.media-item');
-    mediaItems.forEach((item, index) => {
-        item.style.transitionDelay = `${(index % 5) * 0.05}s`; 
-        observer.observe(item);
-    });
+    document.querySelectorAll('.media-item').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
