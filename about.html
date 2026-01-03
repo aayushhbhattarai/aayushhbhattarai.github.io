@@ -4,145 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Aayush Bhattarai</title>
-  <link rel="icon" href="projects/logoo.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="projects/logoo.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- NAVIGATION -->
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="about.html" class="active">About</a></li>
-    </ul>
-  </nav>
 
-  <!-- ABOUT INTRO -->
-  <section class="about-section">
-    <div class="container">
-      <h1>About Me</h1>
-      <p>I'm Aayush, passionate about 3D graphics, game engines, and all things tech. Originally from Nepal and currently studying at Universität des Saarlandes, I enjoy exploring creative and technical boundaries — from real-time rendering to shader development and procedural systems. I thrive in hands-on learning environments and love solving both visual and logical problems through code and design.</p>
-    </div>
+<nav>
+  <div class="nav-left">AAYUSH</div>
+  <div class="nav-right">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html" class="active">About</a>
+  </div>
+</nav>
+
+<main>
+  <section>
+    <h1>About Me</h1>
+    <p>
+      I’m Aayush, a 3D artist and computer science student with a strong interest
+      in real-time graphics, procedural systems, and technical art.
+    </p>
   </section>
 
-  <!-- EDUCATION & EXPERIENCE -->
-  <section class="about-section">
-    <div class="container">
-      <div class="about-grid">
-        <!-- LEFT COLUMN -->
-        <div>
-          <!-- 🎨 CUSTOMIZE: Update education details -->
-          <div class="info-block">
-            <h3>Education</h3>
-            <p><strong>Preparatory Course for BSc Computer Science</strong><br>
-            Universität des Saarlandes, Germany<br>
-            2025 — Present</p>
+  <section>
+    <h2>Focus Areas</h2>
 
-            <p><strong>Higher Secondary (+2)</strong><br>
-            Trinity International SS & College, Nepal<br>
-            2021 — 2023</p>
-
-            <p><strong>German Language Courses (B1 & B2.1)</strong><br>
-            Goethe-Zentrum Kathmandu</p>
-          </div>
-
-          <!-- 🎨 CUSTOMIZE: Update languages -->
-          <div class="info-block">
-            <h3>Languages</h3>
-            <p><strong>English:</strong> C1</p>
-            <p><strong>German:</strong> B2 (in progress toward C1)</p>
-            <p><strong>Nepali:</strong> Native</p>
-          </div>
-        </div>
-
-        <!-- RIGHT COLUMN -->
-        <div>
-          <!-- 🎨 CUSTOMIZE: Update skills and percentages -->
-          <div class="info-block">
-            <h3>Skills</h3>
-            
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Blender (3D Environment)</span>
-                <span>85%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" style="width: 85%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Photoshop (Design)</span>
-                <span>70%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" style="width: 70%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Python & Programming</span>
-                <span>60%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" style="width: 60%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Godot (Game Engine)</span>
-                <span>50%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" style="width: 50%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="stats">
+      <div class="stat">
+        <h3>3D</h3>
+        <p>Environment & lighting</p>
+      </div>
+      <div class="stat">
+        <h3>Code</h3>
+        <p>Python, systems thinking</p>
+      </div>
+      <div class="stat">
+        <h3>Design</h3>
+        <p>Minimal, intentional visuals</p>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section class="contact-section">
-    <div class="container">
-      <h2>Get in Touch</h2>
-      <p>I'm always open to discussing new projects, creative ideas, or opportunities.</p>
-      <div class="contact-links">
-        <!-- 🎨 CUSTOMIZE: Your contact information -->
-        <a href="mailto:baayush061@gmail.com">baayush061@gmail.com</a>
-        <a href="https://www.linkedin.com/in/aayushbhattarai1/" target="_blank">LinkedIn</a>
-      </div>
-    </div>
+  <section>
+    <h2>Contact</h2>
+    <p>Email — <a href="mailto:baayush061@gmail.com">baayush061@gmail.com</a></p>
+    <p>LinkedIn — <a href="https://www.linkedin.com/in/aayushbhattarai1/" target="_blank">aayushbhattarai1</a></p>
   </section>
+</main>
 
-  <script>
-    // Active nav link
-    document.querySelectorAll('nav a').forEach(link => {
-      if (link.href === window.location.href) {
-        link.classList.add('active');
-      }
-    });
+<footer>
+  Based in Germany · From Nepal
+</footer>
 
-    // Animate skill bars on scroll
-    const skillBars = document.querySelectorAll('.skill-progress');
-    const observerOptions = {
-      threshold: 0.5
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.width = entry.target.style.width || '0%';
-        }
-      });
-    }, observerOptions);
-
-    skillBars.forEach(bar => observer.observe(bar));
-  </script>
 </body>
 </html>
