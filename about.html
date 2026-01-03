@@ -15,13 +15,9 @@
         border-left: 1px solid var(--border); 
         padding-left: 1.5rem; 
         position: relative; 
-        opacity: 0; 
-        transform: translateY(10px); 
-        transition: 0.6s ease; 
     }
-    .about-section.visible { opacity: 1; transform: translateY(0); }
     .about-section::before {
-        content: ''; position: absolute; left: -3px; top: 6px; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 5px var(--accent);
+        content: ''; position: absolute; left: -3px; top: 6px; width: 5px; height: 5px; background: var(--accent); border-radius: 50%;
     }
   </style>
 </head>
@@ -34,19 +30,19 @@
   </nav>
 
   <div class="about-container">
-    <div class="about-section visible">
-      <div class="typing-wrapper">
-          <h1 class="typing" style="font-size: 2.5rem;">Aayush Bhattarai</h1>
+    <div class="about-section scroll-reveal">
+      <div style="display:table">
+          <h1 class="typewriter" style="font-size: 2.5rem;">Aayush Bhattarai</h1>
       </div>
-      <p style="color: var(--accent); font-family: monospace; margin-top: 0.5rem;" class="fade-up delay-1">_3D Artist & Tech Explorer_</p>
+      <p style="color: var(--accent); font-family: monospace; margin-top:0.5rem">_3D Artist & Tech Explorer_</p>
     </div>
 
-    <div class="about-section">
+    <div class="about-section scroll-reveal">
       <h2>Profile</h2>
       <p>I'm Aayush, originally from Nepal and currently studying at <strong>Universität des Saarlandes</strong> in Germany. I sit at the intersection of creativity and logic, passionate about 3D graphics, game engines, and the technical side of visual arts.</p>
     </div>
 
-    <div class="about-section">
+    <div class="about-section scroll-reveal">
       <h2>Education</h2>
       <div style="margin-bottom: 1rem;">
         <p style="margin-bottom: 0;"><strong>Preparatory Course for BSc Computer Science</strong></p>
@@ -58,7 +54,7 @@
       </div>
     </div>
 
-    <div class="about-section" id="skills">
+    <div class="about-section scroll-reveal" id="skills-section">
       <h2>Technical Stack</h2>
       <div class="skill-item">
         <div class="skill-header"><span>Blender (3D Env)</span><span>85%</span></div>
@@ -78,7 +74,7 @@
       </div>
     </div>
 
-    <div class="about-section" style="border: none; padding-left: 0;">
+    <div class="about-section scroll-reveal" style="border: none; padding-left: 0;">
       <h2>Connect</h2>
       <p>Email: <a href="mailto:baayush061@gmail.com">baayush061@gmail.com</a></p>
       <p>LinkedIn: <a href="https://www.linkedin.com/in/aayushbhattarai1/" target="_blank">aayushbhattarai1</a></p>
@@ -91,17 +87,16 @@
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
             
-            // Animate progress bars only when visible
-            if(entry.target.id === 'skills') {
-                const bars = entry.target.querySelectorAll('.progress-fill');
-                bars.forEach(bar => {
+            // If the skills section is visible, trigger the bars
+            if (entry.target.id === 'skills-section') {
+                entry.target.querySelectorAll('.progress-fill').forEach(bar => {
                     bar.style.width = bar.getAttribute('data-width');
                 });
             }
         }
       });
-    }, { threshold: 0.2 });
-    document.querySelectorAll('.about-section').forEach(el => observer.observe(el));
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
