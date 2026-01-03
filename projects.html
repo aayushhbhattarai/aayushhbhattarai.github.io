@@ -8,22 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
-
+  
   <style>
-    /* LOCAL OVERRIDES for layout specific to Projects */
+    /* Page Specific Layout */
     header {
       padding: 8rem 2rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
       text-align: center;
     }
-    
     .gallery-section {
       padding: 2rem;
       max-width: 1400px;
       margin: 0 auto;
     }
-
     h2.section-title {
       font-family: var(--font-head);
       color: var(--accent);
@@ -33,21 +31,18 @@
       border-bottom: 1px solid var(--border);
       display: inline-block;
     }
-
-    /* Override specifically for the gallery items to handle their entrance */
+    
+    /* Animation initial state for gallery items */
     .media-item {
-      opacity: 0; 
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, transform 0.3s;
     }
-    
     .media-item.visible {
-        opacity: 1; transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
-    
-    .media-item img, .media-item video {
-      height: 250px; /* Enforce height for grid consistency */
-    }
+    .media-item img, .media-item video { height: 250px; }
 
     .back-btn {
       display: block;
@@ -57,7 +52,6 @@
       color: var(--text-muted);
       border: 1px solid var(--border);
       border-radius: 4px;
-      transition: 0.3s;
     }
     .back-btn:hover { color: var(--accent); border-color: var(--accent); }
   </style>
@@ -70,13 +64,13 @@
     <a href="about.html">About</a>
   </nav>
 
-  <header>
-    <h1 class="fade-up">Archive</h1>
-    <p class="fade-up delay-1">A collection of renders, experiments, and prototypes.</p>
+  <header class="scroll-reveal">
+    <h1>Archive</h1>
+    <p>A collection of renders, experiments, and prototypes.</p>
   </header>
 
   <div class="gallery-section">
-    <h2 class="section-title fade-up delay-2">Visuals</h2>
+    <h2 class="section-title scroll-reveal">Visuals</h2>
     <div class="grid" id="image-grid">
       <div class="media-item"><img src="projects/INSOMNIA.png" alt="INSOMNIA" loading="lazy"/></div>
       <div class="media-item"><img src="projects/sunflower.png" alt="sunflower" loading="lazy"/></div>
@@ -105,7 +99,7 @@
       <div class="media-item"><img src="projects/VIKING.png" alt="VIKING" loading="lazy"/></div>
     </div>
 
-    <h2 class="section-title fade-up">Motion</h2>
+    <h2 class="section-title scroll-reveal">Motion</h2>
     <div class="grid">
       <div class="media-item"><video src="projects/My Video1.mp4" controls></video></div>
       <div class="media-item"><video src="projects/My Video2.mp4" controls></video></div>
@@ -114,25 +108,29 @@
       <div class="media-item"><video src="projects/out.mp4" controls></video></div>
     </div>
     
-    <a href="index.html" class="back-btn fade-up">← Back Home</a>
+    <a href="index.html" class="back-btn">← Back Home</a>
   </div>
 
   <script>
-    // Staggered Fade In for Grid Items
+    /* Staggered load for gallery */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target); 
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.05 });
 
-    document.querySelectorAll('.media-item').forEach((el, index) => {
-        // Reset delay every 5 items to keep animations snappy
-        const delay = (index % 5) * 0.1;
-        el.style.transitionDelay = `${delay}s`; 
-        observer.observe(el);
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    revealElements.forEach(el => observer.observe(el));
+
+    // Stagger grid items
+    const mediaItems = document.querySelectorAll('.media-item');
+    mediaItems.forEach((item, index) => {
+        // slight delay based on index to create wave effect
+        item.style.transitionDelay = `${(index % 5) * 0.05}s`; 
+        observer.observe(item);
     });
   </script>
 </body>
