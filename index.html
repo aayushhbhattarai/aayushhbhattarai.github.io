@@ -20,7 +20,8 @@
     <div class="scroll-reveal">
       <p style="color: var(--accent); font-weight: 500;">Hello, I'm</p>
       
-      <div style="display: table;"> <h1 class="typewriter">Aayush Bhattarai.</h1>
+      <div style="display: table;">
+         <h1 class="typewriter">Aayush Bhattarai.</h1>
       </div>
 
       <p style="max-width: 500px; font-size: 1.1rem; margin-top: 1rem;">
@@ -74,17 +75,20 @@
 
   <section class="contact scroll-reveal">
     <h2>Get in Touch</h2>
-    <p>Available for collaborations or just a chat.</p>
-    <a href="mailto:baayush061@gmail.com" style="font-size: 1.1rem;">baayush061@gmail.com</a>
+    <p style="margin-bottom: 1rem;">Available for collaborations or just a chat.</p>
+    <div style="margin-top: 1rem;">
+      <a href="mailto:baayush061@gmail.com" style="font-size: 1rem;">Email</a>
+      <span style="color: var(--border);">|</span>
+      <a href="https://www.linkedin.com/in/aayushbhattarai1/" target="_blank" style="font-size: 1rem;">LinkedIn</a>
+    </div>
   </section>
 
   <script>
-    /* Simple Intersection Observer for Fade-Up */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target); // Trigger once
+            observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
