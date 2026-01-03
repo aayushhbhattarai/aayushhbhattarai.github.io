@@ -9,7 +9,6 @@
   --font-body: 'Inter', sans-serif;
   --font-head: 'Poppins', sans-serif;
   
-  /* Spacing Variables */
   --section-padding: 4rem 2rem;
   --nav-height: 80px;
 }
@@ -21,12 +20,12 @@ body {
   color: var(--text-main);
   font-family: var(--font-body);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevents scrollbar jumping */
 }
 
 a { text-decoration: none; color: inherit; transition: 0.3s ease; }
 
-/* --- BACKGROUND ANIMATION (SUBTLE) --- */
+/* --- BACKGROUND ANIMATION --- */
 body::before {
   content: "";
   position: fixed;
@@ -60,12 +59,13 @@ nav {
   backdrop-filter: blur(12px);
   z-index: 100;
   border-bottom: 1px solid var(--border);
-  animation: slideDown 0.8s ease-out;
+  /* Slide down animation */
+  animation: slideDown 0.8s ease-out forwards;
 }
 
 @keyframes slideDown {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 nav a {
@@ -93,13 +93,9 @@ section {
   max-width: 1000px;
   margin: 0 auto;
   padding: var(--section-padding);
-  opacity: 0; /* JS Animation init */
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-section.visible { opacity: 1; transform: translateY(0); }
-
+/* Typography */
 h1, h2, h3 { font-family: var(--font-head); color: white; line-height: 1.2; }
 h1 { font-size: 3.5rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 1rem; }
 h2 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--accent); }
@@ -118,7 +114,7 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* Keeps shine inside */
 }
 
 .btn:hover {
@@ -127,14 +123,6 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 255, 195, 0.1);
 }
-
-/* Button Shine Effect */
-.btn::after {
-    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-    transition: 0.5s;
-}
-.btn:hover::after { left: 100%; }
 
 /* --- PROJECT CARDS & MEDIA --- */
 .projects-grid, .grid {
@@ -148,13 +136,15 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  /* Ensure no pixel gaps */
+  display: flex; 
+  flex-direction: column;
 }
 
 .project-card:hover, .media-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   border-color: var(--text-muted);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .project-card img,
@@ -163,21 +153,66 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   width: 100%;
   aspect-ratio: 4/3; 
   object-fit: cover;
-  display: block;
+  display: block; /* Fixes gap at bottom of div */
   filter: grayscale(10%);
-  transition: filter 0.3s, transform 0.5s ease;
+  transition: filter 0.3s ease, transform 0.5s ease;
 }
 
 .project-card:hover img, 
 .media-item:hover img,
 .media-item:hover video { 
   filter: grayscale(0%);
-  transform: scale(1.05); /* Zoom effect */
+  transform: scale(1.03); /* Very subtle zoom */
 }
 
 .card-info { padding: 1rem; position: relative; z-index: 2; background: var(--card-bg); }
 .card-info p { font-size: 0.9rem; margin: 0; }
 .card-info span { font-size: 0.8rem; }
+
+/* --- ANIMATION UTILITIES --- */
+
+/* Reveal Animation Class (JS Triggers this) */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Typewriter Cursor Effect */
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--accent); /* The cursor */
+  width: 0;
+  animation: typing 2s steps(30, end) forwards, blink 0.8s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: var(--accent); }
+}
+
+/* Skill Bar Animation */
+.skill-item { margin-bottom: 1rem; }
+.skill-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem; color: var(--text-main); }
+.progress-bg { width: 100%; height: 2px; background: var(--border); position: relative; }
+.progress-fill { 
+    height: 100%; 
+    background: var(--accent); 
+    width: 0; /* Start at 0 */
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 8px rgba(0, 255, 195, 0.3); 
+}
 
 /* --- PAGE SPECIFIC --- */
 
@@ -200,55 +235,9 @@ blockquote {
   border: none;
 }
 
-/* Skills (About Page) */
-.skill-item { margin-bottom: 1rem; }
-.skill-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem; color: var(--text-main); }
-.progress-bg { width: 100%; height: 2px; background: var(--border); position: relative; }
-/* Width transition for animation */
-.progress-fill { height: 100%; background: var(--accent); width: 0; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 0 8px rgba(0, 255, 195, 0.3); }
-
-/* Footer / Contact */
+/* Footer */
 .contact { text-align: center; border-top: 1px solid var(--border); padding-top: 3rem; margin-top: 1rem; }
-.contact a { color: var(--accent); transition: 0.3s; }
-.contact a:hover { text-shadow: 0 0 8px var(--accent); }
-
-/* --- ANIMATIONS CLASSES --- */
-
-/* 1. Typewriter Effect */
-.typing-wrapper { display: inline-block; }
-.typing {
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 3px solid var(--accent);
-  width: 0;
-  animation: typing 2.5s steps(30, end) forwards, blink 0.75s step-end infinite;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-@keyframes blink {
-  from, to { border-color: transparent }
-  50% { border-color: var(--accent) }
-}
-
-/* 2. Fade In Up */
-.fade-up {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-@keyframes fadeInUp {
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Delays */
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
+.contact a { color: var(--accent); }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -256,6 +245,15 @@ blockquote {
   .hero { align-items: flex-start; text-align: left; }
   nav { gap: 1.5rem; font-size: 0.8rem; }
   
-  /* Disable complicated typing on mobile if it breaks lines, or adjust width */
-  .typing { white-space: normal; border-right: none; width: auto; animation: none; } 
+  /* Reset typewriter on mobile to prevent layout breaking */
+  .typewriter { 
+      white-space: normal; 
+      border-right: none; 
+      width: auto; 
+      animation: none; 
+      opacity: 0;
+      animation: fadeInSimple 1s forwards;
+  }
 }
+
+@keyframes fadeInSimple { to { opacity: 1; } }
