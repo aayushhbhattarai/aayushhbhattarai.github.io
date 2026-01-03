@@ -3,132 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aayush Bhattarai — 3D Artist & Tech Explorer</title>
-  <link rel="icon" href="projects/logoo.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <title>Aayush Bhattarai</title>
+  <link rel="icon" href="projects/logoo.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- NAVIGATION -->
-  <nav>
-    <ul>
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-  </nav>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <!-- 🎨 CUSTOMIZE: Your name and role -->
-        <h1>Aayush Bhattarai</h1>
-        <p class="subtitle">3D Artist & Tech Explorer from Nepal, studying in Germany</p>
-        <p>Hi, I'm a 20-year-old passionate about 3D graphics, computers, and all things tech. I love exploring new technologies, learning by doing, and challenging myself with creative and technical problems.</p>
-        
-        <div class="cta-group">
-          <a href="projects.html" class="btn btn-primary">View Projects</a>
-          <a href="about.html" class="btn btn-secondary">About Me</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<nav>
+  <div class="nav-left">AAYUSH</div>
+  <div class="nav-right">
+    <a href="index.html" class="active">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+  </div>
+</nav>
 
-  <!-- FEATURED PROJECTS SECTION -->
+<main>
   <section>
-    <div class="container">
-      <h2>Featured Work</h2>
-      <div class="projects-grid">
-        <!-- 🎨 CUSTOMIZE: Change images and descriptions -->
-        <div class="project-card">
-          <img src="projects/INSOMNIA.png" alt="INSOMNIA project" class="project-image" />
-          <div class="project-info">
-            <h3>INSOMNIA</h3>
-            <p>A surreal 3D scene visualizing insomnia using lighting and animation.</p>
-          </div>
-        </div>
+    <h1>
+      3D artist & tech explorer<br>
+      focused on visuals,<br>
+      systems, and precision.
+    </h1>
 
-        <div class="project-card">
-          <img src="projects/sunflower.png" alt="Sunflower procedural art" class="project-image" />
-          <div class="project-info">
-            <h3>Sunflower</h3>
-            <p>Procedural artwork based on the golden ratio and parametric curves.</p>
-          </div>
-        </div>
+    <p>
+      Originally from Nepal, currently studying computer science in Germany.
+      I work at the intersection of creative visuals and technical thinking.
+    </p>
 
-        <div class="project-card">
-          <img src="projects/STARWARS.png" alt="Star Wars poster" class="project-image" />
-          <div class="project-info">
-            <h3>Star Wars Poster</h3>
-            <p>Poster design in Photoshop for the movie Star Wars.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="text-center mt-3">
-        <a href="projects.html" class="btn btn-secondary">View All Projects</a>
-      </div>
-    </div>
+    <a href="projects.html" class="cta">View Work</a>
   </section>
 
-  <!-- CURRENTLY EXPLORING SECTION -->
   <section>
-    <div class="container">
-      <div class="quote-section">
-        <h2>Currently Exploring</h2>
-        <p>Experimenting with real-time rendering, procedural generation, and shader development. Always curious to try new tools and break things to learn how they work.</p>
+    <h2>Selected Work</h2>
+
+    <div class="projects">
+      <div class="project">
+        <img src="projects/INSOMNIA.png" alt="">
+        <span>INSOMNIA — mood & lighting study</span>
+      </div>
+
+      <div class="project">
+        <img src="projects/sunflower.png" alt="">
+        <span>Procedural sunflower</span>
+      </div>
+
+      <div class="project">
+        <img src="projects/STARWARS.png" alt="">
+        <span>Star Wars poster recreation</span>
       </div>
     </div>
   </section>
+</main>
 
-  <!-- QUOTE SECTION -->
-  <section>
-    <div class="container">
-      <blockquote>
-        "The best way to predict the future is to invent it."
-        <cite>— Alan Kay</cite>
-      </blockquote>
-    </div>
-  </section>
+<footer>
+  © 2026 Aayush Bhattarai
+</footer>
 
-  <!-- CONTACT SECTION -->
-  <section class="contact-section">
-    <div class="container">
-      <h2>Let's Connect</h2>
-      <p>Feel free to reach out for collaborations or just to chat about tech and 3D.</p>
-      <div class="contact-links">
-        <!-- 🎨 CUSTOMIZE: Your email and social links -->
-        <a href="mailto:baayush061@gmail.com">Email</a>
-        <a href="https://www.linkedin.com/in/aayushbhattarai1/" target="_blank">LinkedIn</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- OPTIONAL: Scroll Animation Script -->
-  <script>
-    // Smooth scroll animation on page load
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // Active nav link
-    document.querySelectorAll('nav a').forEach(link => {
-      if (link.href === window.location.href) {
-        link.classList.add('active');
-      }
-    });
-  </script>
 </body>
 </html>
