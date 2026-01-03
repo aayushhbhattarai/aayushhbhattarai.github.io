@@ -6,10 +6,60 @@
   <title>Projects | Aayush Bhattarai</title>
   <link rel="icon" href="projects/logoo.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
+
   <style>
-      /* Project page specific header spacing */
-      .page-header { padding-top: 8rem; text-align: center; margin-bottom: 2rem; }
+    /* LOCAL OVERRIDES for layout specific to Projects */
+    header {
+      padding: 8rem 2rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .gallery-section {
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h2.section-title {
+      font-family: var(--font-head);
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin: 3rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      display: inline-block;
+    }
+
+    /* Override specifically for the gallery items to handle their entrance */
+    .media-item {
+      opacity: 0; 
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .media-item.visible {
+        opacity: 1; transform: translateY(0);
+    }
+    
+    .media-item img, .media-item video {
+      height: 250px; /* Enforce height for grid consistency */
+    }
+
+    .back-btn {
+      display: block;
+      width: fit-content;
+      margin: 4rem auto;
+      padding: 1rem 2rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+    .back-btn:hover { color: var(--accent); border-color: var(--accent); }
   </style>
 </head>
 <body>
@@ -20,15 +70,14 @@
     <a href="about.html">About</a>
   </nav>
 
-  <div class="page-header">
-    <h1>Archive</h1>
-    <p>Renders, experiments, and prototypes.</p>
-  </div>
+  <header>
+    <h1 class="fade-up">Archive</h1>
+    <p class="fade-up delay-1">A collection of renders, experiments, and prototypes.</p>
+  </header>
 
-  <section style="padding-top: 0;">
-    <h2 style="font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; display: inline-block; margin-bottom: 2rem;">Visuals</h2>
-    
-    <div class="grid">
+  <div class="gallery-section">
+    <h2 class="section-title fade-up delay-2">Visuals</h2>
+    <div class="grid" id="image-grid">
       <div class="media-item"><img src="projects/INSOMNIA.png" alt="INSOMNIA" loading="lazy"/></div>
       <div class="media-item"><img src="projects/sunflower.png" alt="sunflower" loading="lazy"/></div>
       <div class="media-item"><img src="projects/STARWARS.png" alt="STARWARS" loading="lazy"/></div>
@@ -56,7 +105,7 @@
       <div class="media-item"><img src="projects/VIKING.png" alt="VIKING" loading="lazy"/></div>
     </div>
 
-    <h2 style="font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; display: inline-block; margin: 4rem 0 2rem;">Motion</h2>
+    <h2 class="section-title fade-up">Motion</h2>
     <div class="grid">
       <div class="media-item"><video src="projects/My Video1.mp4" controls></video></div>
       <div class="media-item"><video src="projects/My Video2.mp4" controls></video></div>
@@ -65,23 +114,24 @@
       <div class="media-item"><video src="projects/out.mp4" controls></video></div>
     </div>
     
-    <div style="text-align: center; margin-top: 4rem;">
-       <a href="index.html" class="btn">← Back Home</a>
-    </div>
-  </section>
+    <a href="index.html" class="back-btn fade-up">← Back Home</a>
+  </div>
 
   <script>
+    // Staggered Fade In for Grid Items
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          observer.unobserve(entry.target); 
         }
       });
     }, { threshold: 0.05 });
 
     document.querySelectorAll('.media-item').forEach((el, index) => {
-        el.style.transitionDelay = `${(index % 4) * 0.05}s`; 
+        // Reset delay every 5 items to keep animations snappy
+        const delay = (index % 5) * 0.1;
+        el.style.transitionDelay = `${delay}s`; 
         observer.observe(el);
     });
   </script>
