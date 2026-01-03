@@ -6,151 +6,10 @@
   <title>Projects | Aayush Bhattarai</title>
   <link rel="icon" href="projects/logoo.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  
+  <link rel="stylesheet" href="style.css">
   <style>
-    :root {
-      --bg-color: #050505;
-      --card-bg: #111111;
-      --text-main: #ededed;
-      --text-muted: #888888;
-      --accent: #00ffc3;
-      --border: #222222;
-      --font-body: 'Inter', sans-serif;
-      --font-head: 'Poppins', sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: var(--font-body);
-      overflow-x: hidden;
-    }
-
-    /* BG GRID */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    nav {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      padding: 1.5rem;
-      background: rgba(5, 5, 5, 0.8);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav a {
-      font-family: var(--font-head);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav a:hover, nav a.active { color: var(--accent); }
-
-    header {
-      padding: 8rem 2rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    header h1 {
-      font-family: var(--font-head);
-      font-size: 3rem;
-      color: white;
-      margin-bottom: 0.5rem;
-    }
-    
-    header p { color: var(--text-muted); }
-
-    /* GALLERY GRID */
-    .gallery-section {
-      padding: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    h2.section-title {
-      font-family: var(--font-head);
-      color: var(--accent);
-      font-size: 1.5rem;
-      margin: 3rem 0 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
-      display: inline-block;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    /* MEDIA ITEM STYLING */
-    .media-item {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--card-bg);
-      transition: transform 0.3s ease, border-color 0.3s ease;
-      opacity: 0; /* JS Animation init */
-      transform: translateY(20px);
-    }
-    
-    .media-item.visible {
-        opacity: 1; transform: translateY(0);
-    }
-
-    .media-item:hover {
-      transform: translateY(-5px);
-      border-color: var(--text-muted);
-    }
-
-    .media-item img, .media-item video {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      display: block;
-      transition: opacity 0.3s;
-    }
-
-    .media-item:hover img { opacity: 0.8; }
-    
-    /* Overlay for filename/title (Optional, derived from alt text logic if needed, but keeping it minimal) */
-    
-    .back-btn {
-      display: block;
-      width: fit-content;
-      margin: 4rem auto;
-      padding: 1rem 2rem;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      transition: 0.3s;
-    }
-    
-    .back-btn:hover { color: var(--accent); border-color: var(--accent); }
-
+      /* Project page specific header spacing */
+      .page-header { padding-top: 8rem; text-align: center; margin-bottom: 2rem; }
   </style>
 </head>
 <body>
@@ -161,14 +20,15 @@
     <a href="about.html">About</a>
   </nav>
 
-  <header>
+  <div class="page-header">
     <h1>Archive</h1>
-    <p>A collection of renders, experiments, and prototypes.</p>
-  </header>
+    <p>Renders, experiments, and prototypes.</p>
+  </div>
 
-  <div class="gallery-section">
-    <h2 class="section-title">Visuals</h2>
-    <div class="grid" id="image-grid">
+  <section style="padding-top: 0;">
+    <h2 style="font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; display: inline-block; margin-bottom: 2rem;">Visuals</h2>
+    
+    <div class="grid">
       <div class="media-item"><img src="projects/INSOMNIA.png" alt="INSOMNIA" loading="lazy"/></div>
       <div class="media-item"><img src="projects/sunflower.png" alt="sunflower" loading="lazy"/></div>
       <div class="media-item"><img src="projects/STARWARS.png" alt="STARWARS" loading="lazy"/></div>
@@ -196,7 +56,7 @@
       <div class="media-item"><img src="projects/VIKING.png" alt="VIKING" loading="lazy"/></div>
     </div>
 
-    <h2 class="section-title">Motion</h2>
+    <h2 style="font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; display: inline-block; margin: 4rem 0 2rem;">Motion</h2>
     <div class="grid">
       <div class="media-item"><video src="projects/My Video1.mp4" controls></video></div>
       <div class="media-item"><video src="projects/My Video2.mp4" controls></video></div>
@@ -205,22 +65,23 @@
       <div class="media-item"><video src="projects/out.mp4" controls></video></div>
     </div>
     
-    <a href="index.html" class="back-btn">← Back Home</a>
-  </div>
+    <div style="text-align: center; margin-top: 4rem;">
+       <a href="index.html" class="btn">← Back Home</a>
+    </div>
+  </section>
 
   <script>
-    // Staggered Fade In for Grid Items
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // Run once
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
 
     document.querySelectorAll('.media-item').forEach((el, index) => {
-        el.style.transitionDelay = `${index % 5 * 0.1}s`; // Stagger effect
+        el.style.transitionDelay = `${(index % 4) * 0.05}s`; 
         observer.observe(el);
     });
   </script>
