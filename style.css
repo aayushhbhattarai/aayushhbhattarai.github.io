@@ -20,30 +20,31 @@ body {
   color: var(--text-main);
   font-family: var(--font-body);
   line-height: 1.6;
-  overflow-x: hidden; /* Prevents scrollbar jumping */
+  overflow-x: hidden;
 }
 
 a { text-decoration: none; color: inherit; transition: 0.3s ease; }
 
-/* --- BACKGROUND ANIMATION --- */
+/* --- BACKGROUND ANIMATION (WAVY LINES) --- */
 body::before {
   content: "";
   position: fixed;
-  top: -50%; left: -50%; width: 200%; height: 200%;
-  background-image: 
-    radial-gradient(circle at center, rgba(0, 255, 195, 0.03) 0%, transparent 40%),
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 50px 50px, 50px 50px;
+  top: 0; left: 0; width: 200%; height: 100%;
+  
+  /* SVG Wave Pattern Data URI */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='40' viewBox='0 0 200 40'%3E%3Cpath d='M0 20 Q 50 40 100 20 T 200 20' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='2'/%3E%3C/svg%3E");
+  
+  background-size: 200px 60px; /* Adjust spacing of waves */
   z-index: -1;
   pointer-events: none;
-  animation: bg-drift 60s linear infinite;
+  opacity: 0.6;
+  animation: waveFlow 30s linear infinite;
 }
 
-@keyframes bg-drift {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-20px, -20px); }
-  100% { transform: translate(0, 0); }
+@keyframes waveFlow {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-50px) translateY(-20px); }
+  100% { transform: translateX(0) translateY(0); }
 }
 
 /* --- NAVIGATION --- */
@@ -59,7 +60,6 @@ nav {
   backdrop-filter: blur(12px);
   z-index: 100;
   border-bottom: 1px solid var(--border);
-  /* Slide down animation */
   animation: slideDown 0.8s ease-out forwards;
 }
 
@@ -95,7 +95,6 @@ section {
   padding: var(--section-padding);
 }
 
-/* Typography */
 h1, h2, h3 { font-family: var(--font-head); color: white; line-height: 1.2; }
 h1 { font-size: 3.5rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 1rem; }
 h2 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--accent); }
@@ -114,7 +113,7 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
-  overflow: hidden; /* Keeps shine inside */
+  overflow: hidden;
 }
 
 .btn:hover {
@@ -137,7 +136,6 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   border-radius: 6px;
   overflow: hidden;
   transition: transform 0.3s ease, border-color 0.3s ease;
-  /* Ensure no pixel gaps */
   display: flex; 
   flex-direction: column;
 }
@@ -153,7 +151,7 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   width: 100%;
   aspect-ratio: 4/3; 
   object-fit: cover;
-  display: block; /* Fixes gap at bottom of div */
+  display: block; 
   filter: grayscale(10%);
   transition: filter 0.3s ease, transform 0.5s ease;
 }
@@ -162,7 +160,7 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
 .media-item:hover img,
 .media-item:hover video { 
   filter: grayscale(0%);
-  transform: scale(1.03); /* Very subtle zoom */
+  transform: scale(1.03); 
 }
 
 .card-info { padding: 1rem; position: relative; z-index: 2; background: var(--card-bg); }
@@ -171,7 +169,7 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
 
 /* --- ANIMATION UTILITIES --- */
 
-/* Reveal Animation Class (JS Triggers this) */
+/* Reveal Animation */
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -182,12 +180,12 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   transform: translateY(0);
 }
 
-/* Typewriter Cursor Effect */
+/* Typewriter */
 .typewriter {
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 3px solid var(--accent); /* The cursor */
+  border-right: 3px solid var(--accent);
   width: 0;
   animation: typing 2s steps(30, end) forwards, blink 0.8s step-end infinite;
 }
@@ -196,27 +194,24 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   from { width: 0; }
   to { width: 100%; }
 }
-
 @keyframes blink {
   0%, 100% { border-color: transparent; }
   50% { border-color: var(--accent); }
 }
 
-/* Skill Bar Animation */
+/* Skill Bar */
 .skill-item { margin-bottom: 1rem; }
 .skill-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem; color: var(--text-main); }
 .progress-bg { width: 100%; height: 2px; background: var(--border); position: relative; }
 .progress-fill { 
     height: 100%; 
     background: var(--accent); 
-    width: 0; /* Start at 0 */
+    width: 0; 
     transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
     box-shadow: 0 0 8px rgba(0, 255, 195, 0.3); 
 }
 
 /* --- PAGE SPECIFIC --- */
-
-/* Hero */
 .hero {
   min-height: 85vh; 
   display: flex;
@@ -225,7 +220,6 @@ p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
   padding-top: var(--nav-height); 
 }
 
-/* Quote */
 blockquote {
   font-size: 1.4rem;
   font-family: var(--font-head);
@@ -235,25 +229,19 @@ blockquote {
   border: none;
 }
 
-/* Footer */
 .contact { text-align: center; border-top: 1px solid var(--border); padding-top: 3rem; margin-top: 1rem; }
-.contact a { color: var(--accent); }
+.contact a { color: var(--accent); display: inline-block; margin: 0 10px; }
 
-/* Responsive */
 @media (max-width: 768px) {
   h1 { font-size: 2.5rem; }
   .hero { align-items: flex-start; text-align: left; }
   nav { gap: 1.5rem; font-size: 0.8rem; }
-  
-  /* Reset typewriter on mobile to prevent layout breaking */
   .typewriter { 
       white-space: normal; 
       border-right: none; 
       width: auto; 
-      animation: none; 
-      opacity: 0;
       animation: fadeInSimple 1s forwards;
+      opacity: 0;
   }
 }
-
 @keyframes fadeInSimple { to { opacity: 1; } }
