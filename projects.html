@@ -6,11 +6,9 @@
   <title>Projects | Aayush Bhattarai</title>
   <link rel="icon" href="projects/logoo.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  
   <link rel="stylesheet" href="style.css">
   
   <style>
-    /* Page Specific Layout */
     header {
       padding: 8rem 2rem 2rem;
       max-width: 1200px;
@@ -32,7 +30,6 @@
       display: inline-block;
     }
     
-    /* Animation initial state for gallery items */
     .media-item {
         opacity: 0;
         transform: translateY(20px);
@@ -112,7 +109,6 @@
   </div>
 
   <script>
-    /* Staggered load for gallery */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -125,10 +121,8 @@
     const revealElements = document.querySelectorAll('.scroll-reveal');
     revealElements.forEach(el => observer.observe(el));
 
-    // Stagger grid items
     const mediaItems = document.querySelectorAll('.media-item');
     mediaItems.forEach((item, index) => {
-        // slight delay based on index to create wave effect
         item.style.transitionDelay = `${(index % 5) * 0.05}s`; 
         observer.observe(item);
     });
