@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aayush Bhattarai | 3D & Tech</title>
+  <title>Aayush Bhattarai</title>
   <link rel="icon" href="projects/logoo.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,70 +16,39 @@
     <a href="about.html">About</a>
   </nav>
 
-  <section class="hero scroll-reveal">
-    <p style="color: var(--accent); font-weight: 500;">Hello, I'm</p>
-    <h1>Aayush<br><span style="color: var(--text-muted);">Bhattarai.</span></h1>
-    <p style="max-width: 500px; font-size: 1.1rem;">
-      3D Graphics Artist & Tech Explorer.<br>
-      Visualizing complex ideas through code and light.
-    </p>
-    <div style="margin-top: 1.5rem;">
+  <section style="min-height: 60vh; display: flex; flex-direction: column; justify-content: center; padding-top: 100px;">
+    <div style="width: fit-content;">
+        <h1 class="typewriter">Aayush Bhattarai</h1>
+    </div>
+    <p style="font-size: 1.1rem; color: var(--accent);">3D Graphics & Tech Explorer</p>
+    <p style="max-width: 450px;">Creating immersive digital experiences through technical art and procedural generation.</p>
+    <div style="margin-top: 1rem;">
       <a href="projects.html" class="btn">View Work</a>
-      <a href="about.html" class="btn" style="background: transparent; border-color: transparent; margin-left: 0.5rem;">About Me →</a>
+      <a href="about.html" class="btn" style="background:transparent; border:none; color: var(--text-muted);">More →</a>
     </div>
   </section>
 
-  <section class="scroll-reveal" style="padding-top: 0;">
-    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem;">
-        <h2>Selected Work</h2>
-        <a href="projects.html" style="font-size: 0.9rem; color: var(--text-muted);">View All →</a>
+  <section style="padding-top: 0;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <h2>Selected</h2>
+      <a href="projects.html" style="font-size: 0.8rem; color: var(--text-muted);">See Archive →</a>
     </div>
-    
     <div class="projects-grid">
       <a href="projects.html" class="project-card">
-        <img src="projects/INSOMNIA.png" alt="INSOMNIA" />
-        <div class="card-info">
-          <p><strong>Insomnia</strong></p>
-          <span>Surreal 3D Visualization</span>
-        </div>
+        <img src="projects/INSOMNIA.png" alt="Insomnia">
+        <div style="padding: 10px; font-size: 0.85rem;">Insomnia / 3D</div>
       </a>
-      
       <a href="projects.html" class="project-card">
-        <img src="projects/sunflower.png" alt="Sunflower" />
-        <div class="card-info">
-          <p><strong>Sunflower</strong></p>
-          <span>Procedural Golden Ratio</span>
-        </div>
-      </a>
-
-      <a href="projects.html" class="project-card">
-        <img src="projects/STARWARS.png" alt="Star Wars" />
-        <div class="card-info">
-          <p><strong>Star Wars</strong></p>
-          <span>Composite Poster Design</span>
-        </div>
+        <img src="projects/sunflower.png" alt="Sunflower">
+        <div style="padding: 10px; font-size: 0.85rem;">Sunflower / Procedural</div>
       </a>
     </div>
   </section>
 
-  <section class="scroll-reveal">
-    <blockquote>“The best way to predict the future is to invent it.”</blockquote>
-    <p style="text-align: center; font-size: 0.9rem; margin-top: -1rem;">– Alan Kay</p>
+  <section class="contact">
+    <p style="margin-bottom: 0.5rem;">Let's talk tech.</p>
+    <a href="mailto:baayush061@gmail.com" style="color: var(--accent); font-weight: 600;">baayush061@gmail.com</a>
   </section>
 
-  <section class="contact scroll-reveal">
-    <h2>Get in Touch</h2>
-    <p>Available for collaborations or just a chat.</p>
-    <a href="mailto:baayush061@gmail.com" style="font-size: 1.1rem;">baayush061@gmail.com</a>
-  </section>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
-  </script>
 </body>
 </html>
