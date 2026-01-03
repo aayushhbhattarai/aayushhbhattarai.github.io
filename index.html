@@ -3,62 +3,245 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aayush Bhattarai</title>
-  <link rel="icon" href="projects/logoo.png" />
-  <link rel="stylesheet" href="style.css" />
+  <title>Aayush Bhattarai | 3D & Tech</title>
+  <link rel="icon" href="projects/logoo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CORE VARIABLES & RESET */
+    :root {
+      --bg-color: #050505;
+      --card-bg: #111111;
+      --text-main: #ededed;
+      --text-muted: #888888;
+      --accent: #00ffc3;
+      --border: #222222;
+      --font-body: 'Inter', sans-serif;
+      --font-head: 'Poppins', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* SUBTLE BACKGROUND GRID */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 1.5rem;
+      background: rgba(5, 5, 5, 0.8);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav a {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    nav a:hover, nav a.active { color: var(--accent); }
+
+    /* LAYOUT UTILS */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+      opacity: 0; /* For animation */
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    section.visible { opacity: 1; transform: translateY(0); }
+
+    h1, h2, h3 { font-family: var(--font-head); color: white; line-height: 1.2; }
+    
+    h1 { font-size: 4rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 1rem; }
+    h2 { font-size: 2rem; margin-bottom: 2rem; color: var(--accent); }
+    
+    p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.5rem; max-width: 600px; }
+
+    /* HERO SPECIFIC */
+    .hero {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 0;
+    }
+    
+    .hero h1 span { color: var(--accent); }
+    .hero-role { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* PROJECTS GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.4s ease, border-color 0.4s ease;
+    }
+
+    .project-card:hover { transform: translateY(-5px); border-color: var(--text-muted); }
+    
+    .project-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: filter 0.3s;
+    }
+    
+    .project-card:hover img { filter: grayscale(0%); }
+
+    .card-info { padding: 1.5rem; }
+    .card-info p { font-size: 0.9rem; margin: 0; }
+
+    /* QUOTE */
+    blockquote {
+      font-size: 1.5rem;
+      font-family: var(--font-head);
+      color: white;
+      text-align: center;
+      border-left: none;
+      padding: 4rem 0;
+    }
+
+    /* FOOTER */
+    .contact { text-align: center; border-top: 1px solid var(--border); padding-top: 4rem; margin-top: 2rem;}
+    .contact a { color: var(--accent); border-bottom: 1px solid transparent; }
+    .contact a:hover { border-bottom-color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      nav { gap: 1.5rem; }
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-left">AAYUSH</div>
-  <div class="nav-right">
+  <nav>
     <a href="index.html" class="active">Home</a>
     <a href="projects.html">Projects</a>
     <a href="about.html">About</a>
-  </div>
-</nav>
+  </nav>
 
-<main>
-  <section>
-    <h1>
-      3D artist & tech explorer<br>
-      focused on visuals,<br>
-      systems, and precision.
-    </h1>
-
-    <p>
-      Originally from Nepal, currently studying computer science in Germany.
-      I work at the intersection of creative visuals and technical thinking.
-    </p>
-
-    <a href="projects.html" class="cta">View Work</a>
-  </section>
-
-  <section>
-    <h2>Selected Work</h2>
-
-    <div class="projects">
-      <div class="project">
-        <img src="projects/INSOMNIA.png" alt="">
-        <span>INSOMNIA — mood & lighting study</span>
-      </div>
-
-      <div class="project">
-        <img src="projects/sunflower.png" alt="">
-        <span>Procedural sunflower</span>
-      </div>
-
-      <div class="project">
-        <img src="projects/STARWARS.png" alt="">
-        <span>Star Wars poster recreation</span>
-      </div>
+  <section class="hero scroll-reveal">
+    <p style="margin-bottom: 0.5rem; color: var(--accent);">Hello, I'm</p>
+    <h1>Aayush<br><span>Bhattarai.</span></h1>
+    <p class="hero-role">3D Graphics & Tech Explorer based in Germany.</p>
+    <div>
+      <a href="projects.html" class="btn">View Work</a>
+      <a href="about.html" class="btn" style="background: transparent; border-color: transparent;">About Me →</a>
     </div>
   </section>
-</main>
 
-<footer>
-  © 2026 Aayush Bhattarai
-</footer>
+  <section class="scroll-reveal">
+    <h2>Selected Work</h2>
+    <div class="projects-grid">
+      <a href="projects.html" class="project-card">
+        <img src="projects/INSOMNIA.png" alt="INSOMNIA" />
+        <div class="card-info">
+          <p><strong>Insomnia</strong><br><span style="color:var(--text-muted)">Surreal 3D Visualization</span></p>
+        </div>
+      </a>
+      
+      <a href="projects.html" class="project-card">
+        <img src="projects/sunflower.png" alt="Sunflower" />
+        <div class="card-info">
+          <p><strong>Sunflower</strong><br><span style="color:var(--text-muted)">Procedural Golden Ratio Art</span></p>
+        </div>
+      </a>
 
+      <a href="projects.html" class="project-card">
+        <img src="projects/STARWARS.png" alt="Star Wars" />
+        <div class="card-info">
+          <p><strong>Star Wars</strong><br><span style="color:var(--text-muted)">Composite Poster Design</span></p>
+        </div>
+      </a>
+    </div>
+    <div style="margin-top: 2rem; text-align: center;">
+        <a href="projects.html" class="btn">Full Portfolio →</a>
+    </div>
+  </section>
+
+  <section class="scroll-reveal" style="background: var(--card-bg); border-radius: 12px; padding: 3rem;">
+    <h2>Currently Exploring</h2>
+    <p style="max-width: 100%;">Experimenting with real-time rendering, procedural generation, and shader development. Always curious to try new tools and break things to learn how they work.</p>
+  </section>
+
+  <section class="scroll-reveal">
+    <blockquote>“The best way to predict the future is to invent it.” <br><span style="font-size: 1rem; color: var(--accent); display:block; margin-top: 1rem;">– Alan Kay</span></blockquote>
+  </section>
+
+  <section class="contact scroll-reveal">
+    <h2>Get in Touch</h2>
+    <p>Available for collaborations or just a chat about 3D tech.</p>
+    <a href="mailto:baayush061@gmail.com" style="font-size: 1.2rem;">baayush061@gmail.com</a>
+  </section>
+
+  <script>
+    // Simple Scroll Reveal Animation
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
