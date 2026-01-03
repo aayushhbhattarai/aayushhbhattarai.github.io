@@ -9,12 +9,19 @@
   <link rel="stylesheet" href="style.css">
   
   <style>
-    /* Slight override for About Page container to handle the top margin */
     .about-container { max-width: 800px; margin: 0 auto; padding: 8rem 2rem 4rem; }
-    .about-section { margin-bottom: 3rem; border-left: 1px solid var(--border); padding-left: 1.5rem; position: relative; opacity: 0; transform: translateY(10px); transition: 0.6s ease; }
+    .about-section { 
+        margin-bottom: 3rem; 
+        border-left: 1px solid var(--border); 
+        padding-left: 1.5rem; 
+        position: relative; 
+        opacity: 0; 
+        transform: translateY(10px); 
+        transition: 0.6s ease; 
+    }
     .about-section.visible { opacity: 1; transform: translateY(0); }
     .about-section::before {
-        content: ''; position: absolute; left: -3px; top: 6px; width: 5px; height: 5px; background: var(--accent); border-radius: 50%;
+        content: ''; position: absolute; left: -3px; top: 6px; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 5px var(--accent);
     }
   </style>
 </head>
@@ -28,8 +35,10 @@
 
   <div class="about-container">
     <div class="about-section visible">
-      <h1>Aayush Bhattarai</h1>
-      <p style="color: var(--accent); font-family: monospace;">_3D Artist & Tech Explorer_</p>
+      <div class="typing-wrapper">
+          <h1 class="typing" style="font-size: 2.5rem;">Aayush Bhattarai</h1>
+      </div>
+      <p style="color: var(--accent); font-family: monospace; margin-top: 0.5rem;" class="fade-up delay-1">_3D Artist & Tech Explorer_</p>
     </div>
 
     <div class="about-section">
@@ -49,25 +58,24 @@
       </div>
     </div>
 
-    <div class="about-section">
+    <div class="about-section" id="skills">
       <h2>Technical Stack</h2>
       <div class="skill-item">
         <div class="skill-header"><span>Blender (3D Env)</span><span>85%</span></div>
-        <div class="progress-bg"><div class="progress-fill" style="width: 85%"></div></div>
+        <div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span>Photoshop</span><span>70%</span></div>
-        <div class="progress-bg"><div class="progress-fill" style="width: 70%"></div></div>
+        <div class="progress-bg"><div class="progress-fill" data-width="70%"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span>Python & General Programming</span><span>60%</span></div>
-        <div class="progress-bg"><div class="progress-fill" style="width: 60%"></div></div>
+        <div class="progress-bg"><div class="progress-fill" data-width="60%"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-header"><span>Godot Engine</span><span>50%</span></div>
-        <div class="progress-bg"><div class="progress-fill" style="width: 50%"></div></div>
+        <div class="progress-bg"><div class="progress-fill" data-width="50%"></div></div>
       </div>
-    </section>
     </div>
 
     <div class="about-section" style="border: none; padding-left: 0;">
@@ -80,9 +88,19 @@
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            
+            // Animate progress bars only when visible
+            if(entry.target.id === 'skills') {
+                const bars = entry.target.querySelectorAll('.progress-fill');
+                bars.forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-width');
+                });
+            }
+        }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.2 });
     document.querySelectorAll('.about-section').forEach(el => observer.observe(el));
   </script>
 </body>
