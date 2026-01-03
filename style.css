@@ -1,14 +1,17 @@
-/* --- CORE SETUP --- */
+/* --- VARIABLES & RESET --- */
 :root {
   --bg-color: #050505;
-  --card-bg: #0c0c0c;
-  --text-main: #ffffff;
-  --text-muted: #808080;
+  --card-bg: #111111;
+  --text-main: #ededed;
+  --text-muted: #888888;
   --accent: #00ffc3;
-  --border: #1a1a1a;
+  --border: #222222;
   --font-body: 'Inter', sans-serif;
   --font-head: 'Poppins', sans-serif;
-  --nav-height: 70px;
+  
+  /* Spacing Variables */
+  --section-padding: 4rem 2rem;
+  --nav-height: 80px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,117 +20,242 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   font-family: var(--font-body);
-  line-height: 1.4;
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* Subtle Animated Background Grid */
+a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+
+/* --- BACKGROUND ANIMATION (SUBTLE) --- */
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: -50%; left: -50%; width: 200%; height: 200%;
   background-image: 
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(circle at center, black, transparent 80%);
+    radial-gradient(circle at center, rgba(0, 255, 195, 0.03) 0%, transparent 40%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 50px 50px, 50px 50px;
   z-index: -1;
-  opacity: 0.3;
+  pointer-events: none;
+  animation: bg-drift 60s linear infinite;
+}
+
+@keyframes bg-drift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-20px, -20px); }
+  100% { transform: translate(0, 0); }
 }
 
 /* --- NAVIGATION --- */
 nav {
   position: fixed;
-  top: 0; width: 100%; height: var(--nav-height);
-  display: flex; justify-content: center; align-items: center; gap: 2.5rem;
-  background: rgba(5, 5, 5, 0.8);
-  backdrop-filter: blur(10px);
+  top: 0; left: 0; width: 100%;
+  height: var(--nav-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(12px);
   z-index: 100;
   border-bottom: 1px solid var(--border);
+  animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 nav a {
   font-family: var(--font-head);
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   color: var(--text-muted);
   font-weight: 500;
-  transition: 0.3s;
+  position: relative;
 }
 
 nav a:hover, nav a.active { color: var(--accent); }
 
-/* --- TYPING ANIMATION --- */
-.typewriter {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid var(--accent);
-  width: 0;
-  animation: typing 2s steps(25, end) forwards, blink 0.8s infinite;
+nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; width: 100%; height: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
 }
 
-@keyframes typing { from { width: 0 } to { width: 100% } }
-@keyframes blink { 50% { border-color: transparent } }
-
-/* --- COMPACT LAYOUT --- */
+/* --- LAYOUT UTILS --- */
 section {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--section-padding);
+  opacity: 0; /* JS Animation init */
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
+section.visible { opacity: 1; transform: translateY(0); }
+
+h1, h2, h3 { font-family: var(--font-head); color: white; line-height: 1.2; }
+h1 { font-size: 3.5rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 1rem; }
+h2 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--accent); }
+p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.2rem; }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.8rem;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 255, 195, 0.1);
+}
+
+/* Button Shine Effect */
+.btn::after {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    transition: 0.5s;
+}
+.btn:hover::after { left: 100%; }
+
+/* --- PROJECT CARDS & MEDIA --- */
+.projects-grid, .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card, .media-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover, .media-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--text-muted);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.project-card img,
+.media-item img,
+.media-item video {
+  width: 100%;
+  aspect-ratio: 4/3; 
+  object-fit: cover;
+  display: block;
+  filter: grayscale(10%);
+  transition: filter 0.3s, transform 0.5s ease;
+}
+
+.project-card:hover img, 
+.media-item:hover img,
+.media-item:hover video { 
+  filter: grayscale(0%);
+  transform: scale(1.05); /* Zoom effect */
+}
+
+.card-info { padding: 1rem; position: relative; z-index: 2; background: var(--card-bg); }
+.card-info p { font-size: 0.9rem; margin: 0; }
+.card-info span { font-size: 0.8rem; }
+
+/* --- PAGE SPECIFIC --- */
+
+/* Hero */
 .hero {
-  min-height: 60vh;
+  min-height: 85vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: var(--nav-height); 
 }
 
-h1 { font-family: var(--font-head); font-size: 3.5rem; font-weight: 700; letter-spacing: -2px; margin-bottom: 0.5rem; }
-h2 { font-family: var(--font-head); font-size: 1.1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1.5rem; }
-p { color: var(--text-muted); font-size: 0.95rem; max-width: 500px; }
-
-/* --- 4:3 GRID SYSTEM --- */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-}
-
-.media-item {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-}
-
-.media-item:hover { border-color: var(--accent); transform: scale(1.02); }
-
-.media-item img, .media-item video {
-  width: 100%;
-  aspect-ratio: 4/3; /* Enforced ratio */
-  object-fit: cover;
-  display: block;
-}
-
-/* --- BUTTONS --- */
-.btn {
-  display: inline-block;
-  padding: 0.6rem 1.4rem;
-  border: 1px solid var(--text-muted);
+/* Quote */
+blockquote {
+  font-size: 1.4rem;
+  font-family: var(--font-head);
   color: white;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-top: 1rem;
-  transition: 0.3s;
+  text-align: center;
+  padding: 2rem 0;
+  border: none;
 }
 
-.btn:hover { border-color: var(--accent); color: var(--accent); }
+/* Skills (About Page) */
+.skill-item { margin-bottom: 1rem; }
+.skill-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem; color: var(--text-main); }
+.progress-bg { width: 100%; height: 2px; background: var(--border); position: relative; }
+/* Width transition for animation */
+.progress-fill { height: 100%; background: var(--accent); width: 0; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 0 8px rgba(0, 255, 195, 0.3); }
 
-/* --- ABOUT PAGE SPECIFICS --- */
-.skill-row { margin-bottom: 1rem; }
-.skill-bar { height: 2px; background: var(--border); width: 100%; margin-top: 5px; }
-.skill-progress { height: 100%; background: var(--accent); transition: 1s; }
+/* Footer / Contact */
+.contact { text-align: center; border-top: 1px solid var(--border); padding-top: 3rem; margin-top: 1rem; }
+.contact a { color: var(--accent); transition: 0.3s; }
+.contact a:hover { text-shadow: 0 0 8px var(--accent); }
+
+/* --- ANIMATIONS CLASSES --- */
+
+/* 1. Typewriter Effect */
+.typing-wrapper { display: inline-block; }
+.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--accent);
+  width: 0;
+  animation: typing 2.5s steps(30, end) forwards, blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: var(--accent) }
+}
+
+/* 2. Fade In Up */
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Delays */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem; }
+  .hero { align-items: flex-start; text-align: left; }
+  nav { gap: 1.5rem; font-size: 0.8rem; }
+  
+  /* Disable complicated typing on mobile if it breaks lines, or adjust width */
+  .typing { white-space: normal; border-right: none; width: auto; animation: none; } 
+}
