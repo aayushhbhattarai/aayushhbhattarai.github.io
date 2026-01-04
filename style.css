@@ -26,9 +26,10 @@ body {
 
 a { text-decoration: none; color: inherit; transition: 0.3s ease; }
 
-/* --- DYNAMIC FLOWING WAVES --- */
+/* --- 1. DYNAMIC FLOWING WAVES (Background Animation) --- */
+/* These layers create the disappearing and reappearing effect by moving diagonally 
+   while fading in and out via opacity keyframes. */
 
-/* Layer 1: Primary Flow (Moves Top-Right to Bottom-Left) */
 body::before {
   content: "";
   position: fixed;
@@ -38,11 +39,9 @@ body::before {
   background-size: 800px 600px;
   z-index: -2;
   pointer-events: none;
-  /* Diagonal rotation + Flowing Animation */
   animation: flowAndFade 25s linear infinite;
 }
 
-/* Layer 2: Secondary Random Flow (Moves at different speed/angle) */
 body::after {
   content: "";
   position: fixed;
@@ -53,27 +52,35 @@ body::after {
   z-index: -1;
   pointer-events: none;
   animation: flowAndFade 35s linear infinite reverse;
-  opacity: 0; /* Start hidden for staggered entrance */
 }
 
-/* ANIMATION: This makes the waves move diagonally across the screen 
-   while fading them in at the start and out at the end.
-*/
 @keyframes flowAndFade {
-  0% {
-    transform: rotate(-15deg) translate(0, 0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1; /* Fade in quickly */
-  }
-  90% {
-    opacity: 1; /* Stay visible */
-  }
-  100% {
-    transform: rotate(-15deg) translate(-400px, 300px); /* Significant diagonal travel */
-    opacity: 0; /* Fade out before reappearing */
-  }
+  0% { transform: rotate(-15deg) translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: rotate(-15deg) translate(-400px, 300px); opacity: 0; }
+}
+
+/* --- 2. TYPING ANIMATION --- */
+/* Apply the 'typewriter' class to any text element you want to animate. */
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--accent); /* The blinking cursor */
+  width: 0;
+  animation: typing 2.5s steps(30, end) forwards, blink 0.8s step-end infinite;
+}
+
+@keyframes typing { 
+  from { width: 0; } 
+  to { width: 100%; } 
+}
+
+@keyframes blink { 
+  0%, 100% { border-color: transparent; } 
+  50% { border-color: var(--accent); } 
 }
 
 /* --- NAVIGATION --- */
@@ -110,7 +117,7 @@ nav a.active::after {
   background: var(--accent);
 }
 
-/* --- LAYOUT UTILS --- */
+/* --- LAYOUT & TYPOGRAPHY --- */
 section {
   max-width: 1000px;
   margin: 0 auto;
@@ -121,27 +128,7 @@ h1, h2, h3 { font-family: var(--font-head); color: white; line-height: 1.1; }
 h1 { font-size: 4rem; font-weight: 700; letter-spacing: -2px; margin-bottom: 1.5rem; }
 h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); }
 
-/* Buttons */
-.btn {
-  display: inline-block;
-  padding: 1rem 2rem;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: transparent;
-  color: white;
-  font-weight: 600;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.4s ease;
-}
-
-.btn:hover {
-  background: white;
-  color: black;
-  border-color: white;
-}
-
-/* --- PROJECT CARDS --- */
+/* --- PROJECT CARDS (Premium Style) --- */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -152,6 +139,7 @@ h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: v
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border);
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
 }
 
 .project-card:hover {
@@ -174,7 +162,7 @@ h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: v
 
 .card-info { padding: 1.5rem; }
 
-/* --- ANIMATION --- */
+/* --- SCROLL REVEAL --- */
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -184,21 +172,4 @@ h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: v
 .scroll-reveal.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* --- HERO SPECIAL --- */
-.hero {
-  min-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* --- FOOTER --- */
-.contact { text-align: center; padding: 6rem 0; }
-.contact a { 
-    font-size: 2rem; 
-    font-weight: 700; 
-    color: white; 
-    border-bottom: 2px solid var(--accent);
 }
