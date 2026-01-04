@@ -11,10 +11,10 @@
   <style>
     /* Premium Gallery Layout Overrides */
     header {
-      padding: 10rem 2rem 4rem;
+      padding: 8rem 2rem 4rem; 
       max-width: 1200px;
       margin: 0 auto;
-      text-align: left; /* Alignment change for a more modern look */
+      text-align: left; 
     }
 
     header h1 {
@@ -47,10 +47,10 @@
       display: block;
     }
 
-    /* THE GRID: This is what fixes the "1 by 1" stacking */
+    /* THE GRID */
     .grid {
       display: grid;
-      grid-template-columns: repeat(12, 1fr); /* 12-column system for flexibility */
+      grid-template-columns: repeat(12, 1fr); 
       gap: 2rem;
     }
 
@@ -61,11 +61,11 @@
       transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       opacity: 0;
       transform: translateY(40px);
-      grid-column: span 4; /* Default: 3 items per row (12 / 4 = 3) */
+      grid-column: span 4; 
     }
 
-    /* Randomizing sizes for a "Premium Editorial" feel */
-    .media-item:nth-child(3n+1) { grid-column: span 8; } /* Large feature items */
+    /* Randomizing sizes */
+    .media-item:nth-child(3n+1) { grid-column: span 8; } 
     .media-item:nth-child(even) { grid-column: span 4; } 
 
     .media-item.visible {
@@ -74,7 +74,7 @@
     }
 
     .media-item:hover {
-      transform: scale(0.98); /* Subtle "press" effect */
+      transform: scale(0.98); 
     }
 
     .media-item img, .media-item video {
@@ -99,6 +99,7 @@
     @media (max-width: 600px) {
       header h1 { font-size: 2.5rem; }
       .media-item, .media-item:nth-child(3n+1) { grid-column: span 12; }
+      .grid { gap: 1rem; }
     }
 
     .back-btn {
@@ -110,9 +111,10 @@
       text-transform: uppercase;
       font-size: 0.7rem;
       letter-spacing: 2px;
+      transition: 0.3s;
     }
     
-    .back-btn:hover { background: white; color: black; }
+    .back-btn:hover { background: white; color: black; border-color: white; }
   </style>
 </head>
 <body>
