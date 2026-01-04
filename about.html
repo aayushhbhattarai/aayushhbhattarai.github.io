@@ -19,6 +19,10 @@
     .about-section::before {
         content: ''; position: absolute; left: -3px; top: 6px; width: 5px; height: 5px; background: var(--accent); border-radius: 50%;
     }
+    .skill-item { margin-bottom: 1.2rem; }
+    .skill-header { display: flex; justify-content: space-between; margin-bottom: 0.3rem; font-size: 0.9rem; }
+    .progress-bg { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--accent); width: 0; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
   </style>
 </head>
 <body>
@@ -31,8 +35,8 @@
 
   <div class="about-container">
     <div class="about-section scroll-reveal">
-      <div style="display:table">
-          <h1 class="typewriter" style="font-size: 2.5rem;">Aayush Bhattarai</h1>
+      <div style="display: flex; align-items: center;">
+          <h1 class="typewriter type-about" style="font-size: 2.5rem; margin-bottom: 0;">Aayush Bhattarai</h1>
       </div>
       <p style="color: var(--accent); font-family: monospace; margin-top:0.5rem">_3D Artist & Tech Explorer_</p>
     </div>
@@ -44,12 +48,12 @@
 
     <div class="about-section scroll-reveal">
       <h2>Education</h2>
-      <div style="margin-bottom: 1rem;">
-        <p style="margin-bottom: 0;"><strong>Preparatory Course for BSc Computer Science</strong></p>
+      <div style="margin-bottom: 1.5rem;">
+        <p style="margin-bottom: 0; font-size: 1.1rem; color: #fff;"><strong>Preparatory Course for BSc Computer Science</strong></p>
         <span style="font-size: 0.85rem; color: var(--text-muted);">Universität des Saarlandes, Germany (2025 – Present)</span>
       </div>
       <div>
-        <p style="margin-bottom: 0;"><strong>Higher Secondary (+2)</strong></p>
+        <p style="margin-bottom: 0; font-size: 1.1rem; color: #fff;"><strong>Higher Secondary (+2)</strong></p>
         <span style="font-size: 0.85rem; color: var(--text-muted);">Trinity International SS & College, Nepal (2021 – 2023)</span>
       </div>
     </div>
@@ -76,8 +80,8 @@
 
     <div class="about-section scroll-reveal" style="border: none; padding-left: 0;">
       <h2>Connect</h2>
-      <p>Email: <a href="mailto:baayush061@gmail.com">baayush061@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/aayushbhattarai1/" target="_blank">linkedin.com/in/aayushbhattarai1</a></p>
+      <p style="margin-bottom: 0.5rem;">Email: <a href="mailto:baayush061@gmail.com" style="color: var(--accent);">baayush061@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/aayushbhattarai1/" target="_blank" style="color: var(--accent);">linkedin.com/in/aayushbhattarai1</a></p>
     </div>
   </div>
 
