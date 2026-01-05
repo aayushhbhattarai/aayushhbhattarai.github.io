@@ -11,12 +11,12 @@
     /* --- CONFIG & RESET --- */
     :root {
       --bg: #050505;
-      --text: #f0f0f0;
-      --text-dim: #888;
-      --accent: #00ffc3; /* Original Teal */
+      --text: #ffffff;
+      --text-dim: #999;
+      --accent: #00ffc3;
       --font-body: 'Inter', sans-serif;
       --font-display: 'Syne', sans-serif; 
-      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,29 +32,27 @@
       line-height: 1.6;
     }
 
-    /* --- BACKGROUND --- */
+    /* --- PREMIUM FILM GRAIN OVERLAY --- */
+    /* This adds a subtle noise texture that makes the dark theme feel expensive */
+    .noise-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* --- BACKGROUND WAVES (Dimmed slightly for contrast) --- */
     body::before {
       content: "";
       position: fixed;
       top: -25%; left: -25%;
       width: 150%; height: 150%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cpath d='M-100 100 Q 150 50 400 200 T 900 300' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3Cpath d='M-100 400 Q 200 300 500 500 T 900 400' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cpath d='M-100 100 Q 150 50 400 200 T 900 300' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1.5'/%3E%3Cpath d='M-100 400 Q 200 300 500 500 T 900 400' fill='none' stroke='rgba(255,255,255,0.02)' stroke-width='1'/%3E%3C/svg%3E");
       background-size: 800px 600px;
       z-index: -2;
-      pointer-events: none;
       animation: flowAndFade 25s linear infinite;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      top: -20%; left: -20%;
-      width: 140%; height: 140%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='800' viewBox='0 0 1000 800'%3E%3Cpath d='M-100 200 Q 300 600 700 100 T 1100 500' fill='none' stroke='rgba(0,255,195,0.03)' stroke-width='2'/%3E%3C/svg%3E");
-      background-size: 1000px 800px;
-      z-index: -1;
-      pointer-events: none;
-      animation: flowAndFade 35s linear infinite reverse;
     }
 
     @keyframes flowAndFade {
@@ -65,25 +63,9 @@
     }
 
     /* --- TYPOGRAPHY --- */
-    h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 0.85; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 0.9; }
     
-    .super-title {
-      /* CHANGED: Reduced font sizes */
-      font-size: clamp(2.5rem, 7vw, 7rem); 
-      text-transform: uppercase;
-      letter-spacing: -2px; /* Slightly less aggressive tracking */
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,0.2);
-      margin-bottom: 2rem;
-    }
-    
-    .super-title span {
-      display: block;
-      color: var(--text);
-      -webkit-text-stroke: 0;
-    }
-
-    /* --- FLOATING DOCK NAVIGATION --- */
+    /* --- FLOATING DOCK --- */
     .dock-wrapper {
       position: fixed;
       bottom: 2rem;
@@ -91,50 +73,148 @@
       transform: translateX(-50%);
       z-index: 1000;
     }
-
     .dock {
       display: flex;
       gap: 0.5rem;
-      padding: 0.7rem;
-      background: rgba(10, 10, 10, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.6rem;
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 100px;
     }
-
     .dock a {
-      padding: 0.7rem 1.4rem;
+      padding: 0.6rem 1.2rem;
       color: var(--text-dim);
       text-transform: uppercase;
       font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       border-radius: 50px;
       transition: all 0.3s ease;
       text-decoration: none;
     }
+    .dock a:hover, .dock a.active { color: #000; background: #fff; }
 
-    .dock a:hover, .dock a.active {
-      color: #000;
-      background: #fff;
-    }
-
-    /* --- SECTIONS --- */
-    section {
-      padding: 8rem 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    /* --- HERO SECTION RESTRUCTURED --- */
+    section { padding: 8rem 2rem; max-width: 1400px; margin: 0 auto; }
 
     .hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
-    /* --- THE GRID --- */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* Left Side: Typography */
+    .hero-content {
+      z-index: 2;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      background: rgba(255,255,255,0.02);
+    }
+    .status-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
+
+    .super-title {
+      font-size: clamp(3.5rem, 9vw, 8rem); 
+      text-transform: uppercase;
+      letter-spacing: -3px;
+      color: var(--text);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .super-title span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+      transition: color 0.5s ease;
+    }
+    
+    .super-title:hover span {
+      color: var(--text); /* Fill on hover effect */
+    }
+
+    .hero-desc {
+      max-width: 500px;
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      font-weight: 300;
+      border-left: 1px solid var(--accent);
+      padding-left: 1.5rem;
+    }
+
+    /* Right Side: The Hero Visual Card */
+    .hero-visual {
+      position: relative;
+      height: 70vh;
+      width: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+      transform: perspective(1000px) rotateY(-5deg); /* Subtle 3D tilt */
+      box-shadow: 20px 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.5s ease;
+    }
+    
+    .hero-visual:hover {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+
+    .hero-slideshow {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: crossfade 15s infinite;
+      filter: brightness(0.8) contrast(1.1);
+    }
+
+    /* Staggering the animations for the slideshow */
+    .hero-slide:nth-child(1) { animation-delay: 0s; }
+    .hero-slide:nth-child(2) { animation-delay: 5s; }
+    .hero-slide:nth-child(3) { animation-delay: 10s; }
+
+    @keyframes crossfade {
+      0% { opacity: 0; transform: scale(1.1); }
+      5% { opacity: 1; transform: scale(1); }
+      33% { opacity: 1; transform: scale(1); }
+      38% { opacity: 0; transform: scale(1.05); }
+      100% { opacity: 0; }
+    }
+    
+    .visual-overlay {
+      position: absolute;
+      bottom: 0; left: 0; width: 100%;
+      padding: 2rem;
+      background: linear-gradient(to top, #000, transparent);
+      z-index: 10;
+    }
+
+    /* --- WORK GRID --- */
     .gallery-header {
       margin-bottom: 4rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -144,14 +224,10 @@
       align-items: flex-end;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 1.5rem;
-    }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
 
     .item {
-      grid-column: span 6; /* Default half width */
+      grid-column: span 6;
       position: relative;
       aspect-ratio: 16/10;
       overflow: hidden;
@@ -159,14 +235,12 @@
       background: #0a0a0a;
     }
 
-    /* Masonry Logic Refined for 12 Items */
-    /* Pattern: Large(8) + Small(4) | 3 Smalls | Half(6)+Half(6) */
+    /* Masonry Patterns */
     .item:nth-child(5n+1) { grid-column: span 8; aspect-ratio: 16/9; }
     .item:nth-child(5n+2) { grid-column: span 4; aspect-ratio: 1/1; }
     .item:nth-child(5n+3), 
     .item:nth-child(5n+4), 
     .item:nth-child(5n+5) { grid-column: span 4; aspect-ratio: 4/5; }
-    /* Override every 6th to be half width to reset rhythm */
     .item:nth-child(6n) { grid-column: span 6; aspect-ratio: 16/9; }
 
     .item img, .item video {
@@ -193,83 +267,50 @@
       filter: grayscale(0%) brightness(1);
       opacity: 1;
     }
-    
-    .item:hover .item-overlay {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    .item:hover .item-overlay { transform: translateY(0); opacity: 1; }
 
-    /* --- ABOUT LAYOUT --- */
+    /* --- ABOUT --- */
     .about-layout {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 6rem;
-      margin-top: 4rem;
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 6rem; margin-top: 4rem;
     }
-
-    .bio-text {
-      font-size: 1.6rem;
-      line-height: 1.3;
-      color: #ccc;
-      font-weight: 300;
-    }
-
+    .bio-text { font-size: 1.6rem; line-height: 1.3; color: #ccc; font-weight: 300; }
     .tech-pill {
-      display: inline-block;
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 0.6rem 1.2rem;
-      margin: 0 0.4rem 0.8rem 0;
-      border-radius: 2px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-dim);
-      transition: 0.3s;
+      display: inline-block; border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.6rem 1.2rem; margin: 0 0.4rem 0.8rem 0;
+      border-radius: 2px; font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--text-dim); transition: 0.3s;
     }
-    
-    .tech-pill:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(0, 255, 195, 0.05);
-    }
+    .tech-pill:hover { border-color: var(--accent); color: var(--accent); background: rgba(0, 255, 195, 0.05); }
 
     /* --- FOOTER --- */
     .footer-huge {
       min-height: 70vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
-    
     .contact-link {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 10vw, 8rem);
-      color: var(--text);
-      text-decoration: none;
-      transition: 0.4s var(--ease);
+      font-family: var(--font-display); font-size: clamp(3rem, 10vw, 8rem);
+      color: var(--text); text-decoration: none; transition: 0.4s var(--ease);
     }
-    .contact-link:hover {
-      color: var(--accent);
-      transform: skewX(-5deg);
-    }
+    .contact-link:hover { color: var(--accent); transform: skewX(-5deg); }
 
-    /* --- ANIMATIONS --- */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s var(--ease);
-    }
+    /* --- UTILS --- */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: all 1s var(--ease); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+    /* --- MOBILE RESPONSIVE --- */
     @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; text-align: left; }
+      .hero-visual { height: 40vh; transform: none; width: 100%; }
+      .super-title { font-size: 4rem; }
       .about-layout { grid-template-columns: 1fr; gap: 3rem; }
-      .super-title { font-size: 15vw; letter-spacing: -2px; }
       .item { grid-column: span 12 !important; aspect-ratio: 16/10 !important; }
+      .hero-desc { border-left: none; padding-left: 0; margin-top: 1rem; }
     }
   </style>
 </head>
 <body>
+
+  <div class="noise-overlay"></div>
 
   <div class="dock-wrapper">
     <nav class="dock">
@@ -281,15 +322,35 @@
   </div>
 
   <section id="hero" class="hero">
-    <div class="fade-up">
-      <p style="font-family: monospace; color: var(--accent); margin-bottom: 1.5rem; letter-spacing: 3px; font-size: 0.8rem;">[ 2026 ]</p>
-      <h1 class="super-title">
-        Aayush<br>
-        <span>Bhattarai</span>
-      </h1>
-      <p style="max-width: 600px; color: var(--text-dim); font-size: 1.2rem; line-height: 1.6; font-weight: 300;">
-        3D Artist & Tech Explorer. Crafting digital environments and technical prototypes. Based in Saarbrücken, Germany.
-      </p>
+    <div class="hero-grid">
+      
+      <div class="hero-content fade-up">
+        <div class="status-pill">
+          <div class="status-dot"></div>
+          <span>SAARBRÜCKEN, DE</span>
+        </div>
+        
+        <h1 class="super-title">
+          Aayush<br>
+          <span>Bhattarai</span>
+        </h1>
+        
+        <p class="hero-desc">
+          Computer Science Student & 3D Artist. Specializing in procedural environments, technical art, and digital cinematography.
+        </p>
+      </div>
+
+      <div class="hero-visual fade-up">
+        <div class="hero-slideshow">
+          <img src="projects/INSOMNIA.png" class="hero-slide" alt="Showcase 1">
+          <img src="projects/CLIFF1.png" class="hero-slide" alt="Showcase 2">
+          <img src="projects/STARWARS.png" class="hero-slide" alt="Showcase 3">
+        </div>
+        <div class="visual-overlay">
+          <p style="font-family: monospace; color: var(--accent); font-size: 0.8rem;">[ FEATURED_WORKS ]</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -300,7 +361,6 @@
     </div>
 
     <div class="grid">
-      
       <div class="item fade-up">
         <img src="projects/INSOMNIA.png" alt="Insomnia" loading="lazy">
         <div class="item-overlay">
@@ -396,7 +456,6 @@
           <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Portraiture</p>
         </div>
       </div>
-
     </div>
   </section>
 
