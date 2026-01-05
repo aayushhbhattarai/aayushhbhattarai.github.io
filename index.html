@@ -6,77 +6,460 @@
   <title>Aayush Bhattarai | 3D & Tech</title>
   <link rel="icon" href="projects/logoo.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* --- MERGED CSS (style.css + internal styles) --- */
+
+    /* VARIABLES & RESET */
+    :root {
+      --bg-color: #050505;
+      --card-bg: #111111;
+      --text-main: #ededed;
+      --text-muted: #888888;
+      --accent: #00ffc3;
+      --border: #222222;
+      --font-body: 'Inter', sans-serif;
+      --font-head: 'Poppins', sans-serif;
+      --font-mono: 'Courier New', Courier, monospace;
+      
+      --section-padding: 4rem 2rem;
+      --nav-height: 80px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth; /* Essential for single page nav */
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+
+    /* --- BACKGROUND ANIMATION --- */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -25%; left: -25%;
+      width: 150%; height: 150%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cpath d='M-100 100 Q 150 50 400 200 T 900 300' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3Cpath d='M-100 400 Q 200 300 500 500 T 900 400' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");
+      background-size: 800px 600px;
+      z-index: -2;
+      pointer-events: none;
+      animation: flowAndFade 25s linear infinite;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: -20%; left: -20%;
+      width: 140%; height: 140%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='800' viewBox='0 0 1000 800'%3E%3Cpath d='M-100 200 Q 300 600 700 100 T 1100 500' fill='none' stroke='rgba(0,255,195,0.03)' stroke-width='2'/%3E%3C/svg%3E");
+      background-size: 1000px 800px;
+      z-index: -1;
+      pointer-events: none;
+      animation: flowAndFade 35s linear infinite reverse;
+    }
+
+    @keyframes flowAndFade {
+      0% { transform: rotate(-15deg) translate(0, 0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: rotate(-15deg) translate(-400px, 300px); opacity: 0; }
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      height: var(--nav-height);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(15px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav a {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      font-weight: 600;
+      position: relative;
+      cursor: pointer;
+    }
+
+    nav a:hover, nav a.active { color: #fff; }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; width: 100%; height: 1px;
+      background: var(--accent);
+    }
+
+    /* --- SECTIONS --- */
+    /* Utility class to offset scroll position so nav doesn't cover content */
+    .page-section {
+      scroll-margin-top: var(--nav-height);
+      padding-top: 4rem; 
+      padding-bottom: 4rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* --- TYPOGRAPHY --- */
+    h1 { font-size: 3.5rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 1rem; line-height: 1.2; }
+    h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 1.5rem;}
+    
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* --- HOME HERO --- */
+    .hero-content {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Typewriter */
+    .typewriter {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid var(--accent);
+      font-family: var(--font-mono);
+      width: 0;
+      vertical-align: bottom;
+    }
+    .type-home { animation: typing-home 2s steps(17, end) forwards, blink 0.8s step-end infinite; }
+    .type-about { animation: typing-about 2s steps(16, end) forwards, blink 0.8s step-end infinite; }
+
+    @keyframes typing-home { from { width: 0; } to { width: 17ch; } }
+    @keyframes typing-about { from { width: 0; } to { width: 16ch; } }
+    @keyframes blink { 0%, 100% { border-color: transparent; } 50% { border-color: var(--accent); } }
+
+    /* --- HOME: SELECTED WORK (Preview) --- */
+    .projects-grid-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-10px); border-color: rgba(255, 255, 255, 0.2); }
+    .project-card img {
+      width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: grayscale(100%); transition: 0.6s ease;
+    }
+    .card-info { padding: 1.5rem; background: var(--card-bg); border-top: 1px solid var(--border); }
+    .project-card:hover img { filter: grayscale(0%); }
+
+    /* --- PROJECTS SECTION STYLES (From projects.html) --- */
+    .projects-header {
+      padding: 4rem 0 4rem; 
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .projects-header h1 {
+      font-family: var(--font-head);
+      font-size: 4rem;
+      letter-spacing: -2px;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    .projects-header p { 
+      color: var(--text-muted); 
+      max-width: 600px;
+      font-size: 1.1rem;
+    }
+    
+    .gallery-section {
+      padding: 0 0 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    h2.section-title {
+      font-family: var(--font-head);
+      color: var(--accent);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin: 4rem 0 2rem;
+      display: block;
+    }
+
+    /* THE GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr); 
+      gap: 2rem;
+    }
+    .media-item {
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateY(40px);
+      grid-column: span 4; 
+    }
+    /* Randomizing sizes */
+    .media-item:nth-child(3n+1) { grid-column: span 8; } 
+    .media-item:nth-child(even) { grid-column: span 4; } 
+    
+    .media-item.visible { opacity: 1; transform: translateY(0); }
+    .media-item:hover { transform: scale(0.98); }
+    
+    .media-item img, .media-item video {
+      width: 100%; height: 100%; min-height: 400px; object-fit: cover; display: block;
+      filter: grayscale(100%) brightness(0.7);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .media-item:hover img, .media-item:hover video {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.1);
+    }
+
+    /* --- ABOUT SECTION STYLES (From about.html) --- */
+    .about-container { max-width: 800px; margin: 0 auto; }
+    .about-block { 
+        margin-bottom: 3rem; 
+        border-left: 1px solid var(--border); 
+        padding-left: 1.5rem; 
+        position: relative; 
+    }
+    .about-block::before {
+        content: ''; position: absolute; left: -3px; top: 6px; width: 5px; height: 5px; background: var(--accent); border-radius: 50%;
+    }
+    
+    /* Skills */
+    .skill-item { margin-bottom: 1.2rem; }
+    .skill-header { display: flex; justify-content: space-between; margin-bottom: 0.3rem; font-size: 0.9rem; }
+    .progress-bg { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--accent); width: 0; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+
+    /* --- CONTACT (Footer style) --- */
+    .contact-footer {
+        text-align: center;
+        padding: 6rem 0;
+        border-top: 1px solid var(--border);
+        margin-top: 4rem;
+    }
+
+    /* --- GLOBAL ANIMATIONS --- */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1000px) {
+      .media-item, .media-item:nth-child(3n+1) { grid-column: span 6; }
+    }
+    @media (max-width: 768px) {
+        h1 { font-size: 2.5rem; }
+        .projects-header h1 { font-size: 2.5rem; }
+        .hero-content { min-height: 70vh; }
+        .container { padding: 0 1.5rem; }
+        .media-item, .media-item:nth-child(3n+1) { grid-column: span 12; }
+        .grid { gap: 1rem; }
+    }
+  </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="active">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
+  <nav id="navbar">
+    <a href="#home" class="nav-link active">Home</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#about" class="nav-link">About</a>
   </nav>
 
-<section class="hero">
-  <div class="scroll-reveal">
-    <p style="color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; font-family: monospace;">Hello, I'm</p>
-    
-    <h1>
-      <span class="typewriter type-home">Aayush Bhattarai.</span>
-    </h1>
+  <section id="home" class="page-section">
+    <div class="container">
+        <div class="hero-content scroll-reveal">
+            <p style="color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; font-family: monospace;">Hello, I'm</p>
+            <h1>
+            <span class="typewriter type-home">Aayush Bhattarai.</span>
+            </h1>
+            <p style="max-width: 500px; font-size: 1.1rem; margin-top: 1rem; color: #ccc;">
+            3D Graphics Artist & Tech Explorer.<br>
+            Visualizing complex ideas through code and light.
+            </p>
+            <div style="margin-top: 2rem;">
+            <a href="#projects" class="btn">View Work</a>
+            <a href="#about" class="btn" style="background: transparent; border-color: transparent; margin-left: 0.5rem;">About Me →</a>
+            </div>
+        </div>
 
-    <p style="max-width: 500px; font-size: 1.1rem; margin-top: 1rem; color: #ccc;">
-      3D Graphics Artist & Tech Explorer.<br>
-      Visualizing complex ideas through code and light.
-    </p>
-    
-    <div style="margin-top: 2rem;">
-      <a href="projects.html" class="btn">View Work</a>
-      <a href="about.html" class="btn" style="background: transparent; border-color: transparent; margin-left: 0.5rem;">About Me →</a>
-    </div>
-  </div>
-</section>
-  
-  <section class="scroll-reveal" style="padding-top: 0;">
-    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem;">
-        <h2>Selected Work</h2>
-        <a href="projects.html" style="font-size: 0.9rem; color: var(--text-muted);">View All →</a>
-    </div>
-    
-    <div class="projects-grid">
-      <a href="projects.html" class="project-card">
-        <img src="projects/INSOMNIA.png" alt="INSOMNIA" />
-        <div class="card-info">
-          <p><strong>Insomnia</strong></p>
-          <span>Surreal 3D Visualization</span>
+        <div class="scroll-reveal" style="padding-top: 6rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem;">
+                <h2>Selected Work</h2>
+                <a href="#projects" style="font-size: 0.9rem; color: var(--text-muted);">View All →</a>
+            </div>
+            
+            <div class="projects-grid-preview">
+            <a href="#projects" class="project-card">
+                <img src="projects/INSOMNIA.png" alt="INSOMNIA" />
+                <div class="card-info">
+                <p><strong>Insomnia</strong></p>
+                <span>Surreal 3D Visualization</span>
+                </div>
+            </a>
+            <a href="#projects" class="project-card">
+                <img src="projects/sunflower.png" alt="Sunflower" />
+                <div class="card-info">
+                <p><strong>Sunflower</strong></p>
+                <span>Procedural Golden Ratio</span>
+                </div>
+            </a>
+            <a href="#projects" class="project-card">
+                <img src="projects/STARWARS.png" alt="Star Wars" />
+                <div class="card-info">
+                <p><strong>Star Wars</strong></p>
+                <span>Composite Poster Design</span>
+                </div>
+            </a>
+            </div>
         </div>
-      </a>
-      
-      <a href="projects.html" class="project-card">
-        <img src="projects/sunflower.png" alt="Sunflower" />
-        <div class="card-info">
-          <p><strong>Sunflower</strong></p>
-          <span>Procedural Golden Ratio</span>
-        </div>
-      </a>
 
-      <a href="projects.html" class="project-card">
-        <img src="projects/STARWARS.png" alt="Star Wars" />
-        <div class="card-info">
-          <p><strong>Star Wars</strong></p>
-          <span>Composite Poster Design</span>
+        <div class="scroll-reveal" style="margin-top: 6rem;">
+            <div style="background: rgba(255,255,255,0.03); padding: 3rem; border-left: 3px solid var(--accent);">
+            <blockquote style="font-size: 1.2rem; font-style: italic;">“The best way to predict the future is to invent it.”</blockquote>
+            <p style="text-align: right; font-size: 0.9rem; margin-top: 1rem; color: var(--accent);">– Alan Kay</p>
+            </div>
         </div>
-      </a>
     </div>
   </section>
 
-  <section class="scroll-reveal">
-    <div style="background: rgba(255,255,255,0.03); padding: 3rem; border-left: 3px solid var(--accent);">
-      <blockquote style="font-size: 1.2rem; font-style: italic;">“The best way to predict the future is to invent it.”</blockquote>
-      <p style="text-align: right; font-size: 0.9rem; margin-top: 1rem; color: var(--accent);">– Alan Kay</p>
+  <section id="projects" class="page-section">
+    <div class="container gallery-section">
+        <div class="projects-header scroll-reveal">
+            <p style="color: var(--accent); letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 0.5rem;">PORTFOLIO</p>
+            <h1>Selected Archive</h1>
+            <p>A curated collection of 3D experiments, digital renders, and technical prototypes developed between 2023 and 2025.</p>
+        </div>
+
+        <h2 class="section-title scroll-reveal">Visual Works</h2>
+        <div class="grid" id="image-grid">
+            <div class="media-item"><img src="projects/INSOMNIA.png" alt="INSOMNIA" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/sunflower.png" alt="sunflower" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/STARWARS.png" alt="STARWARS" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/000.png" alt="Project" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/biohazard.png" alt="biohazard" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/CLIFF1.png" alt="CLIFF1" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/comeback.png" alt="comeback" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/DASHAIN.png" alt="DASHAIN" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/deer4.png" alt="deer4" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/DUNKRIK3.png" alt="DUNKRIK3" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/ETERNAL-PEACE.png" alt="ETERNAL-PEACE" loading="lazy"/></div>
+            <div class="media-item"><img src="projects/GOAT.png" alt="GOAT" loading="lazy"/></div>
+        </div>
+
+        <h2 class="section-title scroll-reveal">Motion</h2>
+        <div class="grid">
+            <div class="media-item"><video src="projects/My Video1.mp4" controls muted loop></video></div>
+            <div class="media-item"><video src="projects/My Video2.mp4" controls muted loop></video></div>
+            <div class="media-item"><video src="projects/out.mp4" controls muted loop></video></div>
+        </div>
     </div>
   </section>
 
-  <section class="contact scroll-reveal" style="text-align: center; padding-bottom: 6rem;">
+  <section id="about" class="page-section">
+    <div class="about-container">
+        <div class="about-block scroll-reveal">
+          <div style="display: flex; align-items: center;">
+              <h1 style="font-size: 2.5rem; margin-bottom: 0;">Aayush Bhattarai</h1>
+          </div>
+          <p style="color: var(--accent); font-family: monospace; margin-top:0.5rem">_3D Artist & Tech Explorer_</p>
+        </div>
+    
+        <div class="about-block scroll-reveal">
+          <h2>Profile</h2>
+          <p>I'm Aayush, originally from Nepal and currently studying at <strong>Universität des Saarlandes</strong> in Germany. I sit at the intersection of creativity and logic, passionate about 3D graphics, game engines, and the technical side of visual arts.</p>
+        </div>
+    
+        <div class="about-block scroll-reveal">
+          <h2>Education</h2>
+          <div style="margin-bottom: 1.5rem;">
+            <p style="margin-bottom: 0; font-size: 1.1rem; color: #fff;"><strong>Preparatory Course for BSc Computer Science</strong></p>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Universität des Saarlandes, Germany (2025 – Present)</span>
+          </div>
+          <div>
+            <p style="margin-bottom: 0; font-size: 1.1rem; color: #fff;"><strong>Higher Secondary (+2)</strong></p>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Trinity International SS & College, Nepal (2021 – 2023)</span>
+          </div>
+        </div>
+    
+        <div class="about-block scroll-reveal" id="skills-section">
+          <h2>Technical Stack</h2>
+          <div class="skill-item">
+            <div class="skill-header"><span>Blender (3D Env)</span><span>85%</span></div>
+            <div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>Photoshop</span><span>70%</span></div>
+            <div class="progress-bg"><div class="progress-fill" data-width="70%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>Python & General Programming</span><span>60%</span></div>
+            <div class="progress-bg"><div class="progress-fill" data-width="60%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>Godot Engine</span><span>50%</span></div>
+            <div class="progress-bg"><div class="progress-fill" data-width="50%"></div></div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="contact-footer scroll-reveal">
     <h2>Get in Touch</h2>
     <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Available for collaborations or just a chat.</p>
     <div>
@@ -86,16 +469,52 @@
   </section>
 
   <script>
+    // 1. SCROLL REVEAL ANIMATIONS
+    const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+            
+            // Trigger Skill Bars if looking at about section
+            if (entry.target.id === 'skills-section') {
+                entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-width');
+                });
+            }
         }
       });
-    }, { threshold: 0.1 });
+    }, observerOptions);
     
-    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    // Observe generic reveal elements and media items
+    document.querySelectorAll('.scroll-reveal, .media-item').forEach(el => observer.observe(el));
+
+    // 2. ACTIVE NAVIGATION HIGHLIGHTING
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            // -120 gives a bit of buffer so the link switches slightly before the section hits top
+            if (pageYOffset >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        // Handle the footer separately or let "About" stay active
+        // If bottom of page, highlight Contact or keep About? 
+        // Logic: Reset all, then add active to current ID
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
   </script>
 </body>
 </html>
