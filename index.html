@@ -3,511 +3,441 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aayush Bhattarai | 3D & Tech</title>
+  <title>Aayush Bhattarai | Visual Portfolio</title>
   <link rel="icon" href="projects/logoo.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
   
   <style>
-    /* --- MERGED CSS (style.css + internal styles) --- */
-
-    /* VARIABLES & RESET */
+    /* --- CONFIG & RESET --- */
     :root {
-      --bg-color: #050505;
-      --card-bg: #111111;
-      --text-main: #ededed;
-      --text-muted: #888888;
-      --accent: #00ffc3;
-      --border: #222222;
-      --font-body: 'Inter', sans-serif;
-      --font-head: 'Poppins', sans-serif;
-      --font-mono: 'Courier New', Courier, monospace;
+      --bg: #030303;
+      --surface: #0f0f0f;
+      --text: #f0f0f0;
+      --text-dim: #666;
+      --accent: #d4d4d4; /* Silver/White premium accent */
+      --highlight: #00ffc3; /* Kept your teal for tiny details */
       
-      --section-padding: 4rem 2rem;
-      --nav-height: 80px;
+      --font-body: 'Inter', sans-serif;
+      --font-display: 'Syne', sans-serif; /* Premium Display Font */
+      
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html {
-      scroll-behavior: smooth; /* Essential for single page nav */
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; /* Custom cursor prep */ }
+    
+    html { scroll-behavior: smooth; }
+    
     body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
+      background-color: var(--bg);
+      color: var(--text);
       font-family: var(--font-body);
-      line-height: 1.6;
-      position: relative;
-      min-height: 100vh;
-      width: 100%;
       overflow-x: hidden;
+      width: 100%;
     }
 
-    a { text-decoration: none; color: inherit; transition: 0.3s ease; }
-
-    /* --- BACKGROUND ANIMATION --- */
-    body::before {
-      content: "";
-      position: fixed;
-      top: -25%; left: -25%;
-      width: 150%; height: 150%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cpath d='M-100 100 Q 150 50 400 200 T 900 300' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3Cpath d='M-100 400 Q 200 300 500 500 T 900 400' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");
-      background-size: 800px 600px;
-      z-index: -2;
+    /* --- CUSTOM CURSOR --- */
+    .cursor-dot, .cursor-outline {
+      position: fixed; top: 0; left: 0;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      z-index: 9999;
       pointer-events: none;
-      animation: flowAndFade 25s linear infinite;
     }
-
-    body::after {
-      content: "";
-      position: fixed;
-      top: -20%; left: -20%;
-      width: 140%; height: 140%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='800' viewBox='0 0 1000 800'%3E%3Cpath d='M-100 200 Q 300 600 700 100 T 1100 500' fill='none' stroke='rgba(0,255,195,0.03)' stroke-width='2'/%3E%3C/svg%3E");
-      background-size: 1000px 800px;
-      z-index: -1;
-      pointer-events: none;
-      animation: flowAndFade 35s linear infinite reverse;
+    .cursor-dot { width: 8px; height: 8px; background: white; }
+    .cursor-outline { 
+      width: 40px; height: 40px; 
+      border: 1px solid rgba(255,255,255,0.5); 
+      transition: width 0.2s, height 0.2s;
     }
-
-    @keyframes flowAndFade {
-      0% { transform: rotate(-15deg) translate(0, 0); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: rotate(-15deg) translate(-400px, 300px); opacity: 0; }
-    }
-
-    /* --- NAVIGATION --- */
-    nav {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      height: var(--nav-height);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2.5rem;
-      background: rgba(5, 5, 5, 0.85);
-      backdrop-filter: blur(15px);
-      z-index: 100;
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav a {
-      font-family: var(--font-head);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--text-muted);
-      font-weight: 600;
-      position: relative;
-      cursor: pointer;
-    }
-
-    nav a:hover, nav a.active { color: #fff; }
-
-    nav a.active::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0; width: 100%; height: 1px;
-      background: var(--accent);
-    }
-
-    /* --- SECTIONS --- */
-    /* Utility class to offset scroll position so nav doesn't cover content */
-    .page-section {
-      scroll-margin-top: var(--nav-height);
-      padding-top: 4rem; 
-      padding-bottom: 4rem;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 2rem;
+    
+    /* --- BACKGROUND NOISE --- */
+    .noise {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: -1;
     }
 
     /* --- TYPOGRAPHY --- */
-    h1 { font-size: 3.5rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 1rem; line-height: 1.2; }
-    h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 1.5rem;}
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 0.9; }
     
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 1.8rem;
-      border: 1px solid var(--border);
-      background: var(--card-bg);
-      color: white;
-      font-weight: 600;
-      font-size: 0.9rem;
-      border-radius: 4px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    .btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    /* --- HOME HERO --- */
-    .hero-content {
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    /* Typewriter */
-    .typewriter {
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 3px solid var(--accent);
-      font-family: var(--font-mono);
-      width: 0;
-      vertical-align: bottom;
-    }
-    .type-home { animation: typing-home 2s steps(17, end) forwards, blink 0.8s step-end infinite; }
-    .type-about { animation: typing-about 2s steps(16, end) forwards, blink 0.8s step-end infinite; }
-
-    @keyframes typing-home { from { width: 0; } to { width: 17ch; } }
-    @keyframes typing-about { from { width: 0; } to { width: 16ch; } }
-    @keyframes blink { 0%, 100% { border-color: transparent; } 50% { border-color: var(--accent); } }
-
-    /* --- HOME: SELECTED WORK (Preview) --- */
-    .projects-grid-preview {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-    .project-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border);
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .project-card:hover { transform: translateY(-10px); border-color: rgba(255, 255, 255, 0.2); }
-    .project-card img {
-      width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: grayscale(100%); transition: 0.6s ease;
-    }
-    .card-info { padding: 1.5rem; background: var(--card-bg); border-top: 1px solid var(--border); }
-    .project-card:hover img { filter: grayscale(0%); }
-
-    /* --- PROJECTS SECTION STYLES (From projects.html) --- */
-    .projects-header {
-      padding: 4rem 0 4rem; 
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: left;
-    }
-    .projects-header h1 {
-      font-family: var(--font-head);
-      font-size: 4rem;
+    .super-title {
+      font-size: clamp(3rem, 10vw, 10rem);
+      text-transform: uppercase;
       letter-spacing: -2px;
-      color: white;
-      margin-bottom: 1rem;
-    }
-    .projects-header p { 
-      color: var(--text-muted); 
-      max-width: 600px;
-      font-size: 1.1rem;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+      position: relative;
+      margin-bottom: 2rem;
     }
     
-    .gallery-section {
-      padding: 0 0 4rem;
+    .super-title span {
+      display: block;
+      color: var(--text);
+      -webkit-text-stroke: 0;
+    }
+
+    /* --- FLOATING DOCK NAVIGATION (The "No Header" Solution) --- */
+    .dock-wrapper {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+    }
+
+    .dock {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.8rem 1.2rem;
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .dock a {
+      position: relative;
+      padding: 0.8rem 1.5rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      border-radius: 50px;
+      transition: all 0.4s var(--ease);
+    }
+
+    .dock a:hover, .dock a.active {
+      color: #000;
+      background: #fff;
+      transform: scale(1.05);
+    }
+
+    /* --- SECTIONS --- */
+    section {
+      padding: 6rem 2rem;
       max-width: 1400px;
       margin: 0 auto;
     }
-    
-    h2.section-title {
-      font-family: var(--font-head);
-      color: var(--accent);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin: 4rem 0 2rem;
-      display: block;
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 0;
     }
 
-    /* THE GRID */
+    /* --- THE GALLERY (Masonry Style) --- */
+    .gallery-header {
+      margin-bottom: 4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(12, 1fr); 
-      gap: 2rem;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.5rem;
+      grid-auto-flow: dense;
     }
-    .media-item {
+
+    .item {
+      grid-column: span 6;
       position: relative;
+      aspect-ratio: 16/10;
       overflow: hidden;
-      background: #0a0a0a;
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      opacity: 0;
-      transform: translateY(40px);
-      grid-column: span 4; 
-    }
-    /* Randomizing sizes */
-    .media-item:nth-child(3n+1) { grid-column: span 8; } 
-    .media-item:nth-child(even) { grid-column: span 4; } 
-    
-    .media-item.visible { opacity: 1; transform: translateY(0); }
-    .media-item:hover { transform: scale(0.98); }
-    
-    .media-item img, .media-item video {
-      width: 100%; height: 100%; min-height: 400px; object-fit: cover; display: block;
-      filter: grayscale(100%) brightness(0.7);
-      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .media-item:hover img, .media-item:hover video {
-      filter: grayscale(0%) brightness(1);
-      transform: scale(1.1);
+      border-radius: 4px;
+      background: #111;
+      cursor: none;
     }
 
-    /* --- ABOUT SECTION STYLES (From about.html) --- */
-    .about-container { max-width: 800px; margin: 0 auto; }
-    .about-block { 
-        margin-bottom: 3rem; 
-        border-left: 1px solid var(--border); 
-        padding-left: 1.5rem; 
-        position: relative; 
-    }
-    .about-block::before {
-        content: ''; position: absolute; left: -3px; top: 6px; width: 5px; height: 5px; background: var(--accent); border-radius: 50%;
-    }
-    
-    /* Skills */
-    .skill-item { margin-bottom: 1.2rem; }
-    .skill-header { display: flex; justify-content: space-between; margin-bottom: 0.3rem; font-size: 0.9rem; }
-    .progress-bg { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
-    .progress-fill { height: 100%; background: var(--accent); width: 0; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .item:nth-child(3n+1) { grid-column: span 8; aspect-ratio: 16/9; }
+    .item:nth-child(3n+2) { grid-column: span 4; aspect-ratio: 1/1; }
+    .item:nth-child(4n) { grid-column: span 12; aspect-ratio: 21/9; }
 
-    /* --- CONTACT (Footer style) --- */
-    .contact-footer {
-        text-align: center;
-        padding: 6rem 0;
-        border-top: 1px solid var(--border);
-        margin-top: 4rem;
+    .item img, .item video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: transform 1s var(--ease), filter 0.5s ease;
+      opacity: 0.7;
     }
 
-    /* --- GLOBAL ANIMATIONS --- */
-    .scroll-reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s ease;
+    .item-overlay {
+      position: absolute;
+      bottom: 0; left: 0; width: 100%;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      transform: translateY(100%);
+      transition: transform 0.5s var(--ease);
+      z-index: 2;
     }
-    .scroll-reveal.visible {
+
+    .item:hover img, .item:hover video {
+      transform: scale(1.05);
+      filter: grayscale(0%);
       opacity: 1;
+    }
+    
+    .item:hover .item-overlay {
       transform: translateY(0);
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 1000px) {
-      .media-item, .media-item:nth-child(3n+1) { grid-column: span 6; }
+    /* --- ABOUT / TECH --- */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 4rem;
     }
+
+    .bio-text {
+      font-size: 1.5rem;
+      line-height: 1.4;
+      color: #bbb;
+    }
+
+    .tech-pill {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem 0.5rem 0;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      transition: 0.3s;
+    }
+    
+    .tech-pill:hover {
+      border-color: var(--highlight);
+      color: var(--highlight);
+    }
+
+    /* --- FOOTER --- */
+    .footer-huge {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .contact-link {
+      font-family: var(--font-display);
+      font-size: 8vw;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .contact-link:hover { color: var(--highlight); }
+
+    /* --- ANIMATIONS --- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s var(--ease);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* --- MOBILE --- */
     @media (max-width: 768px) {
-        h1 { font-size: 2.5rem; }
-        .projects-header h1 { font-size: 2.5rem; }
-        .hero-content { min-height: 70vh; }
-        .container { padding: 0 1.5rem; }
-        .media-item, .media-item:nth-child(3n+1) { grid-column: span 12; }
-        .grid { gap: 1rem; }
+      .super-title { font-size: 15vw; }
+      .about-layout { grid-template-columns: 1fr; }
+      .item, .item:nth-child(3n+1), .item:nth-child(3n+2) { grid-column: span 12; aspect-ratio: 16/10; }
+      .dock { padding: 0.6rem; }
+      .dock a { padding: 0.6rem 1rem; font-size: 0.7rem; }
     }
   </style>
 </head>
 <body>
 
-  <nav id="navbar">
-    <a href="#home" class="nav-link active">Home</a>
-    <a href="#projects" class="nav-link">Projects</a>
-    <a href="#about" class="nav-link">About</a>
-  </nav>
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
 
-  <section id="home" class="page-section">
-    <div class="container">
-        <div class="hero-content scroll-reveal">
-            <p style="color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; font-family: monospace;">Hello, I'm</p>
-            <h1>
-            <span class="typewriter type-home">Aayush Bhattarai.</span>
-            </h1>
-            <p style="max-width: 500px; font-size: 1.1rem; margin-top: 1rem; color: #ccc;">
-            3D Graphics Artist & Tech Explorer.<br>
-            Visualizing complex ideas through code and light.
-            </p>
-            <div style="margin-top: 2rem;">
-            <a href="#projects" class="btn">View Work</a>
-            <a href="#about" class="btn" style="background: transparent; border-color: transparent; margin-left: 0.5rem;">About Me →</a>
-            </div>
-        </div>
+  <div class="noise"></div>
 
-        <div class="scroll-reveal" style="padding-top: 6rem;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem;">
-                <h2>Selected Work</h2>
-                <a href="#projects" style="font-size: 0.9rem; color: var(--text-muted);">View All →</a>
-            </div>
-            
-            <div class="projects-grid-preview">
-            <a href="#projects" class="project-card">
-                <img src="projects/INSOMNIA.png" alt="INSOMNIA" />
-                <div class="card-info">
-                <p><strong>Insomnia</strong></p>
-                <span>Surreal 3D Visualization</span>
-                </div>
-            </a>
-            <a href="#projects" class="project-card">
-                <img src="projects/sunflower.png" alt="Sunflower" />
-                <div class="card-info">
-                <p><strong>Sunflower</strong></p>
-                <span>Procedural Golden Ratio</span>
-                </div>
-            </a>
-            <a href="#projects" class="project-card">
-                <img src="projects/STARWARS.png" alt="Star Wars" />
-                <div class="card-info">
-                <p><strong>Star Wars</strong></p>
-                <span>Composite Poster Design</span>
-                </div>
-            </a>
-            </div>
-        </div>
+  <div class="dock-wrapper">
+    <nav class="dock">
+      <a href="#hero" class="active">Intro</a>
+      <a href="#work">Work</a>
+      <a href="#profile">Profile</a>
+      <a href="mailto:baayush061@gmail.com">Contact</a>
+    </nav>
+  </div>
 
-        <div class="scroll-reveal" style="margin-top: 6rem;">
-            <div style="background: rgba(255,255,255,0.03); padding: 3rem; border-left: 3px solid var(--accent);">
-            <blockquote style="font-size: 1.2rem; font-style: italic;">“The best way to predict the future is to invent it.”</blockquote>
-            <p style="text-align: right; font-size: 0.9rem; margin-top: 1rem; color: var(--accent);">– Alan Kay</p>
-            </div>
-        </div>
+  <section id="hero" class="hero">
+    <div class="fade-up">
+      <p style="font-family: monospace; color: var(--highlight); margin-bottom: 1rem;">// PORTFOLIO 2023–25</p>
+      <h1 class="super-title">
+        Digital<br>
+        <span>Artist &</span><br>
+        Explorer
+      </h1>
+      <p style="max-width: 500px; color: var(--text-dim); font-size: 1.1rem; line-height: 1.6;">
+        I am <strong>Aayush Bhattarai</strong>. I visualize complex ideas through code, light, and 3D space. Currently inventing the future at Universität des Saarlandes.
+      </p>
     </div>
   </section>
 
-  <section id="projects" class="page-section">
-    <div class="container gallery-section">
-        <div class="projects-header scroll-reveal">
-            <p style="color: var(--accent); letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 0.5rem;">PORTFOLIO</p>
-            <h1>Selected Archive</h1>
-            <p>A curated collection of 3D experiments, digital renders, and technical prototypes developed between 2023 and 2025.</p>
-        </div>
+  <section id="work">
+    <div class="gallery-header fade-up">
+      <h2>Selected Archive</h2>
+      <span style="font-family: monospace; color: var(--text-dim);">[ SCROLL TO EXPLORE ]</span>
+    </div>
 
-        <h2 class="section-title scroll-reveal">Visual Works</h2>
-        <div class="grid" id="image-grid">
-            <div class="media-item"><img src="projects/INSOMNIA.png" alt="INSOMNIA" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/sunflower.png" alt="sunflower" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/STARWARS.png" alt="STARWARS" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/000.png" alt="Project" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/biohazard.png" alt="biohazard" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/CLIFF1.png" alt="CLIFF1" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/comeback.png" alt="comeback" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/DASHAIN.png" alt="DASHAIN" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/deer4.png" alt="deer4" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/DUNKRIK3.png" alt="DUNKRIK3" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/ETERNAL-PEACE.png" alt="ETERNAL-PEACE" loading="lazy"/></div>
-            <div class="media-item"><img src="projects/GOAT.png" alt="GOAT" loading="lazy"/></div>
+    <div class="grid">
+      <div class="item fade-up">
+        <img src="projects/INSOMNIA.png" alt="Insomnia">
+        <div class="item-overlay">
+          <h3>Insomnia</h3>
+          <p style="color: #ccc; font-size: 0.9rem;">Surreal 3D Visualization</p>
         </div>
+      </div>
+      
+      <div class="item fade-up">
+        <img src="projects/sunflower.png" alt="Sunflower">
+        <div class="item-overlay">
+          <h3>Sunflower</h3>
+          <p style="color: #ccc; font-size: 0.9rem;">Procedural Geometry</p>
+        </div>
+      </div>
 
-        <h2 class="section-title scroll-reveal">Motion</h2>
-        <div class="grid">
-            <div class="media-item"><video src="projects/My Video1.mp4" controls muted loop></video></div>
-            <div class="media-item"><video src="projects/My Video2.mp4" controls muted loop></video></div>
-            <div class="media-item"><video src="projects/out.mp4" controls muted loop></video></div>
+      <div class="item fade-up">
+        <img src="projects/STARWARS.png" alt="Star Wars">
+        <div class="item-overlay">
+          <h3>Star Wars</h3>
+          <p style="color: #ccc; font-size: 0.9rem;">Digital Composite</p>
         </div>
+      </div>
+
+      <div class="item fade-up">
+        <video src="projects/out.mp4" muted loop autoplay playsinline></video>
+        <div class="item-overlay">
+          <h3>Motion Study 01</h3>
+          <p style="color: #ccc; font-size: 0.9rem;">Render Cycles</p>
+        </div>
+      </div>
+
+      <div class="item fade-up">
+        <img src="projects/CLIFF1.png" alt="Cliff">
+        <div class="item-overlay">
+          <h3>The Cliff</h3>
+          <p style="color: #ccc; font-size: 0.9rem;">Environment Design</p>
+        </div>
+      </div>
+      
+      <div class="item fade-up">
+        <img src="projects/biohazard.png" alt="Biohazard">
+         <div class="item-overlay">
+          <h3>Biohazard</h3>
+          <p style="color: #ccc; font-size: 0.9rem;">Concept Art</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="about" class="page-section">
-    <div class="about-container">
-        <div class="about-block scroll-reveal">
-          <div style="display: flex; align-items: center;">
-              <h1 style="font-size: 2.5rem; margin-bottom: 0;">Aayush Bhattarai</h1>
-          </div>
-          <p style="color: var(--accent); font-family: monospace; margin-top:0.5rem">_3D Artist & Tech Explorer_</p>
+  <section id="profile">
+    <div class="gallery-header fade-up">
+      <h2>The Artist</h2>
+    </div>
+
+    <div class="about-layout fade-up">
+      <div class="bio-text">
+        <p>
+          I sit at the intersection of creativity and logic. Originally from Nepal and currently based in Germany, I treat every project as an experiment in visual storytelling.
+        </p>
+        <br>
+        <p style="font-size: 1rem; color: var(--text-dim);">
+          Education: Preparatory Course for BSc Computer Science<br>
+          <em>Universität des Saarlandes, Germany</em>
+        </p>
+      </div>
+
+      <div>
+        <h3 style="font-size: 1rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px;">Technical Stack</h3>
+        <div>
+          <span class="tech-pill">Blender 3D</span>
+          <span class="tech-pill">Godot Engine</span>
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Adobe Photoshop</span>
+          <span class="tech-pill">GLSL Shaders</span>
+          <span class="tech-pill">Game Design</span>
+          <span class="tech-pill">Premiere Pro</span>
         </div>
-    
-        <div class="about-block scroll-reveal">
-          <h2>Profile</h2>
-          <p>I'm Aayush, originally from Nepal and currently studying at <strong>Universität des Saarlandes</strong> in Germany. I sit at the intersection of creativity and logic, passionate about 3D graphics, game engines, and the technical side of visual arts.</p>
-        </div>
-    
-        <div class="about-block scroll-reveal">
-          <h2>Education</h2>
-          <div style="margin-bottom: 1.5rem;">
-            <p style="margin-bottom: 0; font-size: 1.1rem; color: #fff;"><strong>Preparatory Course for BSc Computer Science</strong></p>
-            <span style="font-size: 0.85rem; color: var(--text-muted);">Universität des Saarlandes, Germany (2025 – Present)</span>
-          </div>
-          <div>
-            <p style="margin-bottom: 0; font-size: 1.1rem; color: #fff;"><strong>Higher Secondary (+2)</strong></p>
-            <span style="font-size: 0.85rem; color: var(--text-muted);">Trinity International SS & College, Nepal (2021 – 2023)</span>
-          </div>
-        </div>
-    
-        <div class="about-block scroll-reveal" id="skills-section">
-          <h2>Technical Stack</h2>
-          <div class="skill-item">
-            <div class="skill-header"><span>Blender (3D Env)</span><span>85%</span></div>
-            <div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>Photoshop</span><span>70%</span></div>
-            <div class="progress-bg"><div class="progress-fill" data-width="70%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>Python & General Programming</span><span>60%</span></div>
-            <div class="progress-bg"><div class="progress-fill" data-width="60%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>Godot Engine</span><span>50%</span></div>
-            <div class="progress-bg"><div class="progress-fill" data-width="50%"></div></div>
-          </div>
-        </div>
+      </div>
     </div>
   </section>
 
-  <section class="contact-footer scroll-reveal">
-    <h2>Get in Touch</h2>
-    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Available for collaborations or just a chat.</p>
-    <div>
-      <a href="mailto:baayush061@gmail.com" class="btn">Email Me</a>
-      <a href="https://www.linkedin.com/in/aayushbhattarai1/" target="_blank" class="btn" style="background: transparent; border-color: transparent;">LinkedIn ↗</a>
+  <section class="footer-huge fade-up">
+    <p style="color: var(--text-dim); margin-bottom: 1rem;">Have an idea?</p>
+    <a href="mailto:baayush061@gmail.com" class="contact-link">Let's Talk ↗</a>
+    <div style="margin-top: 3rem; display: flex; gap: 2rem;">
+      <a href="https://www.linkedin.com/in/aayushbhattarai1/" target="_blank" style="color: var(--text); border-bottom: 1px solid var(--text);">LinkedIn</a>
+      <a href="#" style="color: var(--text); border-bottom: 1px solid var(--text);">Instagram</a>
     </div>
   </section>
 
   <script>
-    // 1. SCROLL REVEAL ANIMATIONS
-    const observerOptions = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            
-            // Trigger Skill Bars if looking at about section
-            if (entry.target.id === 'skills-section') {
-                entry.target.querySelectorAll('.progress-fill').forEach(bar => {
-                    bar.style.width = bar.getAttribute('data-width');
-                });
-            }
-        }
-      });
-    }, observerOptions);
+    // 1. CUSTOM CURSOR LOGIC
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        // Dot follows instantly
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        // Outline follows with lag (via CSS transition)
+        cursorOutline.style.left = `${posX}px`;
+        cursorOutline.style.top = `${posY}px`;
+    });
     
-    // Observe generic reveal elements and media items
-    document.querySelectorAll('.scroll-reveal, .media-item').forEach(el => observer.observe(el));
+    // Hover effect for cursor
+    document.querySelectorAll('a, .item').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            cursorOutline.style.background = 'rgba(255,255,255,0.1)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursorOutline.style.background = 'transparent';
+        });
+    });
 
-    // 2. ACTIVE NAVIGATION HIGHLIGHTING
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
+    // 2. SCROLL REVEAL
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
+    // 3. ACTIVE NAV LINK
     window.addEventListener('scroll', () => {
-        let current = '';
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.dock a');
         
+        let current = '';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            // -120 gives a bit of buffer so the link switches slightly before the section hits top
-            if (pageYOffset >= (sectionTop - 150)) {
+            if (scrollY >= (sectionTop - 300)) {
                 current = section.getAttribute('id');
             }
         });
 
-        // Handle the footer separately or let "About" stay active
-        // If bottom of page, highlight Contact or keep About? 
-        // Logic: Reset all, then add active to current ID
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href').includes(current)) {
