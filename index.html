@@ -32,7 +32,7 @@
       line-height: 1.6;
     }
 
-    /* --- ORIGINAL FLOWING WAVES BACKGROUND --- */
+    /* --- BACKGROUND --- */
     body::before {
       content: "";
       position: fixed;
@@ -68,9 +68,10 @@
     h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 0.85; }
     
     .super-title {
-      font-size: clamp(3.5rem, 12vw, 11rem); 
+      /* CHANGED: Reduced font sizes */
+      font-size: clamp(2.5rem, 7vw, 7rem); 
       text-transform: uppercase;
-      letter-spacing: -4px;
+      letter-spacing: -2px; /* Slightly less aggressive tracking */
       color: transparent;
       -webkit-text-stroke: 1px rgba(255,255,255,0.2);
       margin-bottom: 2rem;
@@ -111,6 +112,7 @@
       letter-spacing: 1.5px;
       border-radius: 50px;
       transition: all 0.3s ease;
+      text-decoration: none;
     }
 
     .dock a:hover, .dock a.active {
@@ -149,7 +151,7 @@
     }
 
     .item {
-      grid-column: span 6;
+      grid-column: span 6; /* Default half width */
       position: relative;
       aspect-ratio: 16/10;
       overflow: hidden;
@@ -157,10 +159,15 @@
       background: #0a0a0a;
     }
 
-    /* Masonry Logic */
-    .item:nth-child(3n+1) { grid-column: span 8; aspect-ratio: 16/9; }
-    .item:nth-child(3n+2) { grid-column: span 4; aspect-ratio: 1/1; }
-    .item:nth-child(4n) { grid-column: span 12; aspect-ratio: 21/9; }
+    /* Masonry Logic Refined for 12 Items */
+    /* Pattern: Large(8) + Small(4) | 3 Smalls | Half(6)+Half(6) */
+    .item:nth-child(5n+1) { grid-column: span 8; aspect-ratio: 16/9; }
+    .item:nth-child(5n+2) { grid-column: span 4; aspect-ratio: 1/1; }
+    .item:nth-child(5n+3), 
+    .item:nth-child(5n+4), 
+    .item:nth-child(5n+5) { grid-column: span 4; aspect-ratio: 4/5; }
+    /* Override every 6th to be half width to reset rhythm */
+    .item:nth-child(6n) { grid-column: span 6; aspect-ratio: 16/9; }
 
     .item img, .item video {
       width: 100%; height: 100%;
@@ -258,7 +265,7 @@
     @media (max-width: 900px) {
       .about-layout { grid-template-columns: 1fr; gap: 3rem; }
       .super-title { font-size: 15vw; letter-spacing: -2px; }
-      .item, .item:nth-child(3n+1), .item:nth-child(3n+2) { grid-column: span 12; aspect-ratio: 16/10; }
+      .item { grid-column: span 12 !important; aspect-ratio: 16/10 !important; }
     }
   </style>
 </head>
@@ -289,57 +296,107 @@
   <section id="work">
     <div class="gallery-header fade-up">
       <h2 style="font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent);">Visual Index</h2>
-      <span style="font-family: monospace; color: var(--text-dim); font-size: 0.7rem;">06 ITEMS / MASONRY</span>
+      <span style="font-family: monospace; color: var(--text-dim); font-size: 0.7rem;">12 ITEMS / MASONRY</span>
     </div>
 
     <div class="grid">
+      
       <div class="item fade-up">
-        <img src="projects/INSOMNIA.png" alt="Insomnia">
+        <img src="projects/INSOMNIA.png" alt="Insomnia" loading="lazy">
         <div class="item-overlay">
           <h3>Insomnia</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">3D Render / 2024</p>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Render / 2024</p>
         </div>
       </div>
       
       <div class="item fade-up">
-        <img src="projects/sunflower.png" alt="Sunflower">
+        <img src="projects/sunflower.png" alt="Sunflower" loading="lazy">
         <div class="item-overlay">
           <h3>Sunflower</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Procedural / Geometry Nodes</p>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Geometry Nodes</p>
         </div>
       </div>
 
       <div class="item fade-up">
-        <img src="projects/STARWARS.png" alt="Star Wars">
+        <img src="projects/STARWARS.png" alt="Star Wars" loading="lazy">
         <div class="item-overlay">
           <h3>Star Wars</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Composite Design</p>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Composite</p>
         </div>
       </div>
 
       <div class="item fade-up">
-        <video src="projects/out.mp4" muted loop autoplay playsinline></video>
+        <img src="projects/000.png" alt="Project Zero" loading="lazy">
         <div class="item-overlay">
-          <h3>Motion Study</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Physics Simulation</p>
+          <h3>Project Zero</h3>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Concept Art</p>
         </div>
       </div>
 
       <div class="item fade-up">
-        <img src="projects/CLIFF1.png" alt="Cliff">
-        <div class="item-overlay">
-          <h3>Cliff 01</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Environment Art</p>
-        </div>
-      </div>
-      
-      <div class="item fade-up">
-        <img src="projects/biohazard.png" alt="Biohazard">
+        <img src="projects/biohazard.png" alt="Biohazard" loading="lazy">
          <div class="item-overlay">
           <h3>Biohazard</h3>
           <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Technical Concept</p>
         </div>
       </div>
+
+      <div class="item fade-up">
+        <img src="projects/CLIFF1.png" alt="Cliff" loading="lazy">
+        <div class="item-overlay">
+          <h3>Cliff 01</h3>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Environment Art</p>
+        </div>
+      </div>
+
+      <div class="item fade-up">
+        <img src="projects/comeback.png" alt="Comeback" loading="lazy">
+        <div class="item-overlay">
+          <h3>The Comeback</h3>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Cinematic</p>
+        </div>
+      </div>
+
+      <div class="item fade-up">
+        <img src="projects/DASHAIN.png" alt="Dashain" loading="lazy">
+        <div class="item-overlay">
+          <h3>Dashain</h3>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Cultural Art</p>
+        </div>
+      </div>
+
+      <div class="item fade-up">
+        <img src="projects/deer4.png" alt="Deer" loading="lazy">
+        <div class="item-overlay">
+          <h3>Fauna Study</h3>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Sculpting</p>
+        </div>
+      </div>
+
+      <div class="item fade-up">
+        <img src="projects/DUNKRIK3.png" alt="Dunkirk" loading="lazy">
+        <div class="item-overlay">
+          <h3>Dunkirk</h3>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Atmospherics</p>
+        </div>
+      </div>
+
+      <div class="item fade-up">
+        <img src="projects/ETERNAL-PEACE.png" alt="Eternal Peace" loading="lazy">
+        <div class="item-overlay">
+          <h3>Eternal Peace</h3>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Abstract</p>
+        </div>
+      </div>
+
+      <div class="item fade-up">
+        <img src="projects/GOAT.png" alt="GOAT" loading="lazy">
+        <div class="item-overlay">
+          <h3>G.O.A.T.</h3>
+          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Portraiture</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
