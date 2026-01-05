@@ -13,16 +13,14 @@
       --bg: #050505;
       --text: #f0f0f0;
       --text-dim: #888;
-      --accent: #00ffc3; /* Original Teal */
+      --accent: #00ffc3;
       --font-body: 'Inter', sans-serif;
       --font-display: 'Syne', sans-serif; 
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
     html { scroll-behavior: smooth; }
-    
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -32,281 +30,170 @@
       line-height: 1.6;
     }
 
-    /* --- ORIGINAL FLOWING WAVES BACKGROUND (KEPT AS REQUESTED) --- */
-    body::before {
+    /* --- ORIGINAL FLOWING WAVES BACKGROUND --- */
+    body::before, body::after {
       content: "";
       position: fixed;
-      top: -25%; left: -25%;
       width: 150%; height: 150%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cpath d='M-100 100 Q 150 50 400 200 T 900 300' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3Cpath d='M-100 400 Q 200 300 500 500 T 900 400' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");
-      background-size: 800px 600px;
       z-index: -2;
       pointer-events: none;
+    }
+    body::before {
+      top: -25%; left: -25%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cpath d='M-100 100 Q 150 50 400 200 T 900 300' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3C/svg%3E");
       animation: flowAndFade 25s linear infinite;
     }
-
     body::after {
-      content: "";
-      position: fixed;
       top: -20%; left: -20%;
-      width: 140%; height: 140%;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='800' viewBox='0 0 1000 800'%3E%3Cpath d='M-100 200 Q 300 600 700 100 T 1100 500' fill='none' stroke='rgba(0,255,195,0.03)' stroke-width='2'/%3E%3C/svg%3E");
-      background-size: 1000px 800px;
       z-index: -1;
-      pointer-events: none;
       animation: flowAndFade 35s linear infinite reverse;
     }
-
     @keyframes flowAndFade {
       0% { transform: rotate(-15deg) translate(0, 0); opacity: 0; }
       10% { opacity: 1; }
-      90% { opacity: 1; }
       100% { transform: rotate(-15deg) translate(-400px, 300px); opacity: 0; }
     }
 
-    /* --- TYPOGRAPHY --- */
-    h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 0.85; }
-    
-    .super-title {
-      /* Smaller size as requested previously */
-      font-size: clamp(2.5rem, 7vw, 7rem); 
-      text-transform: uppercase;
-      letter-spacing: -2px;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,0.2);
-      margin-bottom: 2rem;
-    }
-    
-    .super-title span {
-      display: block;
-      color: var(--text);
-      -webkit-text-stroke: 0;
-    }
-
-    /* --- FLOATING DOCK NAVIGATION --- */
-    .dock-wrapper {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-    }
-
-    .dock {
-      display: flex;
-      gap: 0.5rem;
-      padding: 0.7rem;
-      background: rgba(10, 10, 10, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 100px;
-    }
-
-    .dock a {
-      padding: 0.7rem 1.4rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-
-    .dock a:hover, .dock a.active {
-      color: #000;
-      background: #fff;
-    }
-
-    /* --- SECTIONS --- */
-    section {
-      padding: 8rem 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* --- NEW HERO INTEGRATION --- */
+    /* --- HERO & TEXT MASKING --- */
     .hero {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      position: relative; /* Needed for absolute child */
-      overflow: hidden;
+      padding: 2rem;
     }
 
-    /* This is the new atmospheric image layer */
-    .hero-atmospheric-bg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1.1);
-      width: 100%;
-      height: 100%;
-      z-index: -1; /* Behind text, in front of body waves */
+    .super-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      line-height: 0.85;
+      font-size: clamp(3rem, 12vw, 8.5rem);
+      text-transform: uppercase;
+      letter-spacing: -3px;
       
-      /* CHANGE THIS IMAGE PATH TO YOUR BEST RENDER */
-      background-image: url('projects/INSOMNIA.png'); 
-      
+      /* The Masking Magic */
+      background: url('projects/INSOMNIA.png'); /* Choose your best render for inside the name */
       background-size: cover;
       background-position: center;
-      opacity: 0.3; /* Subtle blending */
-      filter: blur(3px) saturate(1.2); /* Dreamy look */
+      background-attachment: fixed; /* Creates the Parallax effect */
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       
-      /* The magic sauce: fades the image out radially */
-      -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
-      mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
-      
-      transition: all 1.5s ease;
+      /* Subtle outline to keep it readable against dark waves */
+      -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+      margin-bottom: 1.5rem;
     }
 
-    /* Subtle interaction when hovering the hero section */
-    .hero:hover .hero-atmospheric-bg {
-        opacity: 0.4;
-        filter: blur(0px) saturate(1);
-        transform: translate(-50%, -50%) scale(1.05);
+    .super-title span {
+      display: block;
+      /* We apply a different image for the second part of the name if desired, or keep the same */
+      filter: saturate(1.5) brightness(1.2);
     }
 
-    .hero-content {
-        position: relative;
-        z-index: 2; /* Ensures text is sharp above the atmosphere */
-        text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Better readability */
+    /* --- NAVIGATION --- */
+    .dock-wrapper {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: max-content;
     }
+    .dock {
+      display: flex;
+      gap: 0.3rem;
+      padding: 0.5rem;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+    }
+    .dock a {
+      padding: 0.6rem 1.1rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 50px;
+      transition: 0.3s;
+    }
+    .dock a:hover, .dock a.active { color: #000; background: #fff; }
 
-
-    /* --- THE GRID --- */
+    /* --- GRID --- */
+    section { padding: 6rem 1.5rem; max-width: 1400px; margin: 0 auto; }
     .gallery-header {
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding-bottom: 2rem;
+      padding-bottom: 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
     }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 1.5rem;
-    }
-
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
     .item {
       grid-column: span 6;
       position: relative;
       aspect-ratio: 16/10;
       overflow: hidden;
-      border-radius: 2px;
       background: #0a0a0a;
     }
-
-    /* Masonry Logic 12 Items */
-    .item:nth-child(5n+1) { grid-column: span 8; aspect-ratio: 16/9; }
-    .item:nth-child(5n+2) { grid-column: span 4; aspect-ratio: 1/1; }
-    .item:nth-child(5n+3), 
-    .item:nth-child(5n+4), 
-    .item:nth-child(5n+5) { grid-column: span 4; aspect-ratio: 4/5; }
-    .item:nth-child(6n) { grid-column: span 6; aspect-ratio: 16/9; }
-
-    .item img, .item video {
+    /* Masonry - Optimized for Desktop */
+    @media (min-width: 901px) {
+      .item:nth-child(5n+1) { grid-column: span 8; }
+      .item:nth-child(5n+2) { grid-column: span 4; }
+      .item:nth-child(5n+3), .item:nth-child(5n+4), .item:nth-child(5n+5) { grid-column: span 4; }
+    }
+    
+    .item img {
       width: 100%; height: 100%;
       object-fit: cover;
-      filter: grayscale(100%) brightness(0.6);
-      transition: transform 1.2s var(--ease), filter 0.8s ease, opacity 0.8s ease;
-      opacity: 0.6;
+      filter: grayscale(100%) brightness(0.5);
+      transition: 1s var(--ease);
     }
-
     .item-overlay {
-      position: absolute;
-      bottom: 0; left: 0; width: 100%;
-      padding: 2.5rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-      transform: translateY(20px);
-      opacity: 0;
-      transition: all 0.5s var(--ease);
-      z-index: 2;
-    }
-
-    .item:hover img, .item:hover video {
-      transform: scale(1.04);
-      filter: grayscale(0%) brightness(1);
-      opacity: 1;
-    }
-    
-    .item:hover .item-overlay {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* --- ABOUT LAYOUT --- */
-    .about-layout {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 6rem;
-      margin-top: 4rem;
-    }
-
-    .bio-text {
-      font-size: 1.6rem;
-      line-height: 1.3;
-      color: #ccc;
-      font-weight: 300;
-    }
-
-    .tech-pill {
-      display: inline-block;
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 0.6rem 1.2rem;
-      margin: 0 0.4rem 0.8rem 0;
-      border-radius: 2px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-dim);
-      transition: 0.3s;
-    }
-    
-    .tech-pill:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(0, 255, 195, 0.05);
-    }
-
-    /* --- FOOTER --- */
-    .footer-huge {
-      min-height: 70vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .contact-link {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 10vw, 8rem);
-      color: var(--text);
-      text-decoration: none;
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      opacity: 0; transform: translateY(10px);
       transition: 0.4s var(--ease);
     }
-    .contact-link:hover {
-      color: var(--accent);
-      transform: skewX(-5deg);
+    .item:hover img { filter: grayscale(0%) brightness(1); transform: scale(1.05); }
+    .item:hover .item-overlay { opacity: 1; transform: translateY(0); }
+
+    /* --- ABOUT --- */
+    .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .bio-text { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 300; color: #ccc; }
+    .tech-pill {
+      display: inline-block; border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.5rem 1rem; margin: 0 0.3rem 0.6rem 0;
+      font-size: 0.7rem; text-transform: uppercase; color: var(--text-dim);
     }
 
-    /* --- ANIMATIONS --- */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s var(--ease);
-    }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-
+    /* --- MOBILE OPTIMIZATIONS --- */
     @media (max-width: 900px) {
-      .about-layout { grid-template-columns: 1fr; gap: 3rem; }
-      .super-title { font-size: 15vw; letter-spacing: -2px; }
-      .item { grid-column: span 12 !important; aspect-ratio: 16/10 !important; }
+      section { padding: 4rem 1.2rem; }
+      .super-title { 
+          background-attachment: scroll; /* Fixed background can be glitchy on mobile browsers */
+          line-height: 0.9;
+          letter-spacing: -1px;
+      }
+      .grid { display: flex; flex-direction: column; gap: 1.5rem; }
+      .item { width: 100%; aspect-ratio: 16/10 !important; }
+      .about-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .gallery-header h2 { font-size: 0.6rem; }
+      .contact-link { font-size: 3rem; }
     }
+
+    .footer-huge { min-height: 50vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .contact-link { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 6rem); color: #fff; text-decoration: none; transition: 0.3s; }
+    .contact-link:hover { color: var(--accent); }
+
+    .fade-up { opacity: 0; transform: translateY(20px); transition: 0.8s var(--ease); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -321,143 +208,51 @@
   </div>
 
   <section id="hero" class="hero">
-    <div class="hero-atmospheric-bg"></div>
-
-    <div class="hero-content fade-up">
-      <p style="font-family: monospace; color: var(--accent); margin-bottom: 1.5rem; letter-spacing: 3px; font-size: 0.8rem;">[ PREPARATORY_STAGE_2026 ]</p>
+    <div class="fade-up">
+      <p style="font-family: monospace; color: var(--accent); margin-bottom: 1rem; letter-spacing: 2px; font-size: 0.7rem;">[ ARTIST_CORE_V2 ]</p>
       <h1 class="super-title">
         Aayush<br>
         <span>Bhattarai</span>
       </h1>
-      <p style="max-width: 600px; color: var(--text-dim); font-size: 1.2rem; line-height: 1.6; font-weight: 300;">
-        3D Artist & Tech Explorer. Crafting digital environments and technical prototypes. Based in Saarbrücken, Germany.
+      <p style="max-width: 500px; color: var(--text-dim); font-size: 1.1rem; font-weight: 300;">
+        3D Artist & Computer Science student. Exploring the intersection of digital light and code.
       </p>
     </div>
   </section>
 
   <section id="work">
     <div class="gallery-header fade-up">
-      <h2 style="font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent);">Visual Index</h2>
-      <span style="font-family: monospace; color: var(--text-dim); font-size: 0.7rem;">12 ITEMS / MASONRY</span>
+      <h2 style="letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-size: 0.7rem;">Selected Works</h2>
+      <span style="font-family: monospace; color: var(--text-dim); font-size: 0.6rem;">12 ENTRIES</span>
     </div>
 
     <div class="grid">
-      <div class="item fade-up">
-        <img src="projects/INSOMNIA.png" alt="Insomnia" loading="lazy">
-        <div class="item-overlay">
-          <h3>Insomnia</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Render / 2024</p>
-        </div>
-      </div>
-      
-      <div class="item fade-up">
-        <img src="projects/sunflower.png" alt="Sunflower" loading="lazy">
-        <div class="item-overlay">
-          <h3>Sunflower</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Geometry Nodes</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/STARWARS.png" alt="Star Wars" loading="lazy">
-        <div class="item-overlay">
-          <h3>Star Wars</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Composite</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/000.png" alt="Project Zero" loading="lazy">
-        <div class="item-overlay">
-          <h3>Project Zero</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Concept Art</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/biohazard.png" alt="Biohazard" loading="lazy">
-         <div class="item-overlay">
-          <h3>Biohazard</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Technical Concept</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/CLIFF1.png" alt="Cliff" loading="lazy">
-        <div class="item-overlay">
-          <h3>Cliff 01</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Environment Art</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/comeback.png" alt="Comeback" loading="lazy">
-        <div class="item-overlay">
-          <h3>The Comeback</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Cinematic</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/DASHAIN.png" alt="Dashain" loading="lazy">
-        <div class="item-overlay">
-          <h3>Dashain</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Cultural Art</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/deer4.png" alt="Deer" loading="lazy">
-        <div class="item-overlay">
-          <h3>Fauna Study</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Sculpting</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/DUNKRIK3.png" alt="Dunkirk" loading="lazy">
-        <div class="item-overlay">
-          <h3>Dunkirk</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Atmospherics</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/ETERNAL-PEACE.png" alt="Eternal Peace" loading="lazy">
-        <div class="item-overlay">
-          <h3>Eternal Peace</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Abstract</p>
-        </div>
-      </div>
-
-      <div class="item fade-up">
-        <img src="projects/GOAT.png" alt="GOAT" loading="lazy">
-        <div class="item-overlay">
-          <h3>G.O.A.T.</h3>
-          <p style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;">Portraiture</p>
-        </div>
-      </div>
-
+      <div class="item fade-up"><img src="projects/INSOMNIA.png" alt="INSOMNIA"><div class="item-overlay"><h3>Insomnia</h3></div></div>
+      <div class="item fade-up"><img src="projects/sunflower.png" alt="sunflower"><div class="item-overlay"><h3>Sunflower</h3></div></div>
+      <div class="item fade-up"><img src="projects/STARWARS.png" alt="STARWARS"><div class="item-overlay"><h3>Star Wars</h3></div></div>
+      <div class="item fade-up"><img src="projects/000.png" alt="Project"><div class="item-overlay"><h3>Zero</h3></div></div>
+      <div class="item fade-up"><img src="projects/biohazard.png" alt="biohazard"><div class="item-overlay"><h3>Biohazard</h3></div></div>
+      <div class="item fade-up"><img src="projects/CLIFF1.png" alt="CLIFF1"><div class="item-overlay"><h3>Cliff</h3></div></div>
+      <div class="item fade-up"><img src="projects/comeback.png" alt="comeback"><div class="item-overlay"><h3>Comeback</h3></div></div>
+      <div class="item fade-up"><img src="projects/DASHAIN.png" alt="DASHAIN"><div class="item-overlay"><h3>Dashain</h3></div></div>
+      <div class="item fade-up"><img src="projects/deer4.png" alt="deer4"><div class="item-overlay"><h3>Nature</h3></div></div>
+      <div class="item fade-up"><img src="projects/DUNKRIK3.png" alt="DUNKRIK3"><div class="item-overlay"><h3>Dunkirk</h3></div></div>
+      <div class="item fade-up"><img src="projects/ETERNAL-PEACE.png" alt="ETERNAL-PEACE"><div class="item-overlay"><h3>Eternal Peace</h3></div></div>
+      <div class="item fade-up"><img src="projects/GOAT.png" alt="GOAT"><div class="item-overlay"><h3>G.O.A.T</h3></div></div>
     </div>
   </section>
 
   <section id="profile">
-    <div class="gallery-header fade-up">
-      <h2 style="font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent);">About</h2>
-    </div>
-
     <div class="about-layout fade-up">
       <div class="bio-text">
-        <p>I bridge the gap between creative artistry and technical implementation. Currently pursuing Computer Science in Germany, I focus on how light, math, and code build immersive worlds.</p>
+        <p>Currently studying in Germany, I build virtual worlds using math, physics simulations, and artistic intuition.</p>
       </div>
-
       <div>
-        <h3 style="font-size: 0.7rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-dim);">The Stack</h3>
         <div style="display: flex; flex-wrap: wrap;">
-          <span class="tech-pill">Blender 3D</span>
-          <span class="tech-pill">Godot Engine</span>
+          <span class="tech-pill">Blender</span>
+          <span class="tech-pill">Godot</span>
           <span class="tech-pill">Python</span>
-          <span class="tech-pill">Adobe CC</span>
+          <span class="tech-pill">C++</span>
           <span class="tech-pill">GLSL</span>
         </div>
       </div>
@@ -465,40 +260,27 @@
   </section>
 
   <section class="footer-huge fade-up">
-    <p style="color: var(--accent); font-family: monospace; margin-bottom: 1rem; letter-spacing: 2px;">READY TO CONNECT?</p>
-    <a href="mailto:baayush061@gmail.com" class="contact-link">Get In Touch ↗</a>
+    <a href="mailto:baayush061@gmail.com" class="contact-link">Collaborate ↗</a>
   </section>
 
   <script>
-    // FADE-IN ON SCROLL
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-    }, { threshold: 0.15 });
-    
+    }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // ACTIVE NAV HIGHLIGHT
     window.addEventListener('scroll', () => {
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.dock a');
-        
         let current = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (scrollY >= (sectionTop - 400)) {
-                current = section.getAttribute('id');
-            }
+            if (scrollY >= (section.offsetTop - 300)) current = section.getAttribute('id');
         });
-
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active');
-            }
+            if (link.getAttribute('href').includes(current)) link.classList.add('active');
         });
     });
   </script>
