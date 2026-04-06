@@ -1,129 +1,100 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // --- 1. Custom Cursor Logic ---
-    const cursor = document.querySelector(".cursor");
-    const follower = document.querySelector(".cursor-follower");
-    const hoverables = document.querySelectorAll(".hoverable");
+    // --- 1. INITIAL REVEAL ANIMATION ---
+    // Animates the hero text on load
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-text').forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, index * 200);
+        });
+    }, 100);
 
-    let mouseX = 0, mouseY = 0;
-    let followerX = 0, followerY = 0;
 
-    document.addEventListener("mousemove", (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        // Instant cursor
-        cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-    });
-
-    // Lerp function for smooth follower delay
-    const lerp = (start, end, amt) => (1 - amt) * start + amt * end;
-
-    const animateFollower = () => {
-        followerX = lerp(followerX, mouseX, 0.15);
-        followerY = lerp(followerY, mouseY, 0.15);
-        follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
-        requestAnimationFrame(animateFollower);
-    };
-    animateFollower();
-
-    // Hover states for cursor
-    hoverables.forEach((el) => {
-        el.addEventListener("mouseenter", () => follower.classList.add("hover-active"));
-        el.addEventListener("mouseleave", () => follower.classList.remove("hover-active"));
-    });
-
-    // --- 2. Scroll Reveal Animations ---
+    // --- 2. SCROLL REVEAL (Intersection Observer) ---
+    // Fades in elements as they enter the viewport
     const observerOptions = {
         root: null,
         rootMargin: "0px",
-        threshold: 0.15
+        threshold: 0.1
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("visible");
-                observer.unobserve(entry.target); // Animate only once
+                scrollObserver.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
+    document.querySelectorAll(".reveal-fade").forEach(el => scrollObserver.observe(el));
 
-    // --- 3. Hero Background Glow Mouse Follow ---
-    const heroGlow = document.querySelector(".hero-bg-glow");
-    const heroSection = document.querySelector(".hero");
 
-    heroSection.addEventListener("mousemove", (e) => {
-        const rect = heroSection.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+    // --- 3. HIGHLY INTERACTIVE: IMAGE REVEAL ON PROJECT HOVER ---
+    // Follows the cursor with an image when hovering over a list item
+    const projectItems = document.querySelectorAll('.project-item');
+    const tracker = document.querySelector('.hover-image-tracker');
+    const previewImg = document.getElementById('hover-preview');
+    
+    let mouseX = 0, mouseY = 0;
+    let trackerX = 0, trackerY = 0;
+
+    // Linear interpolation for buttery smooth trailing
+    const lerp = (start, end, factor) => start + (end - start) * factor;
+
+    document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    const animateTracker = () => {
+        trackerX = lerp(trackerX, mouseX, 0.1);
+        trackerY = lerp(trackerY, mouseY, 0.1);
         
-        // Move the glow based on mouse position
-        heroGlow.style.transform = `translate(calc(-50% + ${x/10}px), calc(-50% + ${y/10}px))`;
-    });
-
-    // --- 4. 3D Tilt Effect for Artwork ---
-    const tiltCards = document.querySelectorAll(".tilt-card");
-
-    tiltCards.forEach(card => {
-        const inner = card.querySelector(".tilt-inner");
-
-        card.addEventListener("mousemove", (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // x position within the element
-            const y = e.clientY - rect.top;  // y position within the element
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            // Calculate rotation (max 10 degrees)
-            const rotateX = ((y - centerY) / centerY) * -10;
-            const rotateY = ((x - centerX) / centerX) * 10;
-
-            inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        card.addEventListener("mouseleave", () => {
-            // Reset on mouse leave with transition
-            inner.style.transform = `rotateX(0deg) rotateY(0deg)`;
-        });
-    });
-
-    // --- 5. Lightbox Modal Logic ---
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
-    const lightboxTitle = document.getElementById("lightbox-title");
-    const lightboxDesc = document.getElementById("lightbox-desc");
-    const closeBtn = document.getElementById("lightbox-close");
-    const triggers = document.querySelectorAll(".lightbox-trigger");
-
-    triggers.forEach(trigger => {
-        trigger.addEventListener("click", () => {
-            const imgSrc = trigger.getAttribute("data-img");
-            const title = trigger.getAttribute("data-title");
-            const desc = trigger.getAttribute("data-desc");
-
-            // Handle missing images gracefully by falling back to the Unsplash placeholder used in HTML
-            lightboxImg.src = imgSrc;
-            lightboxImg.onerror = () => { lightboxImg.src = trigger.querySelector("img").src; };
-            
-            lightboxTitle.innerText = title;
-            lightboxDesc.innerText = desc;
-
-            lightbox.classList.add("active");
-            document.body.style.overflow = "hidden"; // Prevent background scrolling
-        });
-    });
-
-    const closeLightbox = () => {
-        lightbox.classList.remove("active");
-        document.body.style.overflow = ""; 
+        // Offset slightly so cursor isn't dead center blocking the view
+        tracker.style.left = `${trackerX + 20}px`;
+        tracker.style.top = `${trackerY + 20}px`;
+        
+        requestAnimationFrame(animateTracker);
     };
+    animateTracker();
 
-    closeBtn.addEventListener("click", closeLightbox);
-    lightbox.addEventListener("click", (e) => {
-        if(e.target === lightbox) closeLightbox();
+    projectItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            const imgSrc = item.getAttribute('data-image');
+            const fallbackSrc = item.getAttribute('data-fallback');
+            
+            previewImg.src = imgSrc;
+            previewImg.onerror = () => { previewImg.src = fallbackSrc; };
+            
+            tracker.classList.add('active');
+        });
+
+        item.addEventListener('mouseleave', () => {
+            tracker.classList.remove('active');
+        });
     });
+
+
+    // --- 4. HIGHLY INTERACTIVE: MAGNETIC BUTTONS ---
+    // Elements slightly pull towards the cursor when hovered
+    const magnetics = document.querySelectorAll('.magnetic');
+
+    magnetics.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const position = btn.getBoundingClientRect();
+            const x = e.pageX - position.left - position.width / 2;
+            const y = e.pageY - position.top - position.height / 2;
+            
+            const strength = btn.getAttribute('data-strength') || 20;
+            
+            btn.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0px, 0px)';
+        });
+    });
+
 });
