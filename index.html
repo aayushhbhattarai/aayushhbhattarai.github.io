@@ -3,108 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aayush Bhattarai — 3D & Code</title>
+    <title>Aayush Bhattarai | 3D Artist & Visual Designer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="noise-overlay"></div>
     
-    <div id="project-preview">
-        <img src="" alt="Preview">
-    </div>
+    <div class="cursor"></div>
 
     <nav>
-        <div class="nav-left">Aayush Bhattarai</div>
-        <div class="nav-right">
-            <a href="mailto:baayush061@gmail.com" class="mag">Contact</a>
+        <div class="logo">AB.</div>
+        <div class="links">
+            <a href="#about" class="hover-target">About</a>
+            <a href="#work" class="hover-target">Work</a>
+            <a href="#contact" class="hover-target">Contact</a>
         </div>
     </nav>
 
-    <main id="main">
-        <section class="hero-wrap">
-            <div class="kinetic-container">
-                <h1 class="kinetic-text">ARCHITECTING</h1>
-                <h1 class="kinetic-text outline">THE VIRTUAL</h1>
-                <h1 class="kinetic-text">REALISM</h1>
+    <main>
+        <section id="hero" class="hero fade-in">
+            <div class="hero-content">
+                <h1>Aayush Bhattarai</h1>
+                <h2>3D Artist & Visual Designer</h2>
+                <p class="tagline">Crafting digital spaces, procedural environments, and visual stories.</p>
             </div>
-            <div class="hero-sub">
-                <p>3D Artist & CS Student <br>Saarland University, Germany</p>
-                <div class="availability"><span></span> Available for freelance</div>
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <div class="line"></div>
             </div>
         </section>
 
-        <section class="project-section">
-            <div class="section-tag">SELECTED WORKS [01—10]</div>
-            <div class="work-list">
-                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1200">
-                    <span class="num">01</span>
-                    <h2 class="work-title">INSOMNIA</h2>
-                    <span class="category">Environment Art</span>
-                </div>
-                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1200">
-                    <span class="num">02</span>
-                    <h2 class="work-title">SUNFLOWER</h2>
-                    <span class="category">Geometry Nodes</span>
-                </div>
-                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1478479405421-ce83c92fb3ba?q=80&w=1200">
-                    <span class="num">03</span>
-                    <h2 class="work-title">STAR WARS</h2>
-                    <span class="category">Compositing</span>
-                </div>
-                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200">
-                    <span class="num">04</span>
-                    <h2 class="work-title">BIOHAZARD</h2>
-                    <span class="category">Technical Concept</span>
-                </div>
-                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200">
-                    <span class="num">05</span>
-                    <h2 class="work-title">DUNKIRK</h2>
-                    <span class="category">Atmospherics</span>
+        <section id="about" class="about">
+            <div class="about-container fade-in-up">
+                <h3 class="section-title">Who I Am</h3>
+                <p class="about-text">
+                    I’m a digital specialist and 3D artist combining artistic creativity with technical rigor. Through years of self-driven exploration in Blender and Photoshop, I focus on photorealistic rendering, procedural modeling, and visual storytelling. Whether I'm building complex node setups or fine-tuning the color grading of a final composition, I love turning concepts into tangible digital realities.
+                </p>
+                <div class="skills">
+                    <span class="chip">Blender 3D</span>
+                    <span class="chip">Adobe Photoshop</span>
+                    <span class="chip">Procedural Modeling</span>
+                    <span class="chip">Photorealism</span>
+                    <span class="chip">Python</span>
+                    <span class="chip">C</span>
                 </div>
             </div>
         </section>
 
-        <section class="cv-section">
-            <div class="cv-grid">
-                <div class="cv-col">
-                    <div class="section-tag">BACKGROUND</div>
-                    <div class="cv-item">
-                        <h3>Bachelor plus MINT</h3>
-                        <p class="meta">Saarland University | 2025—Present</p>
-                        <p class="desc">Combining computational thinking with high-fidelity visual output.</p>
-                    </div>
-                    <div class="cv-item">
-                        <h3>Abitur, Computer Science</h3>
-                        <p class="meta">Trinity College | 2021—2023</p>
+        <section id="work" class="work">
+            <h3 class="section-title fade-in-up">Selected Work</h3>
+            <div class="work-grid">
+                <div class="work-item tilt-card fade-in-up" data-src="projects/mountain_wolf_by_aayushbhattarai_de9mq56.png" data-type="image">
+                    <img src="projects/mountain_wolf_by_aayushbhattarai_de9mq56.png" alt="Mountain Wolf" loading="lazy">
+                    <div class="work-info">
+                        <h4>Mountain Wolf</h4>
+                        <p>3D Composition</p>
                     </div>
                 </div>
-
-                <div class="cv-col">
-                    <div class="section-tag">EXPERTISE</div>
-                    <ul class="skills-list">
-                        <li>Blender 3D (Advanced)</li>
-                        <li>Procedural Modeling</li>
-                        <li>Render Optimization</li>
-                        <li>Adobe Photoshop</li>
-                        <li>Python / C / LaTeX</li>
-                        <li>German (C1) / English</li>
-                    </ul>
+                <div class="work-item tilt-card fade-in-up delay-1" data-src="projects/ETERNAL-PEACE.png" data-type="image">
+                    <img src="projects/ETERNAL-PEACE.png" alt="Eternal Peace" loading="lazy">
+                    <div class="work-info">
+                        <h4>Eternal Peace</h4>
+                        <p>Environment Design</p>
+                    </div>
+                </div>
+                <div class="work-item tilt-card fade-in-up delay-2" data-src="projects/spiderman_poster_recreation_by_aayushbhattarai_de9mqdm.png" data-type="image">
+                    <img src="projects/spiderman_poster_recreation_by_aayushbhattarai_de9mqdm.png" alt="Spiderman Poster" loading="lazy">
+                    <div class="work-info">
+                        <h4>Spiderman Recreation</h4>
+                        <p>Digital Retouching & Composition</p>
+                    </div>
+                </div>
+                <div class="work-item tilt-card fade-in-up" data-src="projects/TEMPLE.png" data-type="image">
+                    <img src="projects/TEMPLE.png" alt="Temple" loading="lazy">
+                    <div class="work-info">
+                        <h4>Temple</h4>
+                        <p>Lighting & Texturing</p>
+                    </div>
+                </div>
+                <div class="work-item tilt-card fade-in-up delay-1" data-src="projects/out.mp4" data-type="video">
+                    <video src="projects/out.mp4" muted loop playsinline></video>
+                    <div class="work-info">
+                        <h4>Motion Reel</h4>
+                        <p>Animation & Render Optimization</p>
+                    </div>
+                </div>
+                <div class="work-item tilt-card fade-in-up delay-2" data-src="projects/red_panda_by_aayushbhattarai_deavkkn.png" data-type="image">
+                    <img src="projects/red_panda_by_aayushbhattarai_deavkkn.png" alt="Red Panda" loading="lazy">
+                    <div class="work-info">
+                        <h4>Red Panda</h4>
+                        <p>Procedural Shading</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="footer-cta">
-            <h2 class="mag">LET'S START A PROJECT</h2>
-            <a href="mailto:baayush061@gmail.com" class="email-link mag">baayush061@gmail.com</a>
-            
-            <div class="footer-socials">
-                <a href="#" class="mag">LinkedIn</a>
-                <a href="#" class="mag">ArtStation</a>
-                <a href="#" class="mag">Instagram</a>
+        <section class="featured fade-in-up">
+            <div class="featured-content">
+                <div class="featured-text">
+                    <h3 class="section-title">Procedural Worlds</h3>
+                    <p>Designing complex 3D environments from the ground up. This ongoing exploration involves implementing custom shader networks and optimizing render pipelines to achieve high visual fidelity without sacrificing compute time. The focus is on lighting theory, material science, and creating scalable assets.</p>
+                    <div class="skills" style="margin-top: 1.5rem;">
+                        <span class="chip">Node Networks</span>
+                        <span class="chip">Lighting Theory</span>
+                    </div>
+                </div>
+                <div class="featured-image tilt-card" data-src="projects/VIKING.png" data-type="image">
+                    <img src="projects/VIKING.png" alt="Viking Theme">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact fade-in-up">
+            <h2>Let's build something cool.</h2>
+            <p>Always open to discussing 3D projects, digital design, or creative collaborations.</p>
+            <div class="contact-links">
+                <a href="mailto:baayush061@gmail.com" class="btn hover-target">baayush061@gmail.com</a>
+                <a href="https://linkedin.com/in/aayushbhattarail" target="_blank" class="btn outline hover-target">LinkedIn</a>
             </div>
         </section>
     </main>
+
+    <footer>
+        <p>© 2026 Aayush Bhattarai. Handcrafted with precision.</p>
+    </footer>
+
+    <div class="modal" id="lightbox">
+        <div class="modal-close hover-target">Close ✕</div>
+        <div class="modal-content" id="modal-content"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
