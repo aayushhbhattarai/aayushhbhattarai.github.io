@@ -1,100 +1,78 @@
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // --- 1. INITIAL REVEAL ANIMATION ---
-    // Animates the hero text on load
-    setTimeout(() => {
-        document.querySelectorAll('.reveal-text').forEach((el, index) => {
-            setTimeout(() => {
-                el.classList.add('visible');
-            }, index * 200);
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Kinetic Text - Mouse Move Effect
+    const texts = document.querySelectorAll('.kinetic-text');
+    document.addEventListener('mousemove', (e) => {
+        const x = (window.innerWidth / 2 - e.pageX) / 50;
+        const y = (window.innerHeight / 2 - e.pageY) / 50;
+        
+        texts.forEach((text, i) => {
+            const factor = (i + 1) * 0.5;
+            text.style.transform = `translate3d(${x * factor}px, ${y * factor}px, 0)`;
         });
-    }, 100);
+    });
 
-
-    // --- 2. SCROLL REVEAL (Intersection Observer) ---
-    // Fades in elements as they enter the viewport
-    const observerOptions = {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.1
-    };
-
-    const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                scrollObserver.unobserve(entry.target);
-            }
+    // 2. Magnetic Interaction
+    const magnets = document.querySelectorAll('.mag');
+    magnets.forEach(m => {
+        m.addEventListener('mousemove', (e) => {
+            const pos = m.getBoundingClientRect();
+            const x = e.clientX - pos.left - pos.width / 2;
+            const y = e.clientY - pos.top - pos.height / 2;
+            m.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
         });
-    }, observerOptions);
+        m.addEventListener('mouseleave', () => {
+            m.style.transform = `translate(0px, 0px)`;
+        });
+    });
 
-    document.querySelectorAll(".reveal-fade").forEach(el => scrollObserver.observe(el));
+    // 3. Project Hover Preview System
+    const preview = document.querySelector('#project-preview');
+    const previewImg = preview.querySelector('img');
+    const workRows = document.querySelectorAll('.work-row');
 
-
-    // --- 3. HIGHLY INTERACTIVE: IMAGE REVEAL ON PROJECT HOVER ---
-    // Follows the cursor with an image when hovering over a list item
-    const projectItems = document.querySelectorAll('.project-item');
-    const tracker = document.querySelector('.hover-image-tracker');
-    const previewImg = document.getElementById('hover-preview');
-    
     let mouseX = 0, mouseY = 0;
-    let trackerX = 0, trackerY = 0;
+    let currentX = 0, currentY = 0;
 
-    // Linear interpolation for buttery smooth trailing
-    const lerp = (start, end, factor) => start + (end - start) * factor;
-
-    document.addEventListener("mousemove", (e) => {
+    document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
     });
 
-    const animateTracker = () => {
-        trackerX = lerp(trackerX, mouseX, 0.1);
-        trackerY = lerp(trackerY, mouseY, 0.1);
+    // Smooth follow for the preview box
+    function movePreview() {
+        currentX += (mouseX - currentX) * 0.1;
+        currentY += (mouseY - currentY) * 0.1;
         
-        // Offset slightly so cursor isn't dead center blocking the view
-        tracker.style.left = `${trackerX + 20}px`;
-        tracker.style.top = `${trackerY + 20}px`;
+        preview.style.left = `${currentX + 20}px`;
+        preview.style.top = `${currentY + 20}px`;
         
-        requestAnimationFrame(animateTracker);
-    };
-    animateTracker();
+        requestAnimationFrame(movePreview);
+    }
+    movePreview();
 
-    projectItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            const imgSrc = item.getAttribute('data-image');
-            const fallbackSrc = item.getAttribute('data-fallback');
-            
-            previewImg.src = imgSrc;
-            previewImg.onerror = () => { previewImg.src = fallbackSrc; };
-            
-            tracker.classList.add('active');
+    workRows.forEach(row => {
+        row.addEventListener('mouseenter', () => {
+            const img = row.getAttribute('data-img');
+            previewImg.src = img;
+            preview.classList.add('active');
         });
-
-        item.addEventListener('mouseleave', () => {
-            tracker.classList.remove('active');
+        row.addEventListener('mouseleave', () => {
+            preview.classList.remove('active');
         });
     });
 
-
-    // --- 4. HIGHLY INTERACTIVE: MAGNETIC BUTTONS ---
-    // Elements slightly pull towards the cursor when hovered
-    const magnetics = document.querySelectorAll('.magnetic');
-
-    magnetics.forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const position = btn.getBoundingClientRect();
-            const x = e.pageX - position.left - position.width / 2;
-            const y = e.pageY - position.top - position.height / 2;
-            
-            const strength = btn.getAttribute('data-strength') || 20;
-            
-            btn.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
-        });
-
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate(0px, 0px)';
-        });
-    });
-
+    // 4. Kinetic Scroll (Subtle text skew on scroll)
+    let lastScroll = window.pageYOffset;
+    function skewScroll() {
+        const newScroll = window.pageYOffset;
+        const diff = newScroll - lastScroll;
+        const skew = diff * 0.1;
+        
+        document.querySelector('.kinetic-container').style.transform = `skewY(${skew}deg)`;
+        
+        lastScroll = newScroll;
+        requestAnimationFrame(skewScroll);
+    }
+    window.addEventListener('scroll', skewScroll);
 });
