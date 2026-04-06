@@ -1,78 +1,119 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Custom Cursor ---
+    const cursor = document.querySelector('.cursor');
+    const hoverTargets = document.querySelectorAll('.hover-target, .work-item, .btn, .chip');
 
-    // 1. Kinetic Text - Mouse Move Effect
-    const texts = document.querySelectorAll('.kinetic-text');
-    document.addEventListener('mousemove', (e) => {
-        const x = (window.innerWidth / 2 - e.pageX) / 50;
-        const y = (window.innerHeight / 2 - e.pageY) / 50;
-        
-        texts.forEach((text, i) => {
-            const factor = (i + 1) * 0.5;
-            text.style.transform = `translate3d(${x * factor}px, ${y * factor}px, 0)`;
+    // Only run cursor logic if it's not a touch device
+    if (window.matchMedia("(pointer: fine)").matches) {
+        document.addEventListener('mousemove', (e) => {
+            // Use requestAnimationFrame for smoother performance
+            requestAnimationFrame(() => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            });
         });
-    });
 
-    // 2. Magnetic Interaction
-    const magnets = document.querySelectorAll('.mag');
-    magnets.forEach(m => {
-        m.addEventListener('mousemove', (e) => {
-            const pos = m.getBoundingClientRect();
-            const x = e.clientX - pos.left - pos.width / 2;
-            const y = e.clientY - pos.top - pos.height / 2;
-            m.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('active'));
         });
-        m.addEventListener('mouseleave', () => {
-            m.style.transform = `translate(0px, 0px)`;
-        });
-    });
-
-    // 3. Project Hover Preview System
-    const preview = document.querySelector('#project-preview');
-    const previewImg = preview.querySelector('img');
-    const workRows = document.querySelectorAll('.work-row');
-
-    let mouseX = 0, mouseY = 0;
-    let currentX = 0, currentY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    // Smooth follow for the preview box
-    function movePreview() {
-        currentX += (mouseX - currentX) * 0.1;
-        currentY += (mouseY - currentY) * 0.1;
-        
-        preview.style.left = `${currentX + 20}px`;
-        preview.style.top = `${currentY + 20}px`;
-        
-        requestAnimationFrame(movePreview);
     }
-    movePreview();
 
-    workRows.forEach(row => {
-        row.addEventListener('mouseenter', () => {
-            const img = row.getAttribute('data-img');
-            previewImg.src = img;
-            preview.classList.add('active');
+    // --- Scroll Animations (Intersection Observer) ---
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Run once
+            }
         });
-        row.addEventListener('mouseleave', () => {
-            preview.classList.remove('active');
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+        observer.observe(el);
+    });
+
+    // --- 3D Tilt Effect ---
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left; // x position within the element
+            const y = e.clientY - rect.top;  // y position within the element
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calculate rotation (max 10 degrees)
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            card.style.transition = "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)";
+        });
+
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = "none"; // Remove transition during hover to make it snappy
         });
     });
 
-    // 4. Kinetic Scroll (Subtle text skew on scroll)
-    let lastScroll = window.pageYOffset;
-    function skewScroll() {
-        const newScroll = window.pageYOffset;
-        const diff = newScroll - lastScroll;
-        const skew = diff * 0.1;
-        
-        document.querySelector('.kinetic-container').style.transform = `skewY(${skew}deg)`;
-        
-        lastScroll = newScroll;
-        requestAnimationFrame(skewScroll);
-    }
-    window.addEventListener('scroll', skewScroll);
+    // --- Lightbox Modal Logic ---
+    const modal = document.getElementById('lightbox');
+    const modalContent = document.getElementById('modal-content');
+    const closeBtn = document.querySelector('.modal-close');
+
+    tiltCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const src = card.getAttribute('data-src');
+            const type = card.getAttribute('data-type');
+            
+            modalContent.innerHTML = ''; // Clear previous
+            
+            if (type === 'image') {
+                const img = document.createElement('img');
+                img.src = src;
+                modalContent.appendChild(img);
+            } else if (type === 'video') {
+                const video = document.createElement('video');
+                video.src = src;
+                video.controls = true;
+                video.autoplay = true;
+                modalContent.appendChild(video);
+            }
+            
+            modal.classList.add('active');
+        });
+    });
+
+    // Auto-play videos on hover for thumbnails
+    document.querySelectorAll('video').forEach(vid => {
+        vid.parentElement.addEventListener('mouseenter', () => vid.play());
+        vid.parentElement.addEventListener('mouseleave', () => {
+            vid.pause();
+            vid.currentTime = 0;
+        });
+    });
+
+    // Close Modal
+    const closeModal = () => {
+        modal.classList.remove('active');
+        setTimeout(() => { modalContent.innerHTML = ''; }, 400); // Clear after fade out
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal(); // Close if clicking outside content
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
 });
