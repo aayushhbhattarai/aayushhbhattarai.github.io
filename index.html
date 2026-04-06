@@ -3,163 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aayush Bhattarai | 3D Artist & Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Aayush Bhattarai — 3D & Code</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">AAYUSH BHATTARAI</div>
-        <div class="nav-links">
-            <a href="#projects" class="magnetic" data-strength="20">Selected Works</a>
-            <a href="#resume" class="magnetic" data-strength="20">Profile</a>
-            <a href="#contact" class="magnetic" data-strength="20">Contact</a>
+    <div class="noise-overlay"></div>
+    
+    <div id="project-preview">
+        <img src="" alt="Preview">
+    </div>
+
+    <nav>
+        <div class="nav-left">Aayush Bhattarai</div>
+        <div class="nav-right">
+            <a href="mailto:baayush061@gmail.com" class="mag">Contact</a>
         </div>
     </nav>
 
-    <div class="hover-image-tracker">
-        <img src="" alt="Project Preview" id="hover-preview">
-    </div>
-
-    <main>
-        <section class="hero" id="hero">
-            <div class="hero-content">
-                <h1 class="reveal-text"><span>Visual</span></h1>
-                <h1 class="reveal-text indented"><span>Realism &</span></h1>
-                <h1 class="reveal-text"><span>Code.</span></h1>
+    <main id="main">
+        <section class="hero-wrap">
+            <div class="kinetic-container">
+                <h1 class="kinetic-text">ARCHITECTING</h1>
+                <h1 class="kinetic-text outline">THE VIRTUAL</h1>
+                <h1 class="kinetic-text">REALISM</h1>
             </div>
-            <div class="hero-bottom reveal-fade">
-                <p>3D Artist & MINT Student<br>Based in Saarbrücken, Germany</p>
-                <div class="scroll-down">Scroll</div>
+            <div class="hero-sub">
+                <p>3D Artist & CS Student <br>Saarland University, Germany</p>
+                <div class="availability"><span></span> Available for freelance</div>
             </div>
         </section>
 
-        <section class="projects" id="projects">
-            <div class="container">
-                <h2 class="section-title reveal-fade">Selected Works [10]</h2>
-                <ul class="project-list">
-                    <li class="project-item" data-image="projects/INSOMNIA.png" data-fallback="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=800">
-                        <div class="project-title">Insomnia</div>
-                        <div class="project-meta">Environment / 2024</div>
-                    </li>
-                    <li class="project-item" data-image="projects/sunflower.png" data-fallback="https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=800">
-                        <div class="project-title">Sunflower</div>
-                        <div class="project-meta">Geometry Nodes</div>
-                    </li>
-                    <li class="project-item" data-image="projects/STARWARS.png" data-fallback="https://images.unsplash.com/photo-1478479405421-ce83c92fb3ba?auto=format&fit=crop&w=800">
-                        <div class="project-title">Star Wars</div>
-                        <div class="project-meta">Compositing</div>
-                    </li>
-                    <li class="project-item" data-image="projects/biohazard.png" data-fallback="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800">
-                        <div class="project-title">Biohazard</div>
-                        <div class="project-meta">Technical Concept</div>
-                    </li>
-                    <li class="project-item" data-image="projects/CLIFF1.png" data-fallback="https://images.unsplash.com/photo-1505506874110-6a7a6c9924cb?auto=format&fit=crop&w=800">
-                        <div class="project-title">Cliff 01</div>
-                        <div class="project-meta">Environment Art</div>
-                    </li>
-                    <li class="project-item" data-image="projects/comeback.png" data-fallback="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800">
-                        <div class="project-title">The Comeback</div>
-                        <div class="project-meta">Cinematic</div>
-                    </li>
-                    <li class="project-item" data-image="projects/DASHAIN.png" data-fallback="https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=800">
-                        <div class="project-title">Dashain</div>
-                        <div class="project-meta">Cultural Art</div>
-                    </li>
-                    <li class="project-item" data-image="projects/DUNKRIK3.png" data-fallback="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=800">
-                        <div class="project-title">Dunkirk</div>
-                        <div class="project-meta">Atmospherics</div>
-                    </li>
-                    <li class="project-item" data-image="projects/TEMPLE.png" data-fallback="https://images.unsplash.com/photo-1582201942988-13e60cb51216?auto=format&fit=crop&w=800">
-                        <div class="project-title">Temple</div>
-                        <div class="project-meta">Environment Design</div>
-                    </li>
-                    <li class="project-item" data-image="projects/doge.png" data-fallback="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800">
-                        <div class="project-title">Fauna Study</div>
-                        <div class="project-meta">Sculpting / Render</div>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="resume" id="resume">
-            <div class="container">
-                <h2 class="section-title reveal-fade">Curriculum Vitae</h2>
-                
-                <div class="resume-grid">
-                    <div class="resume-column reveal-fade">
-                        <h3>Education</h3>
-                        <div class="resume-item">
-                            <p class="date">Mar 2025 — Present</p>
-                            <h4>Bachelor plus MINT</h4>
-                            <p class="org">Saarland University, Germany</p>
-                            <p class="desc">Bridging artistic creativity with technical rigor and computational thinking.</p>
-                        </div>
-                        <div class="resume-item">
-                            <p class="date">Jun 2021 — Apr 2023</p>
-                            <h4>Abitur, Computer Science</h4>
-                            <p class="org">Trinity International College, Nepal</p>
-                        </div>
-                    </div>
-
-                    <div class="resume-column reveal-fade">
-                        <h3>Experience</h3>
-                        <div class="resume-item">
-                            <p class="date">2022 — Present</p>
-                            <h4>Freelance 3D Artist</h4>
-                            <p class="desc">Designing complex 3D environments, procedural modeling, and optimizing render pipelines for photorealistic output.</p>
-                        </div>
-                        <div class="resume-item">
-                            <p class="date">2020 — Present</p>
-                            <h4>Freelance Digital Specialist</h4>
-                            <p class="desc">Expertise in non-destructive workflows, color theory, retouching, and visual storytelling in Adobe Photoshop.</p>
-                        </div>
-                    </div>
-
-                    <div class="resume-column reveal-fade full-width">
-                        <h3>Technical Arsenal</h3>
-                        <div class="skills-wrapper">
-                            <div class="skill-category">
-                                <h5>Programming</h5>
-                                <p>C, Python, HTML, LaTeX</p>
-                            </div>
-                            <div class="skill-category">
-                                <h5>Creative Software</h5>
-                                <p>Blender 3D (Advanced), Adobe Photoshop</p>
-                            </div>
-                            <div class="skill-category">
-                                <h5>Digital & 3D</h5>
-                                <p>Procedural Modeling, Lighting, Shading, Render Optimization, Photorealistic Rendering, Compositing</p>
-                            </div>
-                            <div class="skill-category">
-                                <h5>Languages</h5>
-                                <p>English (Fluent), German (Fluent C1)</p>
-                            </div>
-                        </div>
-                    </div>
+        <section class="project-section">
+            <div class="section-tag">SELECTED WORKS [01—10]</div>
+            <div class="work-list">
+                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1200">
+                    <span class="num">01</span>
+                    <h2 class="work-title">INSOMNIA</h2>
+                    <span class="category">Environment Art</span>
+                </div>
+                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1200">
+                    <span class="num">02</span>
+                    <h2 class="work-title">SUNFLOWER</h2>
+                    <span class="category">Geometry Nodes</span>
+                </div>
+                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1478479405421-ce83c92fb3ba?q=80&w=1200">
+                    <span class="num">03</span>
+                    <h2 class="work-title">STAR WARS</h2>
+                    <span class="category">Compositing</span>
+                </div>
+                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200">
+                    <span class="num">04</span>
+                    <h2 class="work-title">BIOHAZARD</h2>
+                    <span class="category">Technical Concept</span>
+                </div>
+                <div class="work-row mag-row" data-img="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200">
+                    <span class="num">05</span>
+                    <h2 class="work-title">DUNKIRK</h2>
+                    <span class="category">Atmospherics</span>
                 </div>
             </div>
         </section>
 
-        <section class="contact" id="contact">
-            <div class="container">
-                <h2 class="reveal-fade">Let's build<br>something extraordinary.</h2>
-                <a href="mailto:baayush061@gmail.com" class="huge-link magnetic" data-strength="50">baayush061@gmail.com</a>
-                <div class="social-links reveal-fade">
-                    <a href="https://linkedin.com/in/aayushbhattarail" target="_blank" class="magnetic" data-strength="20">LinkedIn</a>
-                    <a href="#" class="magnetic" data-strength="20">ArtStation</a>
-                    <a href="#" class="magnetic" data-strength="20">Instagram</a>
+        <section class="cv-section">
+            <div class="cv-grid">
+                <div class="cv-col">
+                    <div class="section-tag">BACKGROUND</div>
+                    <div class="cv-item">
+                        <h3>Bachelor plus MINT</h3>
+                        <p class="meta">Saarland University | 2025—Present</p>
+                        <p class="desc">Combining computational thinking with high-fidelity visual output.</p>
+                    </div>
+                    <div class="cv-item">
+                        <h3>Abitur, Computer Science</h3>
+                        <p class="meta">Trinity College | 2021—2023</p>
+                    </div>
+                </div>
+
+                <div class="cv-col">
+                    <div class="section-tag">EXPERTISE</div>
+                    <ul class="skills-list">
+                        <li>Blender 3D (Advanced)</li>
+                        <li>Procedural Modeling</li>
+                        <li>Render Optimization</li>
+                        <li>Adobe Photoshop</li>
+                        <li>Python / C / LaTeX</li>
+                        <li>German (C1) / English</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <footer>
-            <div class="container footer-content">
-                <p>&copy; 2026 Aayush Bhattarai.</p>
-                <p>Designed with Code & Light.</p>
+        <section class="footer-cta">
+            <h2 class="mag">LET'S START A PROJECT</h2>
+            <a href="mailto:baayush061@gmail.com" class="email-link mag">baayush061@gmail.com</a>
+            
+            <div class="footer-socials">
+                <a href="#" class="mag">LinkedIn</a>
+                <a href="#" class="mag">ArtStation</a>
+                <a href="#" class="mag">Instagram</a>
             </div>
-        </footer>
+        </section>
     </main>
 
     <script src="script.js"></script>
