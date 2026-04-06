@@ -3,143 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aayush Bhattarai | Visual Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>Aayush Bhattarai | 3D Artist & Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="grain"></div>
 
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
-    <div class="lightbox" id="lightbox">
-        <div class="lightbox-close hoverable" id="lightbox-close">Close</div>
-        <div class="lightbox-content">
-            <img src="" alt="Project" id="lightbox-img">
-            <h2 id="lightbox-title"></h2>
-            <p id="lightbox-desc"></p>
+    <nav class="navbar">
+        <div class="logo">AAYUSH BHATTARAI</div>
+        <div class="nav-links">
+            <a href="#projects" class="magnetic" data-strength="20">Selected Works</a>
+            <a href="#resume" class="magnetic" data-strength="20">Profile</a>
+            <a href="#contact" class="magnetic" data-strength="20">Contact</a>
         </div>
+    </nav>
+
+    <div class="hover-image-tracker">
+        <img src="" alt="Project Preview" id="hover-preview">
     </div>
 
-    <main class="smooth-scroll-wrapper">
-        
+    <main>
         <section class="hero" id="hero">
-            <div class="hero-bg-glow"></div>
-            <div class="container hero-content">
-                <p class="fade-up hero-meta">[ EST. 2026 ]</p>
-                <h1 class="fade-up delay-1 super-title hoverable">
-                    Aayush<br>
-                    <span class="outline-text">Bhattarai</span>
-                </h1>
-                <p class="fade-up delay-2 tagline">
-                    3D Artist & Computer Science student. Exploring the intersection of digital light and code.
-                </p>
-                <div class="scroll-indicator fade-up delay-3">
-                    <span class="mouse"></span>
-                    <span class="text">Scroll to explore</span>
-                </div>
+            <div class="hero-content">
+                <h1 class="reveal-text"><span>Visual</span></h1>
+                <h1 class="reveal-text indented"><span>Realism &</span></h1>
+                <h1 class="reveal-text"><span>Code.</span></h1>
+            </div>
+            <div class="hero-bottom reveal-fade">
+                <p>3D Artist & MINT Student<br>Based in Saarbrücken, Germany</p>
+                <div class="scroll-down">Scroll</div>
             </div>
         </section>
 
-        <section class="about" id="about">
+        <section class="projects" id="projects">
             <div class="container">
-                <div class="about-grid">
-                    <div class="about-text fade-up">
-                        <h2 class="section-label">Profile</h2>
-                        <p class="bio">
-                            I bridge the gap between creative artistry and technical implementation. Currently pursuing Computer Science in Germany, I focus on how light, math, and code build immersive worlds.
-                        </p>
-                    </div>
-                    <div class="about-skills fade-up delay-1">
-                        <h3 class="section-label">The Stack</h3>
-                        <div class="skill-chips">
-                            <span class="chip hoverable">Blender 3D</span>
-                            <span class="chip hoverable">Godot Engine</span>
-                            <span class="chip hoverable">Python</span>
-                            <span class="chip hoverable">Adobe CC</span>
-                            <span class="chip hoverable">LaTeX</span>
-                        </div>
-                    </div>
-                </div>
+                <h2 class="section-title reveal-fade">Selected Works [10]</h2>
+                <ul class="project-list">
+                    <li class="project-item" data-image="projects/INSOMNIA.png" data-fallback="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=800">
+                        <div class="project-title">Insomnia</div>
+                        <div class="project-meta">Environment / 2024</div>
+                    </li>
+                    <li class="project-item" data-image="projects/sunflower.png" data-fallback="https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=800">
+                        <div class="project-title">Sunflower</div>
+                        <div class="project-meta">Geometry Nodes</div>
+                    </li>
+                    <li class="project-item" data-image="projects/STARWARS.png" data-fallback="https://images.unsplash.com/photo-1478479405421-ce83c92fb3ba?auto=format&fit=crop&w=800">
+                        <div class="project-title">Star Wars</div>
+                        <div class="project-meta">Compositing</div>
+                    </li>
+                    <li class="project-item" data-image="projects/biohazard.png" data-fallback="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800">
+                        <div class="project-title">Biohazard</div>
+                        <div class="project-meta">Technical Concept</div>
+                    </li>
+                    <li class="project-item" data-image="projects/CLIFF1.png" data-fallback="https://images.unsplash.com/photo-1505506874110-6a7a6c9924cb?auto=format&fit=crop&w=800">
+                        <div class="project-title">Cliff 01</div>
+                        <div class="project-meta">Environment Art</div>
+                    </li>
+                    <li class="project-item" data-image="projects/comeback.png" data-fallback="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800">
+                        <div class="project-title">The Comeback</div>
+                        <div class="project-meta">Cinematic</div>
+                    </li>
+                    <li class="project-item" data-image="projects/DASHAIN.png" data-fallback="https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=800">
+                        <div class="project-title">Dashain</div>
+                        <div class="project-meta">Cultural Art</div>
+                    </li>
+                    <li class="project-item" data-image="projects/DUNKRIK3.png" data-fallback="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=800">
+                        <div class="project-title">Dunkirk</div>
+                        <div class="project-meta">Atmospherics</div>
+                    </li>
+                    <li class="project-item" data-image="projects/TEMPLE.png" data-fallback="https://images.unsplash.com/photo-1582201942988-13e60cb51216?auto=format&fit=crop&w=800">
+                        <div class="project-title">Temple</div>
+                        <div class="project-meta">Environment Design</div>
+                    </li>
+                    <li class="project-item" data-image="projects/doge.png" data-fallback="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800">
+                        <div class="project-title">Fauna Study</div>
+                        <div class="project-meta">Sculpting / Render</div>
+                    </li>
+                </ul>
             </div>
         </section>
 
-        <section class="featured" id="featured">
+        <section class="resume" id="resume">
             <div class="container">
-                <h2 class="section-label fade-up">Featured Story</h2>
-                <div class="featured-wrapper fade-up delay-1">
-                    <div class="featured-image tilt-card hoverable lightbox-trigger" 
-                         data-img="projects/INSOMNIA.png" 
-                         data-title="Insomnia" 
-                         data-desc="Render / 2024. A deep dive into atmospheric lighting and environmental storytelling.">
-                        <div class="tilt-inner">
-                            <img src="projects/INSOMNIA.png" alt="Insomnia" onerror="this.src='https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=1200'">
+                <h2 class="section-title reveal-fade">Curriculum Vitae</h2>
+                
+                <div class="resume-grid">
+                    <div class="resume-column reveal-fade">
+                        <h3>Education</h3>
+                        <div class="resume-item">
+                            <p class="date">Mar 2025 — Present</p>
+                            <h4>Bachelor plus MINT</h4>
+                            <p class="org">Saarland University, Germany</p>
+                            <p class="desc">Bridging artistic creativity with technical rigor and computational thinking.</p>
+                        </div>
+                        <div class="resume-item">
+                            <p class="date">Jun 2021 — Apr 2023</p>
+                            <h4>Abitur, Computer Science</h4>
+                            <p class="org">Trinity International College, Nepal</p>
                         </div>
                     </div>
-                    <div class="featured-info parallax-text">
-                        <h3>Insomnia</h3>
-                        <p>A study in atmospheric tension and cinematic composition. Exploring the quiet moments in digital spaces.</p>
-                        <span class="tech">Render / 2024</span>
+
+                    <div class="resume-column reveal-fade">
+                        <h3>Experience</h3>
+                        <div class="resume-item">
+                            <p class="date">2022 — Present</p>
+                            <h4>Freelance 3D Artist</h4>
+                            <p class="desc">Designing complex 3D environments, procedural modeling, and optimizing render pipelines for photorealistic output.</p>
+                        </div>
+                        <div class="resume-item">
+                            <p class="date">2020 — Present</p>
+                            <h4>Freelance Digital Specialist</h4>
+                            <p class="desc">Expertise in non-destructive workflows, color theory, retouching, and visual storytelling in Adobe Photoshop.</p>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="work" id="work">
-            <div class="container">
-                <div class="work-header fade-up">
-                    <h2 class="section-label">Visual Index</h2>
-                    <span class="note">*Selected works & explorations</span>
-                </div>
-
-                <div class="grid">
-                    <div class="grid-item size-large tilt-card fade-up hoverable lightbox-trigger" data-img="projects/sunflower.png" data-title="Sunflower" data-desc="Geometry Nodes">
-                        <div class="tilt-inner">
-                            <img src="projects/sunflower.png" alt="Sunflower" onerror="this.src='https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=800'">
-                            <div class="item-overlay">
-                                <h3>Sunflower</h3>
-                                <p>Geometry Nodes</p>
+                    <div class="resume-column reveal-fade full-width">
+                        <h3>Technical Arsenal</h3>
+                        <div class="skills-wrapper">
+                            <div class="skill-category">
+                                <h5>Programming</h5>
+                                <p>C, Python, HTML, LaTeX</p>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid-item size-small tilt-card fade-up delay-1 hoverable lightbox-trigger" data-img="projects/biohazard.png" data-title="Biohazard" data-desc="Technical Concept">
-                        <div class="tilt-inner">
-                            <img src="projects/biohazard.png" alt="Biohazard" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800'">
-                            <div class="item-overlay">
-                                <h3>Biohazard</h3>
-                                <p>Technical Concept</p>
+                            <div class="skill-category">
+                                <h5>Creative Software</h5>
+                                <p>Blender 3D (Advanced), Adobe Photoshop</p>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item size-medium tilt-card fade-up hoverable lightbox-trigger" data-img="projects/DUNKRIK3.png" data-title="Dunkirk" data-desc="Atmospherics">
-                        <div class="tilt-inner">
-                            <img src="projects/DUNKRIK3.png" alt="Dunkirk" onerror="this.src='https://images.unsplash.com/photo-1505506874110-6a7a6c9924cb?auto=format&fit=crop&w=800'">
-                            <div class="item-overlay">
-                                <h3>Dunkirk</h3>
-                                <p>Atmospherics</p>
+                            <div class="skill-category">
+                                <h5>Digital & 3D</h5>
+                                <p>Procedural Modeling, Lighting, Shading, Render Optimization, Photorealistic Rendering, Compositing</p>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item size-medium tilt-card fade-up delay-1 hoverable lightbox-trigger" data-img="projects/STARWARS.png" data-title="Star Wars" data-desc="Composite">
-                        <div class="tilt-inner">
-                            <img src="projects/STARWARS.png" alt="Star Wars" onerror="this.src='https://images.unsplash.com/photo-1478479405421-ce83c92fb3ba?auto=format&fit=crop&w=800'">
-                            <div class="item-overlay">
-                                <h3>Star Wars</h3>
-                                <p>Composite</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid-item size-large tilt-card fade-up hoverable lightbox-trigger" data-img="projects/doge.png" data-title="Doge" data-desc="Cute Dog Render">
-                        <div class="tilt-inner">
-                            <img src="projects/doge.png" alt="Doge" onerror="this.src='https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800'">
-                            <div class="item-overlay">
-                                <h3>Doge</h3>
-                                <p>Render</p>
+                            <div class="skill-category">
+                                <h5>Languages</h5>
+                                <p>English (Fluent), German (Fluent C1)</p>
                             </div>
                         </div>
                     </div>
@@ -148,20 +143,23 @@
         </section>
 
         <section class="contact" id="contact">
-            <div class="container contact-content fade-up">
-                <p class="section-label">Ready to connect?</p>
-                <h2 class="contact-title">Let's build<br>something cool.</h2>
-                <a href="mailto:baayush061@gmail.com" class="email-link hoverable">baayush061@gmail.com <span class="arrow">↗</span></a>
+            <div class="container">
+                <h2 class="reveal-fade">Let's build<br>something extraordinary.</h2>
+                <a href="mailto:baayush061@gmail.com" class="huge-link magnetic" data-strength="50">baayush061@gmail.com</a>
+                <div class="social-links reveal-fade">
+                    <a href="https://linkedin.com/in/aayushbhattarail" target="_blank" class="magnetic" data-strength="20">LinkedIn</a>
+                    <a href="#" class="magnetic" data-strength="20">ArtStation</a>
+                    <a href="#" class="magnetic" data-strength="20">Instagram</a>
+                </div>
             </div>
         </section>
 
         <footer>
-            <div class="container footer-flex">
-                <p>© 2026 Aayush Bhattarai</p>
-                <p>Built with intent & pixels.</p>
+            <div class="container footer-content">
+                <p>&copy; 2026 Aayush Bhattarai.</p>
+                <p>Designed with Code & Light.</p>
             </div>
         </footer>
-
     </main>
 
     <script src="script.js"></script>
