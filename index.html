@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aayush Bhattarai | 3D Artist & Visual Designer</title>
+    <title>Aayush Bhattarai | 3D & Visual Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="noise-overlay"></div>
-    
     <div class="cursor"></div>
 
     <nav>
-        <div class="logo">AB.</div>
+        <div class="logo hover-target">AB.</div>
         <div class="links">
+            <a href="#work" class="hover-target">Works</a>
             <a href="#about" class="hover-target">About</a>
-            <a href="#work" class="hover-target">Work</a>
             <a href="#contact" class="hover-target">Contact</a>
         </div>
     </nav>
@@ -23,113 +22,99 @@
     <main>
         <section id="hero" class="hero fade-in">
             <div class="hero-content">
-                <h1>Aayush Bhattarai</h1>
-                <h2>3D Artist & Visual Designer</h2>
-                <p class="tagline">Crafting digital spaces, procedural environments, and visual stories.</p>
+                <span class="eyebrow">Digital Artist & Computer Science Student [cite: 2, 5, 18]</span>
+                <h1>Aayush<br>Bhattarai</h1>
+                <p class="tagline">Blending technical precision with 3D storytelling. Based in Saarbrücken. [cite: 2, 42]</p>
             </div>
             <div class="scroll-indicator">
-                <span>Scroll</span>
                 <div class="line"></div>
             </div>
         </section>
 
-        <section id="about" class="about">
-            <div class="about-container fade-in-up">
-                <h3 class="section-title">Who I Am</h3>
-                <p class="about-text">
-                    I’m a digital specialist and 3D artist combining artistic creativity with technical rigor. Through years of self-driven exploration in Blender and Photoshop, I focus on photorealistic rendering, procedural modeling, and visual storytelling. Whether I'm building complex node setups or fine-tuning the color grading of a final composition, I love turning concepts into tangible digital realities.
-                </p>
-                <div class="skills">
-                    <span class="chip">Blender 3D</span>
-                    <span class="chip">Adobe Photoshop</span>
-                    <span class="chip">Procedural Modeling</span>
-                    <span class="chip">Photorealism</span>
-                    <span class="chip">Python</span>
-                    <span class="chip">C</span>
-                </div>
-            </div>
-        </section>
-
         <section id="work" class="work">
-            <h3 class="section-title fade-in-up">Selected Work</h3>
+            <h3 class="section-title fade-in-up">Selected Creations</h3>
             <div class="work-grid">
-                <div class="work-item tilt-card fade-in-up" data-src="projects/mountain_wolf_by_aayushbhattarai_de9mq56.png" data-type="image">
-                    <img src="projects/mountain_wolf_by_aayushbhattarai_de9mq56.png" alt="Mountain Wolf" loading="lazy">
+                <div class="work-item tall tilt-card fade-in-up" data-src="projects/mountain_wolf_by_aayushbhattarai_de9mq56.png" data-type="image">
+                    <div class="img-container">
+                        <img src="projects/mountain_wolf_by_aayushbhattarai_de9mq56.png" alt="Mountain Wolf" loading="lazy">
+                    </div>
                     <div class="work-info">
                         <h4>Mountain Wolf</h4>
-                        <p>3D Composition</p>
+                        <span>Environment Design</span>
                     </div>
                 </div>
+
                 <div class="work-item tilt-card fade-in-up delay-1" data-src="projects/ETERNAL-PEACE.png" data-type="image">
-                    <img src="projects/ETERNAL-PEACE.png" alt="Eternal Peace" loading="lazy">
+                    <div class="img-container">
+                        <img src="projects/ETERNAL-PEACE.png" alt="Eternal Peace" loading="lazy">
+                    </div>
                     <div class="work-info">
                         <h4>Eternal Peace</h4>
-                        <p>Environment Design</p>
+                        <span>3D Composition</span>
                     </div>
                 </div>
-                <div class="work-item tilt-card fade-in-up delay-2" data-src="projects/spiderman_poster_recreation_by_aayushbhattarai_de9mqdm.png" data-type="image">
-                    <img src="projects/spiderman_poster_recreation_by_aayushbhattarai_de9mqdm.png" alt="Spiderman Poster" loading="lazy">
+
+                <div class="work-item wide tilt-card fade-in-up" data-src="projects/spiderman_poster_recreation_by_aayushbhattarai_de9mqdm.png" data-type="image">
+                    <div class="img-container">
+                        <img src="projects/spiderman_poster_recreation_by_aayushbhattarai_de9mqdm.png" alt="Spiderman Poster" loading="lazy">
+                    </div>
                     <div class="work-info">
-                        <h4>Spiderman Recreation</h4>
-                        <p>Digital Retouching & Composition</p>
+                        <h4>Spiderman</h4>
+                        <span>Poster Recreation</span>
                     </div>
                 </div>
-                <div class="work-item tilt-card fade-in-up" data-src="projects/TEMPLE.png" data-type="image">
-                    <img src="projects/TEMPLE.png" alt="Temple" loading="lazy">
-                    <div class="work-info">
-                        <h4>Temple</h4>
-                        <p>Lighting & Texturing</p>
-                    </div>
-                </div>
-                <div class="work-item tilt-card fade-in-up delay-1" data-src="projects/out.mp4" data-type="video">
-                    <video src="projects/out.mp4" muted loop playsinline></video>
-                    <div class="work-info">
-                        <h4>Motion Reel</h4>
-                        <p>Animation & Render Optimization</p>
-                    </div>
-                </div>
+
                 <div class="work-item tilt-card fade-in-up delay-2" data-src="projects/red_panda_by_aayushbhattarai_deavkkn.png" data-type="image">
-                    <img src="projects/red_panda_by_aayushbhattarai_deavkkn.png" alt="Red Panda" loading="lazy">
+                    <div class="img-container">
+                        <img src="projects/red_panda_by_aayushbhattarai_deavkkn.png" alt="Red Panda" loading="lazy">
+                    </div>
                     <div class="work-info">
                         <h4>Red Panda</h4>
-                        <p>Procedural Shading</p>
+                        <span>Procedural Shading</span>
+                    </div>
+                </div>
+
+                <div class="work-item tilt-card fade-in-up" data-src="projects/out.mp4" data-type="video">
+                    <div class="img-container">
+                        <video src="projects/out.mp4" muted loop playsinline></video>
+                    </div>
+                    <div class="work-info">
+                        <h4>Motion Reel</h4>
+                        <span>Animation</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="featured fade-in-up">
-            <div class="featured-content">
-                <div class="featured-text">
-                    <h3 class="section-title">Procedural Worlds</h3>
-                    <p>Designing complex 3D environments from the ground up. This ongoing exploration involves implementing custom shader networks and optimizing render pipelines to achieve high visual fidelity without sacrificing compute time. The focus is on lighting theory, material science, and creating scalable assets.</p>
-                    <div class="skills" style="margin-top: 1.5rem;">
-                        <span class="chip">Node Networks</span>
-                        <span class="chip">Lighting Theory</span>
-                    </div>
+        <section id="about" class="about">
+            <div class="about-grid">
+                <div class="about-text fade-in-up">
+                    <h3 class="section-title">The Process</h3>
+                    <p>Multilingual creator (English, German C1, Nepali) bridging the gap between Computer Science and Digital Art. [cite: 15, 42] Specializing in Blender3D and Adobe Photoshop to create fotorealistic renders. [cite: 10, 13]</p>
                 </div>
-                <div class="featured-image tilt-card" data-src="projects/VIKING.png" data-type="image">
-                    <img src="projects/VIKING.png" alt="Viking Theme">
+                <div class="skills-tags fade-in-up delay-1">
+                    <span class="tag">Blender</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Lighting</span>
+                    <span class="tag">Shading</span>
+                    <span class="tag">Retouching</span>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="contact fade-in-up">
-            <h2>Let's build something cool.</h2>
-            <p>Always open to discussing 3D projects, digital design, or creative collaborations.</p>
-            <div class="contact-links">
-                <a href="mailto:baayush061@gmail.com" class="btn hover-target">baayush061@gmail.com</a>
-                <a href="https://linkedin.com/in/aayushbhattarail" target="_blank" class="btn outline hover-target">LinkedIn</a>
+        <section id="contact" class="contact">
+            <div class="contact-wrap fade-in-up">
+                <h2>Ready to create?</h2>
+                <a href="mailto:baayush061@gmail.com" class="main-link hover-target">baayush061@gmail.com [cite: 3]</a>
+                <div class="socials">
+                    <a href="https://linkedin.com/in/aayushbhattarail" target="_blank" class="hover-target">LinkedIn [cite: 4]</a>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>© 2026 Aayush Bhattarai. Handcrafted with precision.</p>
-    </footer>
-
     <div class="modal" id="lightbox">
-        <div class="modal-close hover-target">Close ✕</div>
+        <div class="modal-close hover-target">CLOSE</div>
         <div class="modal-content" id="modal-content"></div>
     </div>
 
